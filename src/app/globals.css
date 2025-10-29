@@ -1,0 +1,155 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-danger: var(--danger);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+
+:root {
+  --background: #F9FAFB;
+  --foreground: #1A1A1A;
+  --primary: #2E8B57;
+  --primary-foreground: #ffffff;
+  --secondary: #E5E7EB;
+  --secondary-foreground: #1A1A1A;
+  --accent: #C44536;
+  --accent-foreground: #ffffff;
+  --danger: #DC2626;
+  --muted: #E5E7EB;
+  --muted-foreground: #374151;
+  --border: #E5E7EB;
+  --input: #E5E7EB;
+  --ring: #2E8B57;
+  --radius: 0.625rem;
+}
+
+.dark {
+  --background: #1A1A1A;
+  --foreground: #F9FAFB;
+  --primary: #4C9B6D;
+  --primary-foreground: #F9FAFB;
+  --secondary: #333;
+  --accent: #B53C2E;
+  --accent-foreground: #ffffff;
+  --danger: #DC2626;
+  --border: #2D2D2D;
+  --input: #3A3A3A;
+  --ring: #4C9B6D;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--muted);
+  border-radius: 9999px;
+  border: 2px solid var(--background);
+  transition: background-color 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--primary);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) var(--background);
+}
+
+html {
+  direction: rtl;
+  text-align: right;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+textarea {
+  resize: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Reem Kufi", serif;
+}
+
+.quran-text {
+  font-family: "Amiri Quran", serif;
+}
+
+
+@layer base {
+  * {
+    @apply border-muted;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Tajawal", sans-serif;
+  }
+
+}
+
+@layer components {
+  label {
+    @apply block font-sans font-medium text-sm text-foreground
+  }
+
+  input,
+  textarea,
+  select {
+    @apply bg-background/50 w-full py-3 px-4 border border-muted rounded-lg font-sans text-foreground duration-300 placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent;
+  }
+
+  input:hover,
+  textarea:hover,
+  select:hover {
+    @apply border-primary;
+  }
+
+  input:disabled,
+  textarea:disabled,
+  select:disabled {
+    @apply bg-gray-100 text-muted cursor-not-allowed;
+  }
+}
