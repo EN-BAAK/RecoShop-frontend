@@ -272,3 +272,40 @@ export const deleteProduct = async (id: number) => {
 
   return responseBody
 }
+
+export const getAllUsers = async () => {
+  const response = await fetch(`${API_URL}/users`, {
+    credentials: "include",
+  })
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}
+
+export const getUserById = async (id: number) => {
+  const response = await fetch(`${API_URL}/users/${id}`, {
+    credentials: "include",
+  })
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}
+
+export const deleteUser = async (id: number) => {
+  const response = await fetch(`${API_URL}/users/${id}`, {
+    method: "DELETE",
+    credentials: "include",
+  })
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}

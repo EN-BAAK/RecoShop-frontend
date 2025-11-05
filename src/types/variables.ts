@@ -1,4 +1,5 @@
-export type Variant = "primary" | "accent" | "primary-gradient" | "accent-gradient" | "danger" | "orange" | "transparent";
+export type Variant = "primary" | "primary-outline" | "accent" | "accent-outline" | "danger" | "danger-outline" | "orange" | "orange-outline" | "transparent" | "transparent-outline" | "primary-gradient" | "primary-gradient-outline" | "accent-gradient" | "accent-gradient-outline";
+
 export enum ROLE {
   ADMIN = "Admin",
   CLIENT = "Client"

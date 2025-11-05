@@ -1,4 +1,4 @@
-import { Category, ProductGlobal, SubCategoryGlobal } from "./global";
+import { Category, ProductGlobal, SubCategoryGlobal, User } from "./global";
 import { Notification, Variant } from "./variables";
 
 export type ToastMessage = {
@@ -63,4 +63,8 @@ export type SubCategoryProps = {
 
 export type ProductProps = {
   product: ProductGlobal
+}
+
+export type UserProps = {
+  user: User
 }
