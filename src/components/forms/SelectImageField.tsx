@@ -24,7 +24,7 @@ const SelectImageField: React.FC<SelectImageFieldProps> = ({
   };
 
   const handleRemove = () => {
-    setValue(null);
+    setValue(undefined);
     setIsImageExists(false);
     if (inputRef.current) inputRef.current.value = "";
   };

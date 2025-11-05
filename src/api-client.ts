@@ -1,6 +1,6 @@
 import { clearSessionItem, setSessionItem } from "./lib/helpers";
-import { CategoryCreation, LoginProps, SubCategoryCreation, User } from "./types/global";
-import { APIResponse, UpdateItemFormData } from "./types/hooks";
+import { CategoryCreation, LoginProps, ProductCreation, SubCategoryCreation, User } from "./types/global";
+import { APIResponse, UpdateItemType, UpdateItemWithFormData } from "./types/hooks";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL!
 const USER_INFO = process.env.NEXT_PUBLIC_USER_INFO!
@@ -113,7 +113,7 @@ export const createCategory = async (formData: CategoryCreation) => {
   return responseBody
 }
 
-export const updateCategory = async ({ id, data }: UpdateItemFormData<CategoryCreation>) => {
+export const updateCategory = async ({ id, data }: UpdateItemType<CategoryCreation>) => {
   const response = await fetch(`${API_URL}/categories/${id}`, {
     method: "PUT",
     credentials: "include",
@@ -180,7 +180,7 @@ export const createSubCategory = async (formData: SubCategoryCreation) => {
   return responseBody
 }
 
-export const updateSubCategory = async ({ id, data }: UpdateItemFormData<SubCategoryCreation>) => {
+export const updateSubCategory = async ({ id, data }: UpdateItemType<SubCategoryCreation>) => {
   const response = await fetch(`${API_URL}/sub-categories/${id}`, {
     method: "PUT",
     credentials: "include",
@@ -197,6 +197,71 @@ export const updateSubCategory = async ({ id, data }: UpdateItemFormData<SubCate
 
 export const deleteSubCategory = async (id: number) => {
   const response = await fetch(`${API_URL}/sub-categories/${id}`, {
+    method: "DELETE",
+    credentials: "include",
+  })
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}
+
+export const getAllProducts = async () => {
+  const response = await fetch(`${API_URL}/products`, {
+    credentials: "include",
+  })
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}
+
+export const getProductById = async (id: number) => {
+  const response = await fetch(`${API_URL}/products/${id}`, {
+    credentials: "include",
+  })
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}
+
+export const createProduct = async (formData: FormData) => {
+  const response = await fetch(`${API_URL}/products`, {
+    method: "POST",
+    credentials: "include",
+    body: formData,
+  })
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}
+
+export const updateProduct = async ({ id, data }: UpdateItemWithFormData) => {
+  const response = await fetch(`${API_URL}/products/${id}`, {
+    method: "PUT",
+    credentials: "include",
+    body: data,
+  })
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}
+
+export const deleteProduct = async (id: number) => {
+  const response = await fetch(`${API_URL}/products/${id}`, {
     method: "DELETE",
     credentials: "include",
   })

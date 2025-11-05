@@ -66,3 +66,56 @@ export const editSubCategory = Yup.object({
   desc: Yup.string().max(500, "الوصف طويل جداً").optional(),
   categoryId: Yup.number().min(1, "اختر تصنيفاً صالحاً").optional(),
 });
+
+export const createProduct = Yup.object({
+  title: Yup.string()
+    .required("اسم المنتج مطلوب")
+    .min(3, "اسم المنتج يجب أن يحتوي على 3 أحرف على الأقل")
+    .max(100, "اسم المنتج طويل جداً، الحد الأقصى 100 حرف"),
+
+  brand: Yup.string()
+    .required("العلامة التجارية مطلوبة")
+    .min(2, "العلامة التجارية قصيرة جداً")
+    .max(50, "العلامة التجارية طويلة جداً"),
+
+  price: Yup.number()
+    .typeError("يرجى إدخال رقم صحيح للسعر")
+    .required("السعر مطلوب")
+    .positive("السعر يجب أن يكون موجباً")
+    .max(100000000, "السعر كبير جداً"),
+
+  desc: Yup.string()
+    .max(500, "الوصف طويل جداً (الحد الأقصى 500 حرف)"),
+
+  categories: Yup.array()
+    .of(Yup.string().required())
+    .min(1, "يجب اختيار فئة واحدة على الأقل")
+    .required("اختيار الفئات مطلوب"),
+});
+
+export const editProduct = Yup.object({
+  title: Yup.string()
+    .min(3, "اسم المنتج يجب أن يحتوي على 3 أحرف على الأقل")
+    .max(100, "اسم المنتج طويل جداً، الحد الأقصى 100 حرف")
+    .optional(),
+
+  brand: Yup.string()
+    .min(2, "العلامة التجارية قصيرة جداً")
+    .max(50, "العلامة التجارية طويلة جداً")
+    .optional(),
+
+  price: Yup.number()
+    .typeError("يرجى إدخال رقم صحيح للسعر")
+    .positive("السعر يجب أن يكون موجباً")
+    .max(100000000, "السعر كبير جداً")
+    .optional(),
+
+  desc: Yup.string()
+    .max(500, "الوصف طويل جداً (الحد الأقصى 500 حرف)")
+    .optional(),
+
+  categories: Yup.array()
+    .of(Yup.number().required())
+    .min(1, "يجب اختيار فئة واحدة على الأقل")
+    .optional(),
+});

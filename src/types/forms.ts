@@ -25,7 +25,6 @@ export interface BaseFieldProps {
   required?: boolean
   dir?: Dir;
   disabled?: boolean;
-
 }
 
 export interface BaseInputProps {
@@ -64,7 +63,7 @@ export type TextErrorProps = {
 
 export type SelectImageFieldProps = {
   value?: File;
-  setValue: React.Dispatch<React.SetStateAction<File | undefined | null>>;
+  setValue: React.Dispatch<React.SetStateAction<File | undefined>>;
   label?: string;
   className?: string;
   currentImage?: string | null;
@@ -83,4 +82,9 @@ export interface CustomButtonProps {
   icon?: LucideIcon
   iconClassName?: string,
   disabled?: boolean
+}
+
+export interface MultiSelectorFieldProps extends BaseFieldProps {
+  maxSelection?: number;
+  options: SelectOption[]
 }

@@ -46,3 +46,20 @@ export type Notification = {
   id: number,
   message: string
 }
+
+export type Product = {
+  id: number,
+  title: string
+  brand: string
+  price: number
+  desc: string
+  imgURL?: string
+}
+
+export type ProductCreation = Omit<Product, "id" | "imgURL"> & {
+  categories: number[]
+}
+
+export type ProductGlobal = Product & {
+  categories: string[]
+}

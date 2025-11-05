@@ -1,4 +1,4 @@
-import { CategoryCreation, LoginProps, SignupProps, SubCategoryCreation } from "@/types/global";
+import { CategoryCreation, LoginProps, ProductCreation, SignupProps, SubCategoryCreation } from "@/types/global";
 import { GOVERNORATE, SEX } from "@/types/variables";
 
 export const login: LoginProps = {
@@ -27,3 +27,11 @@ export const subcategory: SubCategoryCreation = {
   desc: "",
   categoryId: 0
 }
+
+export const product: ProductCreation = {
+  title: "",
+  brand: "",
+  price: 0,
+  desc: "",
+  categories: [],
+};
