@@ -11,22 +11,21 @@ import { useLogin } from '@/hooks/useAuth';
 import { login as loginValidation } from '@/constants/formValidation';
 
 export default function LoginPage() {
-  const { mutateAsync } = useLogin()
-
+  const { mutateAsync } = useLogin();
 
   const onSubmit = async (values: LoginProps, formik: FormikHelpers<LoginProps>) => {
-    await mutateAsync(values)
-    formik.setSubmitting(false)
-  }
+    await mutateAsync(values);
+    formik.setSubmitting(false);
+  };
 
   return (
     <div className="bg-background sm:min-w-[400px] py-4 px-4 sm:px-6 border border-muted/50 rounded-2xl shadow-xl">
       <div className="mb-8 text-center">
-        <h2 className="mb-2 font-ruqaa font-bold text-3xl text-accent">
-          تسجيل الدخول
+        <h2 className="mb-2 font-heading font-bold text-3xl text-accent">
+          Login
         </h2>
         <p className="font-sans text-sm text-muted-foreground">
-          مرحباً بعودتك! الرجاء إدخال بياناتك
+          Welcome back! Please enter your credentials
         </p>
       </div>
 
@@ -40,21 +39,32 @@ export default function LoginPage() {
             <InputField
               name="email"
               type="email"
-              label="البريد الإلكتروني"
+              label="Email Address"
               Icon={<Mail />}
               placeholder="example@email.com"
               required
             />
 
-            <InputField
-              name="password"
-              type="password"
-              autoComplete='off'
-              label="كلمة المرور"
-              Icon={<Lock />}
-              placeholder="******"
-              required
-            />
+            <div className="space-y-2">
+              <InputField
+                name="password"
+                type="password"
+                autoComplete="off"
+                label="Password"
+                Icon={<Lock />}
+                placeholder="******"
+                required
+              />
+
+              <div className="text-right">
+                <Link
+                  href="/forgot-password"
+                  className="text-sm text-primary hover:text-primary/80 transition-colors"
+                >
+                  Forgot your password?
+                </Link>
+              </div>
+            </div>
 
             <SubmitButton
               isSubmitting={isSubmitting}
@@ -71,20 +81,19 @@ export default function LoginPage() {
         </div>
         <div className="flex justify-center text-sm relative">
           <span className="bg-background px-4 text-muted-foreground font-sans">
-            أو
+            OR
           </span>
         </div>
       </div>
 
       <div className="text-center">
-        <p className="space-x-2 font-sans text-sm text-muted-foreground">
-          <span>ليس لديك حساب؟</span>
-
+        <p className="font-sans text-sm text-muted-foreground">
+          <span>Don’t have an account?</span>{' '}
           <Link
             href="/signup"
             className="font-semibold text-primary hover:text-primary/80 transition-colors"
           >
-            إنشاء حساب جديد
+            Create a new account
           </Link>
         </p>
       </div>

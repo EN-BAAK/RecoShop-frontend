@@ -17,7 +17,7 @@ const MultiSelectorField: React.FC<MultiSelectorFieldProps> = ({
   styles = "",
   labelStyle = "",
   innerDivStyle = "",
-  dir = "rtl",
+  dir = "ltr",
   required = false,
   disabled = false,
   maxSelection,

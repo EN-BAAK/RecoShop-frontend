@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "إنشاء حساب جديد",
+  title: "Create a New Account",
   description:
-    "أنشئ حسابك على RecoShop — منصتك الموثوقة للتسوق داخل القطر السوري. استمتع بتجربة تسوق آمنة وسريعة تشمل الملابس، الأجهزة الطبية، أدوات العناية، الإلكترونيات، والمزيد.",
-  keywords: ["RecoShop", "تسجيل حساب", "تجارة إلكترونية", "متجر سوري", "ملابس", "أجهزة طبية", "عناية شخصية", "الكترونيات", "منتجات منزلية", "سوق محلي",],
+    "Create your account on RecoShop — your trusted shopping platform.",
+  keywords: ["RecoShop", "Sign Up", "E-commerce", "Shopping", "Store",],
   openGraph: {
-    title: "إنشاء حساب جديد",
+    title: "Create a New Account",
     description:
-      "انضم إلى RecoShop وابدأ تجربة تسوق مميزة داخل القطر السوري.",
+      "Join RecoShop and start a unique shopping experience.",
     siteName: "RecoShop",
-    locale: "ar_SY",
+    locale: "en_US",
     type: "website",
   },
 };

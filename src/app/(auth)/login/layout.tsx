@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "تسجيل الدخول",
-  description: "قم بتسجيل الدخول إلى RecoShop — منصتك الموثوقة للتسوق داخل القطر السوري. استمتع بتجربة تسوق آمنة وسريعة تشمل الملابس، الأجهزة الطبية، أدوات العناية، الإلكترونيات، والمزيد.",
-  keywords: ["RecoShop", "تسجيل الدخول", "تجارة إلكترونية", "متجر سوري", "ملابس", "أجهزة طبية", "عناية شخصية", "الكترونيات", "مستحضرات تجميل", "منتجات منزلية", "سوق محلي",],
+  title: "Login",
+  description:
+    "Sign in to RecoShop — your trusted Syrian e-commerce platform. Enjoy a safe and fast shopping experience for clothing, medical devices, personal care products, electronics, and more.",
+  keywords: ["RecoShop", "login", "e-commerce", "Syrian store", "shopping", "fashion", "medical devices", "personal care", "electronics", "local market",],
   openGraph: {
-    title: "تسجيل الدخول",
-    description: "تسوق من RecoShop، المنصة السورية الأفضل لشراء المنتجات المتنوعة داخل القطر.",
+    title: "Login",
+    description:
+      "Sign in to RecoShop, the best Syrian online store for all your daily needs.",
     siteName: "RecoShop",
-    locale: "ar_SY",
+    locale: "en_US",
     type: "website",
   },
 };
@@ -18,9 +20,5 @@ export default function LoginLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <div className="w-full max-w-md">
-      {children}
-    </div>
-  );
+  return <div className="w-full max-w-md">{children}</div>;
 }

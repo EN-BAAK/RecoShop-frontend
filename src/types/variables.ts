@@ -11,21 +11,22 @@ export enum SEX {
   FEMALE = "Female"
 }
 export enum GOVERNORATE {
-  DAMASCUS = "دمشق",
-  RIF_DIMASHQ = "ريف دمشق",
-  ALEPPO = "حلب",
-  HOMS = "حمص",
-  HAMA = "حماة",
-  LATAKIA = "اللاذقية",
-  TARTUS = "طرطوس",
-  IDLIB = "إدلب",
-  DEIR_EZZOR = "دير الزور",
-  RAQQA = "الرقة",
-  HASAKAH = "الحسكة",
-  DARAA = "درعا",
-  AS_SWEIDA = "السويداء",
-  QUNEITRA = "القنيطرة",
+  DAMASCUS = "Damascus",
+  RIF_DIMASHQ = "Rural Damascus",
+  ALEPPO = "Aleppo",
+  HOMS = "Homs",
+  HAMA = "Hama",
+  LATAKIA = "Latakia",
+  TARTUS = "Tartus",
+  IDLIB = "Idlib",
+  DEIR_EZZOR = "Deir ez-Zor",
+  RAQQA = "Raqqa",
+  HASAKAH = "Al-Hasakah",
+  DARAA = "Daraa",
+  AS_SWEIDA = "As-Suwayda",
+  QUNEITRA = "Quneitra",
 }
+
 export interface NavItem {
   title: string;
   href: string;

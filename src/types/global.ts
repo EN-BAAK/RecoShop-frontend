@@ -63,3 +63,17 @@ export type ProductCreation = Omit<Product, "id" | "imgURL"> & {
 export type ProductGlobal = Product & {
   categories: string[]
 }
+
+export type VerifyAccountProps = {
+  code: string
+}
+
+export type ForgotPasswordStep1 = {
+  email: string
+}
+
+export type ForgotPasswordStep2 = {
+  code: string,
+  password: string,
+  confirmPassword: string
+}

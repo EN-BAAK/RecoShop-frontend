@@ -21,8 +21,8 @@ export default function SignupPage() {
   }));
 
   const genderOptions = [
-    { key: "ذكر", value: SEX.MALE },
-    { key: "أنثى", value: SEX.FEMALE },
+    { key: "Male", value: SEX.MALE },
+    { key: "Female", value: SEX.FEMALE },
   ];
 
   const onSubmit = async (
@@ -32,6 +32,7 @@ export default function SignupPage() {
     const payload = {
       ...values,
       role: "Client",
+      confirmPassword: undefined
     };
     await mutateAsync(payload);
     formik.setSubmitting(false);
@@ -40,11 +41,11 @@ export default function SignupPage() {
   return (
     <div className="bg-background sm:min-w-[400px] py-4 px-4 sm:px-6 border border-muted/50 rounded-2xl shadow-xl">
       <div className="mb-8 text-center">
-        <h2 className="mb-2 font-ruqaa font-bold text-3xl text-accent">
-          إنشاء حساب جديد
+        <h2 className="mb-2 font-heading font-bold text-3xl text-accent">
+          Create a New Account
         </h2>
         <p className="font-sans text-sm text-muted-foreground">
-          انضم إلينا وابدأ تجربة تسوق مميزة
+          Join us and start a unique shopping experience
         </p>
       </div>
 
@@ -58,16 +59,16 @@ export default function SignupPage() {
             <div className="flex gap-4">
               <InputField
                 name="firstName"
-                label="الاسم الأول"
-                placeholder="أحمد"
+                label="First Name"
+                placeholder="John"
                 Icon={<User />}
                 required
                 type="text"
               />
               <InputField
                 name="lastName"
-                label="الاسم الأخير"
-                placeholder="محمد"
+                label="Last Name"
+                placeholder="Doe"
                 Icon={<User />}
                 required
                 type="text"
@@ -77,7 +78,7 @@ export default function SignupPage() {
             <InputField
               name="email"
               type="email"
-              label="البريد الإلكتروني"
+              label="Email"
               Icon={<Mail />}
               placeholder="example@email.com"
               required
@@ -85,7 +86,7 @@ export default function SignupPage() {
 
             <InputField
               name="phone"
-              label="رقم الهاتف"
+              label="Phone Number"
               Icon={<Phone />}
               placeholder="09XXXXXXXX"
               required
@@ -96,7 +97,7 @@ export default function SignupPage() {
               <InputField
                 name="password"
                 type="password"
-                label="كلمة المرور"
+                label="Password"
                 Icon={<Lock />}
                 placeholder="••••••••"
                 required
@@ -104,7 +105,7 @@ export default function SignupPage() {
               <InputField
                 name="confirmPassword"
                 type="password"
-                label="تأكيد كلمة المرور"
+                label="Confirm Password"
                 Icon={<Lock />}
                 placeholder="••••••••"
                 required
@@ -113,7 +114,7 @@ export default function SignupPage() {
 
             <SelectorField
               name="governorate"
-              label="المحافظة"
+              label="Governorate"
               options={governorateOptions}
               Icon={<MapPin />}
               required
@@ -121,8 +122,9 @@ export default function SignupPage() {
 
             <SelectorField
               name="gender"
-              label="الجنس"
+              label="Gender"
               options={genderOptions}
+
               required
             />
 
@@ -140,19 +142,19 @@ export default function SignupPage() {
           <div className="w-full border-t border-muted"></div>
         </div>
         <div className="flex justify-center text-sm relative">
-          <span className="bg-background px-4 text-muted-foreground font-sans">أو</span>
+          <span className="bg-background px-4 text-muted-foreground font-sans">Or</span>
         </div>
       </div>
 
       <div className="text-center">
         <p className="space-x-2 font-sans text-sm text-muted-foreground">
-          <span>لديك حساب بالفعل؟</span>
+          <span>Already have an account?</span>
 
           <Link
             href="/login"
             className="font-semibold text-primary hover:text-primary/80 transition-colors"
           >
-            تسجيل الدخول
+            Log In
           </Link>
         </p>
       </div>

@@ -63,7 +63,7 @@ const Toast: React.FC<ToastProps> = ({
   return (
     <div
       role="alert"
-      dir="rtl"
+      dir="ltr"
       className={cn(
         `${toastConfig.bg}`,
         "fixed left-4 z-50 w-80 sm:w-96 p-4 rounded-2xl shadow-lg transition-all animate-in slide-in-from-top fade-in duration-300"

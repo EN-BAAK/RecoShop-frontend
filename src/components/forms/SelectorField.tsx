@@ -16,7 +16,7 @@ const SelectorField: React.FC<SelectorFieldProps> = ({
   inputClasses = "",
   Icon,
   iconStyle,
-  dir = "rtl",
+  dir = "ltr",
   required = false,
   disabled = false,
 }) => {

@@ -60,9 +60,10 @@ const Sidebar: React.FC = () => {
             </div>
 
             <div>
-              <h1 className="font-ruqaa text-2xl font-bold text-primary">
+              <h1 className="font-heading text-2xl font-bold text-primary">
                 ريكوشوب
               </h1>
+
               <p className="font-sans text-xs text-muted-foreground">
                 لوحة التحكم
               </p>

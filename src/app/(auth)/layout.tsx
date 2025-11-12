@@ -9,11 +9,12 @@ export default function AuthLayout({
     >
       <div className="min-h-screen px-4 flex flex-col items-center justify-center relative">
         <div className="mb-8 text-center animate-fade-in-up">
-          <h1 className="text-primary font-ruqaa font-bold text-4xl md:text-5xl mb-2">
+          <h1 className="text-primary font-heading font-bold text-4xl md:text-5xl mb-2">
             RecoShop
           </h1>
+
           <p className="font-sans text-sm text-muted-foreground">
-            منصة التجارة الإلكترونية العربية
+            Your trusted eCommerce platform
           </p>
         </div>
 

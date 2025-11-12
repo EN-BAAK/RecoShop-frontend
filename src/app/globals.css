@@ -88,8 +88,8 @@
 }
 
 html {
-  direction: rtl;
-  text-align: right;
+  direction: ltr;
+  text-align: left;
 }
 
 input[type=number]::-webkit-inner-spin-button,
@@ -111,10 +111,6 @@ h2,
 h3,
 h4 {
   font-family: "Reem Kufi", serif;
-}
-
-.quran-text {
-  font-family: "Amiri Quran", serif;
 }
 
 

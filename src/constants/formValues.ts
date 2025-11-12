@@ -1,4 +1,4 @@
-import { CategoryCreation, LoginProps, ProductCreation, SignupProps, SubCategoryCreation } from "@/types/global";
+import { CategoryCreation, ForgotPasswordStep1, ForgotPasswordStep2, LoginProps, ProductCreation, SignupProps, SubCategoryCreation, VerifyAccountProps } from "@/types/global";
 import { GOVERNORATE, SEX } from "@/types/variables";
 
 export const login: LoginProps = {
@@ -34,4 +34,15 @@ export const product: ProductCreation = {
   price: 0,
   desc: "",
   categories: [],
+};
+
+export const verifyAccount: VerifyAccountProps = {
+  code: ""
+}
+
+export const forgotPasswordStep1: ForgotPasswordStep1 = { email: "" };
+export const forgotPasswordStep2: ForgotPasswordStep2 = {
+  code: "",
+  password: "",
+  confirmPassword: "",
 };

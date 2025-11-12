@@ -19,9 +19,8 @@ const config: Config = {
         danger: "#DC2626",
       },
       fontFamily: {
-        ruqaa: ['"Reem Kufi"', "serif"],
-        quran: ['"Amiri Quran"', "serif"],
-        sans: ['"Tajawal"', "sans-serif"],
+        sans: ['var(--font-body)', "sans-serif"],
+        heading: ['var(--font-heading)', "serif"],
       },
     },
   },

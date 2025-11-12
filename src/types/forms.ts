@@ -27,6 +27,14 @@ export interface BaseFieldProps {
   disabled?: boolean;
 }
 
+export interface OtpInputProps {
+  name: string;
+  length: number;
+  numericOnly?: boolean;
+  boxSize?: string;
+  className?: string;
+}
+
 export interface BaseInputProps {
   styles?: string;
   placeholder?: string

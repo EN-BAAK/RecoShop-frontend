@@ -9,9 +9,9 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
   isSubmitting,
   isDirty,
   isValid,
-  label = "إرسال",
-  submittingLabel = "جارٍ الإرسال...",
-  disabledLabel = "يرجى تعبئة النموذج",
+  label = "Send",
+  submittingLabel = "Sending...",
+  disabledLabel = "Please fill out the form",
   className = "",
   variant = "primary",
   onClick,
@@ -23,13 +23,25 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
   else if (disabled) buttonLabel = disabledLabel
 
   const variantClasses = {
-    primary: "bg-primary text-background hover:bg-primary/90",
-    accent: "bg-accent text-background hover:bg-accent/90",
-    danger: "bg-danger text-background hover:bg-danger/90",
-    orange: "bg-orange-600 text-background hover:bg-orange-100",
-    "primary-gradient": "bg-gradient-to-r from-primary to-green-600 text-white hover:opacity-90",
-    "accent-gradient": "bg-gradient-to-r from-accent to-red-600 text-white hover:opacity-90",
-  }[variant]
+    "primary": "bg-primary text-white hover:bg-primary/90",
+    "primary-outline": "border border-primary text-primary hover:bg-primary hover:text-white",
+    "accent": "bg-accent text-white hover:bg-accent/90",
+    "accent-outline": "border border-accent text-accent hover:bg-accent hover:text-white",
+    "danger": "bg-danger text-white hover:bg-danger/90",
+    "danger-outline": "border border-danger text-danger hover:bg-danger hover:text-white",
+    "orange": "bg-orange-600 text-white hover:bg-orange-500",
+    "orange-outline": "border border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white",
+    "transparent": "bg-transparent text-foreground hover:text-foreground/70",
+    "transparent-outline": "border border-foreground/40 text-foreground hover:border-foreground hover:text-foreground",
+    "primary-gradient":
+      "bg-gradient-to-r from-primary to-green-600 text-white hover:opacity-90",
+    "primary-gradient-outline":
+      "border border-primary text-primary hover:bg-gradient-to-r hover:from-primary hover:to-green-600 hover:text-white",
+    "accent-gradient":
+      "bg-gradient-to-r from-accent to-red-600 text-white hover:opacity-90",
+    "accent-gradient-outline":
+      "border border-accent text-accent hover:bg-gradient-to-r hover:from-accent hover:to-red-600 hover:text-white",
+  }[variant];
 
   return (
     <Button

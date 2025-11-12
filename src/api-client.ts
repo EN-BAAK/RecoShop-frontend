@@ -1,5 +1,5 @@
 import { clearSessionItem, setSessionItem } from "./lib/helpers";
-import { CategoryCreation, LoginProps, ProductCreation, SubCategoryCreation, User } from "./types/global";
+import { CategoryCreation, ForgotPasswordStep1, ForgotPasswordStep2, LoginProps, ProductCreation, SubCategoryCreation, User, VerifyAccountProps } from "./types/global";
 import { APIResponse, UpdateItemType, UpdateItemWithFormData } from "./types/hooks";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL!
@@ -64,6 +64,21 @@ export const signup = async (formData: LoginProps) => {
     body: JSON.stringify(formData),
   });
 
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+};
+
+export const verifyAccount = async (formData: VerifyAccountProps & { email: string }) => {
+  const response = await fetch(`${API_URL}/auth/verify-account/${formData.email}`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ code: formData.code }),
+  });
+
   const responseBody = await response.json();
   if (!response.ok) throw new Error(responseBody.message);
 
@@ -72,6 +87,47 @@ export const signup = async (formData: LoginProps) => {
   }
 
   return responseBody;
+};
+
+export const resendVerificationCode = async (email: string) => {
+  const response = await fetch(`${API_URL}/auth/resend-verification-code/${email}`, {
+    method: "POST",
+    credentials: "include",
+  });
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+};
+
+export const resetPasswordRequest = async ({ email }: ForgotPasswordStep1) => {
+  const response = await fetch(`${API_URL}/auth/forgot-password/${email}`, {
+    method: "POST",
+    credentials: "include",
+  });
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+};
+
+export const resetForgottenPassword = async ({ code, email, password }: Omit<ForgotPasswordStep2, "confirmPassword"> & { email: string }) => {
+  const response = await fetch(`${API_URL}/auth/reset-forgotten-password/${email}`, {
+    method: "PUT",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ code, password }),
+  });
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
 };
 
 export const getAllCategories = async () => {

@@ -3,119 +3,147 @@ import * as Yup from "yup"
 
 export const login = Yup.object<LoginProps>({
   email: Yup.string()
-    .email("البريد الإلكتروني غير صالح")
-    .required("البريد الإلكتروني مطلوب"),
+    .email("Invalid email address")
+    .required("Email is required"),
   password: Yup.string()
-    .min(6, "كلمة المرور يجب أن تتكون من 6 أحرف على الأقل")
-    .required("كلمة المرور مطلوبة"),
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
 })
 
 export const signup = Yup.object<SignupProps>({
-  firstName: Yup.string().required("الاسم الأول مطلوب"),
-  lastName: Yup.string().required("الاسم الأخير مطلوب"),
+  firstName: Yup.string().required("First name is required"),
+  lastName: Yup.string().required("Last name is required"),
   email: Yup.string()
-    .email("البريد الإلكتروني غير صالح")
-    .required("البريد الإلكتروني مطلوب"),
+    .email("Invalid email address")
+    .required("Email is required"),
   phone: Yup.string()
-    .matches(/^09\d{8}$/, "أدخل رقم موبايل سوري صالح (يبدأ بـ09)")
-    .required("رقم الهاتف مطلوب"),
+    .matches(/^09\d{8}$/, "Enter a valid Syrian phone number (starting with 09)")
+    .required("Phone number is required"),
   password: Yup.string()
-    .min(6, "كلمة المرور يجب أن تكون على الأقل 6 أحرف")
-    .required("كلمة المرور مطلوبة"),
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password")], "كلمات المرور غير متطابقة")
-    .required("تأكيد كلمة المرور مطلوب"),
-  governorate: Yup.string().required("يرجى اختيار المحافظة"),
-  gender: Yup.string().required("يرجى اختيار الجنس"),
+    .oneOf([Yup.ref("password")], "Passwords do not match")
+    .required("Password confirmation is required"),
+  governorate: Yup.string().required("Please select a governorate"),
+  gender: Yup.string().required("Please select a gender"),
 });
 
 export const createCategory = Yup.object({
   title: Yup.string()
-    .required("اسم التصنيف مطلوب")
-    .min(2, "اسم التصنيف يجب أن يكون حرفين على الأقل")
-    .max(35, "اسم التصنيف طويل جداً"),
+    .required("Category name is required")
+    .min(2, "Category name must be at least 2 characters")
+    .max(35, "Category name is too long"),
   desc: Yup.string()
-    .max(200, "الوصف طويل جداً")
-    .required("الوصف مطلوب"),
+    .max(200, "Description is too long")
+    .required("Description is required"),
 });
 
 export const editCategory = Yup.object({
   title: Yup.string()
-    .min(2, "اسم التصنيف يجب أن يكون حرفين على الأقل")
-    .max(35, "اسم التصنيف طويل جداً"),
-  desc: Yup.string()
-    .max(200, "الوصف طويل جداً"),
+    .min(2, "Category name must be at least 2 characters")
+    .max(35, "Category name is too long"),
+  desc: Yup.string().max(200, "Description is too long"),
 });
 
 export const createSubCategory = Yup.object({
   title: Yup.string()
-    .required("اسم التصنيف الفرعي مطلوب")
-    .min(2, "الاسم يجب أن يكون حرفين على الأقل")
-    .max(100, "الاسم طويل جداً"),
-  desc: Yup.string().max(500, "الوصف طويل جداً").required("الوصف مطلوب"),
+    .required("Subcategory name is required")
+    .min(2, "Name must be at least 2 characters")
+    .max(100, "Name is too long"),
+  desc: Yup.string()
+    .max(500, "Description is too long")
+    .required("Description is required"),
   categoryId: Yup.number()
-    .required("يجب اختيار تصنيف رئيسي")
-    .min(1, "اختر تصنيفاً صالحاً"),
+    .required("A parent category must be selected")
+    .min(1, "Select a valid category"),
 });
 
 export const editSubCategory = Yup.object({
   title: Yup.string()
-    .min(2, "الاسم يجب أن يكون حرفين على الأقل")
-    .max(100, "الاسم طويل جداً")
+    .min(2, "Name must be at least 2 characters")
+    .max(100, "Name is too long")
     .optional(),
-  desc: Yup.string().max(500, "الوصف طويل جداً").optional(),
-  categoryId: Yup.number().min(1, "اختر تصنيفاً صالحاً").optional(),
+  desc: Yup.string()
+    .max(500, "Description is too long")
+    .optional(),
+  categoryId: Yup.number()
+    .min(1, "Select a valid category")
+    .optional(),
 });
 
 export const createProduct = Yup.object({
   title: Yup.string()
-    .required("اسم المنتج مطلوب")
-    .min(3, "اسم المنتج يجب أن يحتوي على 3 أحرف على الأقل")
-    .max(100, "اسم المنتج طويل جداً، الحد الأقصى 100 حرف"),
+    .required("Product name is required")
+    .min(3, "Product name must be at least 3 characters")
+    .max(100, "Product name is too long (max 100 characters)"),
 
   brand: Yup.string()
-    .required("العلامة التجارية مطلوبة")
-    .min(2, "العلامة التجارية قصيرة جداً")
-    .max(50, "العلامة التجارية طويلة جداً"),
+    .required("Brand is required")
+    .min(2, "Brand name is too short")
+    .max(50, "Brand name is too long"),
 
   price: Yup.number()
-    .typeError("يرجى إدخال رقم صحيح للسعر")
-    .required("السعر مطلوب")
-    .positive("السعر يجب أن يكون موجباً")
-    .max(100000000, "السعر كبير جداً"),
+    .typeError("Enter a valid number for price")
+    .required("Price is required")
+    .positive("Price must be positive")
+    .max(100000000, "Price is too high"),
 
-  desc: Yup.string()
-    .max(500, "الوصف طويل جداً (الحد الأقصى 500 حرف)"),
+  desc: Yup.string().max(500, "Description is too long (max 500 characters)"),
 
   categories: Yup.array()
     .of(Yup.string().required())
-    .min(1, "يجب اختيار فئة واحدة على الأقل")
-    .required("اختيار الفئات مطلوب"),
+    .min(1, "Select at least one category")
+    .required("Categories selection is required"),
 });
 
 export const editProduct = Yup.object({
   title: Yup.string()
-    .min(3, "اسم المنتج يجب أن يحتوي على 3 أحرف على الأقل")
-    .max(100, "اسم المنتج طويل جداً، الحد الأقصى 100 حرف")
+    .min(3, "Product name must be at least 3 characters")
+    .max(100, "Product name is too long (max 100 characters)")
     .optional(),
 
   brand: Yup.string()
-    .min(2, "العلامة التجارية قصيرة جداً")
-    .max(50, "العلامة التجارية طويلة جداً")
+    .min(2, "Brand name is too short")
+    .max(50, "Brand name is too long")
     .optional(),
 
   price: Yup.number()
-    .typeError("يرجى إدخال رقم صحيح للسعر")
-    .positive("السعر يجب أن يكون موجباً")
-    .max(100000000, "السعر كبير جداً")
+    .typeError("Enter a valid number for price")
+    .positive("Price must be positive")
+    .max(100000000, "Price is too high")
     .optional(),
 
   desc: Yup.string()
-    .max(500, "الوصف طويل جداً (الحد الأقصى 500 حرف)")
+    .max(500, "Description is too long (max 500 characters)")
     .optional(),
 
   categories: Yup.array()
     .of(Yup.number().required())
-    .min(1, "يجب اختيار فئة واحدة على الأقل")
+    .min(1, "Select at least one category")
     .optional(),
+});
+
+export const verifyAccount = Yup.object({
+  code: Yup.string()
+    .required("Verification code is required")
+    .length(6, "Verification code must be exactly 6 characters"),
+});
+
+export const forgotPasswordStep1 = Yup.object({
+  email: Yup.string()
+    .email("Enter a valid email address")
+    .required("Email is required"),
+});
+
+export const forgotPasswordStep2 = Yup.object({
+  code: Yup.string()
+    .required("Verification code is required")
+    .length(6, "Verification code must be exactly 6 characters"),
+  password: Yup.string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password")], "Passwords do not match")
+    .required("Confirm password is required"),
 });

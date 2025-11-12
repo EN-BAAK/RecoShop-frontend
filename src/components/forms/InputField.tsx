@@ -14,7 +14,7 @@ const InputField: React.FC<InputFieldProps> = ({
   styles,
   labelStyle,
   placeholder,
-  dir = "rtl",
+  dir = "ltr",
   innerDivStyle,
   inputMode,
   Icon,

@@ -1,51 +1,44 @@
 import type { Metadata } from "next"
-import { Tajawal, Amiri_Quran, Reem_Kufi } from "next/font/google"
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css"
 import { cn } from "@/lib/utils"
 import ReactQueryProvider from "@/contexts/ReactQueryProvidder"
 import AppProvider from "@/contexts/AppProvider"
 import { CommonParentProps } from "@/types/components"
 
-const tajawal = Tajawal({
-  subsets: ["arabic"],
-  variable: "--font-body",
-  weight: ["300", "400", "500", "700"],
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-body-en",
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
-})
+});
 
-const reemKufi = Reem_Kufi({
-  subsets: ["arabic"],
-  variable: "--font-heading",
-  weight: ["400", "600", "700"],
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-heading-en",
+  weight: ["400", "500", "600", "700"],
   display: "swap",
-})
-
-const amiriQuran = Amiri_Quran({
-  subsets: ["arabic"],
-  variable: "--font-quran",
-  weight: ["400"],
-  display: "swap",
-})
+});
 
 export const metadata: Metadata = {
   title: {
-    default: "ريكوشوب",
-    template: "%s | ريكوشوب",
+    default: "RecoShop",
+    template: "%s | RecoShop",
   },
   description:
-    "ريكوشوب هو متجر إلكتروني سوري شامل يوفّر منتجات متنوعة داخل القطر مثل الملابس، الأجهزة الطبية، مستلزمات العناية الشخصية، الأدوات المنزلية، الإلكترونيات، ألعاب الأطفال، الأدوات المكتبية، مستلزمات المطبخ، الإكسسوارات، والمنتجات الغذائية المحلية.",
-  publisher: "باسل ابو خبصة",
-  keywords: ["ريكوشوب", "ريكو شوب", "متجر سوري", "تسوق", "ملابس", "أجهزة طبية", "منتجات عناية", "أدوات منزلية", "الكترونيات", "ألعاب أطفال", "مستلزمات مطبخ", "إكسسوارات", "منتجات غذائية",],
-  creator: "فريق ريكوشوب",
-  category: "متجر",
+    "RecoShop is a Syrian online store offering a wide variety of products across the country, including clothing, medical devices, personal care items, household tools, electronics, children's toys, stationery, kitchen supplies, accessories, and local food products.",
+  publisher: "Bassel Abu Khabsa",
+  keywords: ["RecoShop", "Reco Shop", "Syrian Store", "Shopping", "Clothing", "Medical Devices", "Personal Care Products", "Home Tools", "Electronics", "Kids Toys", "Kitchen Supplies", "Accessories", "Local Food Products",],
+  creator: "RecoShop Team",
+  category: "Store",
   openGraph: {
-    title: "ريكوشوب - متجر إلكتروني سوري شامل",
+    title: "RecoShop - Comprehensive Syrian Online Store",
     description:
-      "تسوّق من ريكوشوب جميع احتياجاتك من الملابس، الأجهزة الطبية، أدوات العناية الشخصية، الأدوات المنزلية، الإلكترونيات، ألعاب الأطفال، والمزيد داخل القطر السوري.",
-    siteName: "ٌRecoShop",
+      "Shop from RecoShop for all your needs including clothing, medical devices, personal care items, household tools, electronics, kid's toys, and more inside Syria.",
+    siteName: "RecoShop",
     locale: "ar_SY",
     type: "website",
-    // يمكنك لاحقًا إضافة صورة المشاركة هنا:
+    // You can later add a share preview image here:
     // images: [
     //   {
     //     url: "/og-image.jpg",
@@ -59,12 +52,11 @@ export const metadata: Metadata = {
 
 const RootLayout: React.FC<CommonParentProps> = ({ children }) => {
   return (
-    <html lang="ar" dir="rtl">
+    <html lang="en" dir="ltr">
       <body
         className={cn(
-          tajawal.variable,
-          reemKufi.variable,
-          amiriQuran.variable,
+          inter.variable,
+          playfair.variable,
           "antialiased bg-background text-foreground"
         )}
       >

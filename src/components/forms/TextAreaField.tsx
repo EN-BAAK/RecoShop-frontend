@@ -10,7 +10,7 @@ const TextAreaField: React.FC<TextAreaFieldProps> = ({
   styles,
   labelStyle,
   placeholder,
-  dir = "rtl",
+  dir = "ltr",
   innerDivStyle,
   Icon,
   iconStyle,
