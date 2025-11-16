@@ -38,15 +38,14 @@ export const metadata: Metadata = {
     siteName: "RecoShop",
     locale: "ar_SY",
     type: "website",
-    // You can later add a share preview image here:
-    // images: [
-    //   {
-    //     url: "/og-image.jpg",
-    //     width: 1200,
-    //     height: 630,
-    //     alt: "RecoShop Preview",
-    //   },
-    // ],
+    images: [
+      {
+        url: "/logo.ico",
+        width: 1200,
+        height: 630,
+        alt: "RecoShop Preview",
+      },
+    ],
   },
 }
 

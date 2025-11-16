@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { ShoppingBag, Menu, X, LogOut, ChevronLeft } from "lucide-react";
+import { Menu, X, LogOut, ChevronLeft } from "lucide-react";
 import { navItems } from "@/constants/global";
 import Avatar from "@/components/Avatar";
 import { useAppContext } from "@/contexts/AppProvider";
@@ -12,6 +12,7 @@ import LoadingPage from "@/components/LoadingPage";
 import CustomButton from "@/components/forms/Button";
 import { ROLE } from "@/types/variables";
 import { useLogout } from "@/hooks/useAuth";
+import Image from "next/image";
 
 const Sidebar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -52,8 +53,13 @@ const Sidebar: React.FC = () => {
       >
         <div className="border-b border-muted p-6">
           <div className="flex items-center gap-3 group">
-            <div className="bg-gradient-to-br from-primary to-primary/80 w-12 h-12 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
-              <ShoppingBag className="w-7 h-7 text-background" />
+            <div className="w-12 h-12 flex items-center justify-center rounded-full shadow-md">
+              <Image
+                src="/logo.png"
+                alt="logo"
+                width={50}
+                height={50}
+              />
             </div>
 
             <div>
