@@ -1,42 +1,15 @@
+import { AccessItem } from "@/types/global";
 import { NavItem } from "@/types/variables";
 import { LayoutDashboard, Package, ShoppingBag, Users, ShoppingCart, Settings, Layers, } from "lucide-react";
 
 export const navItems: NavItem[] = [
-  {
-    title: "لوحة التحكم",
-    href: "/dashboard",
-    icon: LayoutDashboard,
-  },
-  {
-    title: "الفئات",
-    href: "/categories",
-    icon: Package,
-  },
-  {
-    title: "الفئات الفرعية",
-    href: "/subcategories",
-    icon: Layers,
-  },
-  {
-    title: "المنتجات",
-    href: "/products",
-    icon: ShoppingBag,
-  },
-  {
-    title: "المستخدمين",
-    href: "/users",
-    icon: Users,
-  },
-  {
-    title: "الطلبات",
-    href: "/orders",
-    icon: ShoppingCart,
-  },
-  {
-    title: "الإعدادات",
-    href: "/settings",
-    icon: Settings,
-  },
+  { title: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+  { title: "Categories", href: "/categories", icon: Package },
+  { title: "Subcategories", href: "/subcategories", icon: Layers },
+  { title: "Products", href: "/products", icon: ShoppingBag },
+  { title: "Users", href: "/users", icon: Users },
+  { title: "Orders", href: "/orders", icon: ShoppingCart },
+  { title: "Settings", href: "/settings", icon: Settings },
 ];
 
 export const colors: string[] = [
@@ -50,4 +23,12 @@ export const colors: string[] = [
   "bg-orange-500",
   "bg-gray-600",
   "bg-cyan-600",
+];
+
+
+export const accessGuid: AccessItem[] = [
+  { authorized: false, path: "/login", roles: [] },
+  { authorized: false, path: "/signup", roles: [] },
+  { authorized: false, path: "/verify", roles: [] },
+  { authorized: false, path: "/forgot-password", roles: [] },
 ];

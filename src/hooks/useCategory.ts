@@ -69,6 +69,8 @@ export const useUpdateCategory = () => {
         data: oldData.data.map((cat) => (cat.id === updated.id ? updated : cat))
       }
     })
+
+    queryClient.invalidateQueries({ queryKey: ["categories", updated.id] })
     pushToast({ message: data.message, type: "SUCCESS" })
     router.push("/categories")
   }

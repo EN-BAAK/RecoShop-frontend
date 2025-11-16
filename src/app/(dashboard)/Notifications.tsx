@@ -29,7 +29,7 @@ const Notifications: React.FC<NotificationsProps> = ({ notifications = [] }) => 
         className="bg-background w-80 border border-muted rounded-xl shadow-xl animate-in fade-in slide-in-from-top-2 duration-300"
       >
         <DropdownMenuLabel className="py-3 border-b border-muted font-sans font-semibold text-foreground">
-          الإشعارات
+          Notifications
         </DropdownMenuLabel>
 
         <ScrollArea className="max-h-96">
@@ -37,14 +37,15 @@ const Notifications: React.FC<NotificationsProps> = ({ notifications = [] }) => 
             <div className="p-8 text-center">
               <Bell className="h-12 w-12 mb-3 mx-auto text-muted-foreground" />
               <p className="font-sans text-sm text-muted-foreground">
-                لا توجد إشعارات جديدة
+                No new notifications
               </p>
             </div>
           ) : (
             notifications.map((notif) => (
               <DropdownMenuItem
                 key={notif.id}
-                className="py-3 px-4 border-t font-sans text-foreground cursor-pointer transition duration-300 hover:bg-primary/5" >
+                className="py-3 px-4 border-t font-sans text-foreground cursor-pointer transition duration-300 hover:bg-primary/5"
+              >
                 {notif.msg}
               </DropdownMenuItem>
             ))
@@ -56,8 +57,9 @@ const Notifications: React.FC<NotificationsProps> = ({ notifications = [] }) => 
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={() => console.log("View all notifications")}
-              className="block text-center font-sans text-sm text-primary cursor-pointer transition-colors duration-300 hover:bg-primary/5">
-              عرض كل الإشعارات
+              className="block text-center font-sans text-sm text-primary cursor-pointer transition-colors duration-300 hover:bg-primary/5"
+            >
+              View all notifications
             </DropdownMenuItem>
           </>
         )}

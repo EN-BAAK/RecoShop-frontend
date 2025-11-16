@@ -5,7 +5,7 @@ import { Formik, Form, FormikHelpers } from "formik";
 import { useCreateCategory } from "@/hooks/useCategory";
 import { CategoryCreation } from "@/types/global";
 import { category as categoryInitialValues } from "@/constants/formValues";
-import { createCategory as createCategoryCreation } from "@/constants/formValidation"
+import { createCategory as createCategoryValidation } from "@/constants/formValidation";
 import SubmitButton from "@/components/forms/SubmitButton";
 import InputField from "@/components/forms/InputField";
 import TextAreaField from "@/components/forms/TextAreaField";
@@ -14,20 +14,23 @@ import PageHolder from "@/app/PageHolder";
 const CreateCategoryPage: React.FC = () => {
   const { mutateAsync: createCategory } = useCreateCategory();
 
-  const onSubmit = async (values: CategoryCreation, formik: FormikHelpers<CategoryCreation>) => {
-    await createCategory(values)
-    formik.setSubmitting(false)
+  const onSubmit = async (
+    values: CategoryCreation,
+    formik: FormikHelpers<CategoryCreation>
+  ) => {
+    await createCategory(values);
+    formik.setSubmitting(false);
   };
 
   return (
     <PageHolder
-      title="إضافة تصنيف جديد"
-      desc="قم بإضافة تصنيف جديد لتنظيم منتجاتك"
+      title="Add New Category"
+      desc="Create a new category to organize your products."
     >
       <div className="p-8 border border-muted rounded-xl">
         <Formik
           initialValues={categoryInitialValues}
-          validationSchema={createCategoryCreation}
+          validationSchema={createCategoryValidation}
           onSubmit={onSubmit}
         >
           {({ dirty, isValid, isSubmitting }) => (
@@ -35,15 +38,15 @@ const CreateCategoryPage: React.FC = () => {
               <InputField
                 type="text"
                 name="title"
-                placeholder="مثال: إلكترونيات، ملابس، كتب..."
+                label="Category Name"
+                placeholder="Example: Electronics, Clothing, Books..."
                 required
-                label="اسم التصنيف"
               />
 
               <TextAreaField
                 name="desc"
-                placeholder="أضف وصفاً تفصيلياً للتصنيف..."
-                label="الوصف"
+                label="Description"
+                placeholder="Add a detailed description of the category..."
               />
 
               <div className="border-t border-muted" />
@@ -52,13 +55,13 @@ const CreateCategoryPage: React.FC = () => {
                 isSubmitting={isSubmitting}
                 isDirty={dirty}
                 isValid={isValid}
-                label="إضافة التصنيف"
+                label="Add Category"
               />
             </Form>
           )}
         </Formik>
       </div>
-    </PageHolder >
+    </PageHolder>
   );
 };
 

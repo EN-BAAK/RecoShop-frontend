@@ -29,8 +29,8 @@ const CreateSubCategoryPage: React.FC = () => {
 
   return (
     <PageHolder
-      title="إضافة تصنيف فرعي جديد"
-      desc="قم بإضافة تصنيف فرعي جديد لتنظيم منتجاتك بشكل أدق"
+      title="Add New Subcategory"
+      desc="Add a new subcategory to organize your products more precisely."
     >
       <div className="p-8 border border-muted rounded-xl overflow-y-auto">
         <Formik
@@ -43,23 +43,23 @@ const CreateSubCategoryPage: React.FC = () => {
               <InputField
                 type="text"
                 name="title"
-                label="اسم التصنيف الفرعي"
-                placeholder="مثال: أحذية، سماعات، نظارات..."
+                label="Subcategory Name"
+                placeholder="Example: Shoes, Headphones, Glasses..."
                 required
               />
 
               <TextAreaField
                 name="desc"
-                label="الوصف"
-                placeholder="أضف وصفاً تفصيلياً للتصنيف الفرعي..."
+                label="Description"
+                placeholder="Add a detailed description for the subcategory..."
               />
 
               <SelectorField
                 name="categoryId"
-                label="التصنيف الرئيسي"
+                label="Parent Category"
                 options={categories.map((cat: Category) => ({
                   value: cat.id,
-                  label: cat.title,
+                  key: cat.title,
                 }))}
                 required
               />
@@ -70,7 +70,7 @@ const CreateSubCategoryPage: React.FC = () => {
                 isSubmitting={isSubmitting}
                 isDirty={dirty}
                 isValid={isValid}
-                label="إضافة التصنيف الفرعي"
+                label="Add Subcategory"
               />
             </Form>
           )}

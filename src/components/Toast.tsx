@@ -24,7 +24,7 @@ const Toast: React.FC<ToastProps> = ({
       Icon: CheckCircle2,
       bg: "bg-green-50 border border-green-200",
       icon: "text-green-600",
-      titleText: "تم بنجاح",
+      titleText: "Success",
       titleColor: "text-green-700",
       messageColor: "text-green-800",
       closeHover: "hover:bg-green-100",
@@ -33,7 +33,7 @@ const Toast: React.FC<ToastProps> = ({
       Icon: XCircle,
       bg: "bg-red-50 border border-red-200",
       icon: "text-red-600",
-      titleText: "حدث خطأ",
+      titleText: "Error",
       titleColor: "text-red-700",
       messageColor: "text-red-800",
       closeHover: "hover:bg-red-100",
@@ -42,7 +42,7 @@ const Toast: React.FC<ToastProps> = ({
       Icon: AlertCircle,
       bg: "bg-yellow-50 border border-yellow-200",
       icon: "text-yellow-600",
-      titleText: "تحذير",
+      titleText: "Warning",
       titleColor: "text-yellow-700",
       messageColor: "text-yellow-800",
       closeHover: "hover:bg-yellow-100",
@@ -51,7 +51,7 @@ const Toast: React.FC<ToastProps> = ({
       Icon: Info,
       bg: "bg-blue-50 border border-blue-200",
       icon: "text-blue-600",
-      titleText: "معلومة",
+      titleText: "Info",
       titleColor: "text-blue-700",
       messageColor: "text-blue-800",
       closeHover: "hover:bg-blue-100",
@@ -66,7 +66,7 @@ const Toast: React.FC<ToastProps> = ({
       dir="ltr"
       className={cn(
         `${toastConfig.bg}`,
-        "fixed left-4 z-50 w-80 sm:w-96 p-4 rounded-2xl shadow-lg transition-all animate-in slide-in-from-top fade-in duration-300"
+        "p-4 rounded-2xl shadow-lg fixed left-4 z-100 w-80 sm:w-96 transition-all animate-in slide-in-from-top fade-in duration-300"
       )}
       style={{
         top: `${index * 90 + 16}px`,
@@ -80,7 +80,7 @@ const Toast: React.FC<ToastProps> = ({
         <div className="flex-1">
           <h3
             className={cn(
-              "font-semibold text-base leading-tight mb-1",
+              "mb-1 font-semibold text-base leading-tight",
               toastConfig.titleColor
             )}
           >
@@ -102,7 +102,7 @@ const Toast: React.FC<ToastProps> = ({
             "p-1 rounded-full transition duration-300 cursor-pointer",
             toastConfig.closeHover
           )}
-          aria-label="إغلاق الإشعار"
+          aria-label="Close notification"
         >
           <X className={cn("h-5 w-5", toastConfig.icon)} />
         </button>

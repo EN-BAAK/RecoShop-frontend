@@ -57,11 +57,13 @@ export type Product = {
 }
 
 export type ProductCreation = Omit<Product, "id" | "imgURL"> & {
-  categories: number[]
+  // categories: number[]
+  categoryId: number
 }
 
 export type ProductGlobal = Product & {
-  categories: string[]
+  // categories: string[]
+  category: string
 }
 
 export type VerifyAccountProps = {
@@ -76,4 +78,11 @@ export type ForgotPasswordStep2 = {
   code: string,
   password: string,
   confirmPassword: string
+}
+
+export interface AccessItem {
+  authorized: boolean;
+  path: string;
+  roles: ROLE[];
+  children?: AccessItem[];
 }

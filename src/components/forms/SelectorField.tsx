@@ -52,11 +52,11 @@ const SelectorField: React.FC<SelectorFieldProps> = ({
               disabled={disabled}
               required={required}
               className={cn(
-                Icon && dir === "rtl" ? "pr-10" : "pl-10",
+                Icon && (dir === "rtl" ? "pr-10" : "pl-10"),
                 inputClasses
               )}
             >
-              <option value="">اختر</option>
+              <option value="">Select</option>
               {options.map((option) => (
                 <option key={`${name}-${option.value}`} value={option.value}>
                   {option.key}

@@ -1,26 +1,22 @@
 import React from 'react';
-import { CommonParentProps } from '@/types/components'
-import { Metadata } from 'next'
+import { CommonParentProps } from '@/types/components';
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "إدارة الفئات",
-  description: "قم بإدارة جميع فئات المنتجات في RecoShop بسهولة. أضف، عدل أو احذف الفئات لضمان تنظيم متجر التجارة الإلكترونية الخاص بك بشكل أفضل.",
-  keywords: ["RecoShop", "فئات المنتجات", "إدارة الفئات", "تجارة إلكترونية", "متجر سوري", "ملابس", "أجهزة طبية", "عناية شخصية", "إلكترونيات", "منتجات منزلية"],
+  title: "Manage Categories",
+  description: "Manage all product categories in RecoShop easily. Add, edit, or delete categories to keep your e-commerce store organized.",
+  keywords: ["RecoShop", "Product Categories", "Manage Categories", "E-commerce", "Clothing", "Electronics", "Medical Devices", "Personal Care", "Home Products"],
   openGraph: {
-    title: "إدارة الفئات - RecoShop",
-    description: "قم بإدارة جميع فئات المنتجات في RecoShop بسهولة. أضف، عدل أو احذف الفئات لضمان تنظيم متجر التجارة الإلكترونية الخاص بك بشكل أفضل.",
+    title: "Manage Categories - RecoShop",
+    description: "Manage all product categories in RecoShop easily. Add, edit, or delete categories to keep your e-commerce store organized.",
     siteName: "RecoShop",
-    locale: "ar_SY",
+    locale: "en_US",
     type: "website",
   },
 };
 
 const CategoryLayout: React.FC<CommonParentProps> = ({ children }) => {
-  return (
-    <React.Fragment>
-      {children}
-    </React.Fragment>
-  )
-}
+  return <>{children}</>;
+};
 
-export default CategoryLayout
+export default CategoryLayout;

@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Formik, Form, FormikHelpers } from "formik";
 import { useGetProductById, useUpdateProduct } from "@/hooks/useProduct";
-import { useGetAllSubCategories } from "@/hooks/useSubCategory";
 import { ProductCreation, SubCategory } from "@/types/global";
 import { editProduct as editProductValidation } from "@/constants/formValidation";
 import PageHolder from "@/app/PageHolder";
@@ -13,9 +12,10 @@ import ErrorPage from "@/components/ErrorPage";
 import EmptyElement from "@/components/EmptyElement";
 import InputField from "@/components/forms/InputField";
 import TextAreaField from "@/components/forms/TextAreaField";
-import MultiSelectorField from "@/components/forms/MultiSelectorField";
 import SelectImageField from "@/components/forms/SelectImageField";
 import SubmitButton from "@/components/forms/SubmitButton";
+import SelectorField from "@/components/forms/SelectorField";
+import { useGetAllCategories } from "@/hooks/useCategory";
 
 const EditProductPage: React.FC = () => {
   const params = useParams();
@@ -26,16 +26,12 @@ const EditProductPage: React.FC = () => {
   const { data: productData, isFetching, isError, error, refetch } =
     useGetProductById(Number(params.id));
 
-  const { data: subCategories = [], isLoading } = useGetAllSubCategories();
+  const { data, isLoading } = useGetAllCategories();
   const { mutateAsync: updateProduct } = useUpdateProduct();
 
-  const product = productData?.data || {
-    id: 1,
-    title: "da",
-    desc: "fa",
-    price: 50,
-    brand: "dd"
-  };
+  const categories = data?.data || []
+
+  const product = productData?.data
 
   const goBack = () => router.back();
 
@@ -58,11 +54,14 @@ const EditProductPage: React.FC = () => {
     if (values.desc !== initialValues.desc)
       formData.append("desc", values.desc);
 
-    if (JSON.stringify(values.categories) !== JSON.stringify(initialValues.categories)) {
-      values.categories.forEach((cat: number) =>
-        formData.append("categories[]", String(cat))
-      );
-    }
+    if (values.categoryId !== initialValues.categoryId)
+      formData.append("categoryId", values.categoryId.toString());
+
+    // if (JSON.stringify(values.categories) !== JSON.stringify(initialValues.categories)) {
+    //   values.categories.forEach((cat: number) =>
+    //     formData.append("categories[]", String(cat))
+    //   );
+    // }
 
     if (image) formData.append("image", image);
 
@@ -70,26 +69,26 @@ const EditProductPage: React.FC = () => {
     formik.setSubmitting(false);
   };
 
-  const categoryOptions = subCategories.map((cat: SubCategory) => ({
+  const categoryOptions = categories.map((cat: SubCategory) => ({
     key: cat.title,
     value: String(cat.id),
   }));
 
   return (
     <PageHolder
-      title="تعديل المنتج"
-      desc="يمكنك تعديل بيانات المنتج الحالية"
+      title="Edit Product"
+      desc="You can update the current product details."
     >
       {isFetching ? (
         <LoadingPage />
       ) : isError ? (
         <ErrorPage action={refetch} msg={error.message} />
-      ) : product ? (
+      ) : !product ? (
         <EmptyElement
-          title="المنتج غير موجود"
+          title="Product Not Found"
           button={{
             action: goBack,
-            msg: "العودة",
+            msg: "Go Back",
           }}
         />
       ) : (
@@ -105,44 +104,44 @@ const EditProductPage: React.FC = () => {
                 <InputField
                   name="title"
                   type="text"
-                  label="اسم المنتج"
-                  placeholder="اسم المنتج..."
+                  label="Product Name"
+                  placeholder="Product Name..."
                   required
                 />
 
                 <InputField
                   name="brand"
                   type="text"
-                  label="العلامة التجارية"
-                  placeholder="اسم الشركة المصنعة..."
+                  label="Brand"
+                  placeholder="Manufacturer Name..."
                   required
                 />
 
                 <InputField
                   name="price"
                   type="number"
-                  label="السعر"
-                  placeholder="السعر بالليرة السورية..."
+                  label="Price"
+                  placeholder="Price in SYP..."
                   required
                 />
 
                 <TextAreaField
                   name="desc"
-                  label="الوصف"
-                  placeholder="الوصف التفصيلي للمنتج..."
+                  label="Description"
+                  placeholder="Detailed product description..."
                 />
 
                 {!isLoading && (
-                  <MultiSelectorField
-                    name="categories"
-                    label="الفئات"
+                  <SelectorField
+                    name="categoryId"
+                    label="category"
                     options={categoryOptions}
                     required
                   />
                 )}
 
                 <SelectImageField
-                  label="تغيير صورة المنتج (اختياري)"
+                  label="Change Product Image (Optional)"
                   value={image}
                   setValue={setImage}
                 />
@@ -153,7 +152,7 @@ const EditProductPage: React.FC = () => {
                   isSubmitting={isSubmitting}
                   isDirty={dirty}
                   isValid={isValid}
-                  label="تحديث المنتج"
+                  label="Update Product"
                 />
               </Form>
             )}

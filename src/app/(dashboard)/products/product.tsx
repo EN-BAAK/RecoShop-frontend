@@ -21,15 +21,15 @@ const Product: React.FC<ProductProps> = ({ product }) => {
 
   const handleDelete = () => {
     showWarning({
-      message: `هل أنت متأكد من حذف المنتج "${product.title}"؟ لا يمكن التراجع عن هذا الإجراء.`,
-      btn1: "إلغاء",
-      btn2: "نعم، احذف",
+      message: `Are you sure you want to delete the product "${product.title}"? This action cannot be undone.`,
+      btn1: "Cancel",
+      btn2: "delete",
       handleBtn2: () => deleteProduct(product.id),
     });
   };
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("ar-SY", {
+    return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "SYP",
       minimumFractionDigits: 0,
@@ -68,7 +68,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
             <DropdownMenuTrigger asChild>
               <Button
                 className="bg-transparent h-8 w-8 flex justify-center items-center rounded-full cursor-pointer transition duration-300 hover:bg-muted"
-                aria-label="خيارات"
+                aria-label="optoins"
                 variant="ghost"
                 size="icon"
               >
@@ -77,7 +77,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
             </DropdownMenuTrigger>
 
             <DropdownMenuContent align="end" className="bg-background w-40 font-sans">
-              <DropdownMenuLabel className="mb-1 px-1">الإجراءات</DropdownMenuLabel>
+              <DropdownMenuLabel className="mb-1 px-1">Actions</DropdownMenuLabel>
               <DropdownMenuSeparator className="my-1" />
 
               <DropdownMenuItem
@@ -85,7 +85,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
                 className="group flex items-center gap-2 font-sans text-orange-600 cursor-pointer transition duration-300 hover:text-background focus:bg-orange-600"
               >
                 <Edit3 className="h-4 w-4 transition duration-300 group-hover:text-background" />
-                <span>تعديل</span>
+                <span>Edit</span>
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={handleDelete}
@@ -93,7 +93,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
                 className="group flex items-center gap-2 font-sans text-danger cursor-pointer transition duration-300 hover:text-background disabled:opacity-50 focus:bg-danger/90"
               >
                 <Trash2 className="h-4 w-4 transition duration-300 group-hover:text-background" />
-                <span>حذف</span>
+                <span>Delete</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -109,7 +109,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
           </span>
         </div>
 
-        {product.categories && product.categories.length > 0 && (
+        {/* {product.categories && product.categories.length > 0 && (
           <div className="mt-3 flex flex-wrap gap-2">
             {product.categories.map((category: string, index: number) => (
               <span
@@ -120,7 +120,13 @@ const Product: React.FC<ProductProps> = ({ product }) => {
               </span>
             ))}
           </div>
-        )}
+        )} */}
+        <span
+          className="bg-primary/10 px-2.5 py-1 rounded-md font-sans font-medium text-xs text-primary"
+        >
+          {/* {product.category} */}
+        </span>
+
       </div>
     </div>
   );

@@ -1,12 +1,12 @@
-import React from 'react'
-import { ErrorPageProps } from '@/types/components'
-import Image from 'next/image'
-import CustomButton from './forms/Button'
+import React from 'react';
+import { ErrorPageProps } from '@/types/components';
+import Image from 'next/image';
+import CustomButton from './forms/Button';
 
 const ErrorPage: React.FC<ErrorPageProps> = ({ msg, action }) => {
   return (
     <div className="h-full w-full flex justify-center items-center">
-      <div className="space-y-4 text-center">
+      <div className="flex flex-col items-center justify-center gap-4 text-center">
         <Image
           src="/error.png"
           alt='error'
@@ -16,17 +16,17 @@ const ErrorPage: React.FC<ErrorPageProps> = ({ msg, action }) => {
         />
 
         <h2 className="font-sans font-semibold text-xl text-foreground">
-          حدث خطأ أثناء تحميل البيانات
+          An error occurred while loading data
         </h2>
 
         <p className="font-sans text-muted-foreground">
-          {msg || "يرجى المحاولة مرة أخرى"}
+          {msg || "Please try again"}
         </p>
 
-        <CustomButton label='اعادة المحاولة' onClick={action} variant='danger' />
+        <CustomButton label='Retry' onClick={action} variant='danger' />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ErrorPage
+export default ErrorPage;

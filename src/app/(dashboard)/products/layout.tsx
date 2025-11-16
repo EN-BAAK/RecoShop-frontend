@@ -3,14 +3,16 @@ import { CommonParentProps } from '@/types/components'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: "إدارة المنتجات",
-  description: "قم بإدارة جميع منتجات متجر RecoShop بضغطة زر. أضف منتجات جديدة، عدل الأسعار، أو حدّث الصور والتفاصيل بسهولة.",
-  keywords: ["RecoShop", "إدارة المنتجات", "لوحة التحكم", "متجر سوري", "تجارة إلكترونية", "منتجات", "إضافة منتجات", "تعديل منتجات"],
+  title: "Product Management",
+  description:
+    "Manage all RecoShop products with ease. Add new items, edit prices, or update images and details instantly.",
+  keywords: ["RecoShop", "product management", "dashboard", "Syrian store", "ecommerce", "products", "add products", "edit products",],
   openGraph: {
-    title: "إدارة المنتجات - RecoShop",
-    description: "يمكنك إدارة وإضافة وتعديل المنتجات في متجر RecoShop بكل سهولة.",
+    title: "Product Management - RecoShop",
+    description:
+      "Easily manage, add, and edit products in your RecoShop store.",
     siteName: "RecoShop",
-    locale: "ar_SY",
+    locale: "en_US",
     type: "website",
   },
 };

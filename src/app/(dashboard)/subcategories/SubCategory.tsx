@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { MoreVertical, Edit3, Trash2, Tag } from "lucide-react";
 import { useDeleteSubCategory } from "@/hooks/useSubCategory";
 import { useAppContext } from "@/contexts/AppProvider";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { SubCategoryProps } from "@/types/components";
 import { Button } from "@/components/ui/button";
 import { DropdownMenuLabel, DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
@@ -20,9 +20,9 @@ const SubCategory: React.FC<SubCategoryProps> = ({ subCategory }) => {
 
   const handleDelete = () => {
     showWarning({
-      message: "ها انت متاكد من انك تريد حذف هذا التصنيف",
-      btn1: "إلغاء",
-      btn2: "نعم، احذف",
+      message: "Are you sure you want to delete this subcategory?",
+      btn1: "Cancel",
+      btn2: "Delete",
       handleBtn2: () => deleteSubCategory(subCategory.id),
     });
   };
@@ -44,7 +44,7 @@ const SubCategory: React.FC<SubCategoryProps> = ({ subCategory }) => {
           <DropdownMenuTrigger asChild>
             <Button
               className="bg-transparent h-8 w-8 flex justify-center items-center rounded-full cursor-pointer transition duration-300 hover:bg-muted"
-              aria-label="خيارات"
+              aria-label="Options"
               variant="ghost"
               size="icon"
             >
@@ -53,7 +53,7 @@ const SubCategory: React.FC<SubCategoryProps> = ({ subCategory }) => {
           </DropdownMenuTrigger>
 
           <DropdownMenuContent align="end" className="bg-background w-40 font-sans">
-            <DropdownMenuLabel className="mb-1 px-1">الإجراءات</DropdownMenuLabel>
+            <DropdownMenuLabel className="mb-1 px-1">Actions</DropdownMenuLabel>
             <DropdownMenuSeparator className="my-1" />
 
             <DropdownMenuItem
@@ -61,7 +61,7 @@ const SubCategory: React.FC<SubCategoryProps> = ({ subCategory }) => {
               className="group flex items-center gap-2 font-sans text-orange-600 cursor-pointer transition duration-300 hover:text-background focus:bg-orange-600"
             >
               <Edit3 className="h-4 w-4 transition duration-300 group-hover:text-background" />
-              <span>تعديل</span>
+              <span>Edit</span>
             </DropdownMenuItem>
 
             <DropdownMenuItem
@@ -70,7 +70,7 @@ const SubCategory: React.FC<SubCategoryProps> = ({ subCategory }) => {
               className="group flex items-center gap-2 font-sans text-danger cursor-pointer transition duration-300 hover:text-background disabled:opacity-50 focus:bg-danger/90"
             >
               <Trash2 className="h-4 w-4 transition duration-300 group-hover:text-background" />
-              <span>حذف</span>
+              <span>Delete</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

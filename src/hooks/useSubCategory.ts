@@ -42,7 +42,7 @@ export const useCreateSubCategory = () => {
     );
 
     pushToast({ message: data.message, type: "SUCCESS" });
-    router.push("/sub-categories");
+    router.push("/subcategories");
   };
 
   const onError = (error: Error) => {
@@ -77,8 +77,9 @@ export const useUpdateSubCategory = () => {
       }
     );
 
+    queryClient.invalidateQueries({ queryKey: ["sub-categories", updated.id] })
     pushToast({ message: data.message, type: "SUCCESS" });
-    router.push("/sub-categories");
+    router.push("/subcategories");
   };
 
   const onError = (error: Error) => {

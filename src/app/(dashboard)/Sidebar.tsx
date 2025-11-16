@@ -17,16 +17,14 @@ const Sidebar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const pathname = usePathname();
-  const { user } = useAppContext()
-  const router = useRouter()
-  const { mutate: logout, isPending: isLoggingOut } = useLogout()
+  const { user } = useAppContext();
+  const router = useRouter();
+  const { mutate: logout, isPending: isLoggingOut } = useLogout();
 
   const toggleSidebar = () => setIsOpen(!isOpen);
 
   const roleText =
-    user?.role === ROLE.ADMIN
-      ? "مدير النظام"
-      : "متسوق";
+    user?.role === ROLE.ADMIN ? "Admin" : "Shopper";
 
   useEffect(() => {
     if (!user) {
@@ -34,23 +32,22 @@ const Sidebar: React.FC = () => {
     }
   }, [user, router]);
 
-  if (!user)
-    return <LoadingPage />
+  if (!user) return <LoadingPage />;
 
   return (
     <React.Fragment>
       {isOpen && (
         <div
-          className="bg-foreground/50 block lg:hidden fixed inset-0 z-51 animate-in fade-in duration-200"
+          className="bg-foreground/50 block lg:hidden fixed inset-0 z-50 animate-in fade-in duration-200"
           onClick={toggleSidebar}
         />
       )}
 
       <aside
         className={cn(
-          "bg-background h-screen w-70 border-l border-muted shadow-xl fixed lg:static top-0 right-0 z-51",
+          "bg-background h-screen w-70 border-l border-muted shadow-xl fixed lg:static top-0 left-0 z-50",
           "flex flex-col transition-transform duration-300 ease-in-out",
-          isOpen ? "translate-x-0" : "translate-x-full lg:translate-x-0"
+          isOpen ? "-translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}
       >
         <div className="border-b border-muted p-6">
@@ -61,11 +58,10 @@ const Sidebar: React.FC = () => {
 
             <div>
               <h1 className="font-heading text-2xl font-bold text-primary">
-                ريكوشوب
+                RecoShop
               </h1>
-
               <p className="font-sans text-xs text-muted-foreground">
-                لوحة التحكم
+                Dashboard
               </p>
             </div>
           </div>
@@ -74,7 +70,8 @@ const Sidebar: React.FC = () => {
         <nav className="space-y-2 py-6 px-4 flex-1 overflow-y-auto">
           {navItems.map((item) => {
             const Icon = item.icon;
-            const isActive = pathname === item.href || pathname?.startsWith(item.href + "/");
+            const isActive =
+              pathname === item.href || pathname?.startsWith(item.href + "/");
 
             return (
               <Link
@@ -112,7 +109,6 @@ const Sidebar: React.FC = () => {
               <p className="truncate font-sans font-semibold text-sm text-foreground">
                 {user.firstName} {user.lastName}
               </p>
-
               <p className="font-sans text-xs text-muted-foreground">{roleText}</p>
             </div>
           </div>
@@ -129,8 +125,8 @@ const Sidebar: React.FC = () => {
 
         <button
           onClick={toggleSidebar}
-          className="bg-background p-2 block lg:hidden rounded-l-lg shadow-md absolute top-20 right-70 z-51 cursor-pointer transition-shadow hover:shadow-lg"
-          aria-label="فتح القائمة"
+          className="bg-background p-2 block lg:hidden rounded-r-lg shadow-md absolute top-20 left-70 z-51 cursor-pointer transition-shadow hover:shadow-lg"
+          aria-label="Toggle Menu"
         >
           {isOpen ? (
             <X className="w-5 h-5 text-foreground" />

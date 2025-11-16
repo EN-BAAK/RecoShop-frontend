@@ -28,12 +28,12 @@ const ProductsPage: React.FC = () => {
 
   return (
     <PageHolder
-      title="إدارة المنتجات"
-      desc="إدارة مرنة لمنتجاتك لتسهيل تنظيم متجرك الإلكتروني وعرض جميع التفاصيل."
+      title="Product Management"
+      desc="Flexible management for your products to simplify organizing your online store and viewing all details."
       outerElement={
         <Link href="/products/add" passHref>
           <CustomButton
-            label="إضافة منتج جديد"
+            label="Add New Product"
             className="w-fit rounded-full absolute bottom-8 left-8 z-50"
             icon={PlusCircle}
           />
@@ -46,11 +46,11 @@ const ProductsPage: React.FC = () => {
         <ErrorPage action={refetch} msg={error?.message} />
       ) : products.length === 0 ? (
         <EmptyElement
-          title="لا توجد منتجات حالياً"
-          desc="ابدأ بإضافة منتج جديد لعرضه في متجرك الإلكتروني"
+          title="There are no products yet"
+          desc="Start by adding a new product to display it in your store"
           button={{
             action: handleAddNewProduct,
-            msg: "إضافة منتج جديد",
+            msg: "Add New Product",
           }}
         />
       ) : (

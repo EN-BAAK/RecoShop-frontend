@@ -3,24 +3,20 @@ import { CommonParentProps } from '@/types/components';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "إدارة المستخدمين",
-  description: "قم بإدارة مستخدمي RecoShop بما في ذلك المشرفين والزبائن. يمكنك عرض، تعديل، حذف أو ترقية مستخدم.",
-  keywords: ["RecoShop", "إدارة المستخدمين", "مستخدمين", "مشرفين", "عملاء", "لوحة التحكم"],
+  title: "User Management",
+  description: "Manage RecoShop users including administrators and customers. You can view, edit, delete, or promote a user.",
+  keywords: ["RecoShop", "User Management", "Users", "Administrators", "Customers", "Dashboard"],
   openGraph: {
-    title: "إدارة المستخدمين - RecoShop",
-    description: "قم بإدارة مستخدمي RecoShop بما في ذلك المشرفين والزبائن.",
+    title: "User Management - RecoShop",
+    description: "Manage RecoShop users including administrators and customers.",
     siteName: "RecoShop",
-    locale: "ar_SY",
+    locale: "en_US",
     type: "website",
   },
 };
 
 const UsersLayout: React.FC<CommonParentProps> = ({ children }) => {
-  return (
-    <React.Fragment>
-      {children}
-    </React.Fragment>
-  );
+  return <>{children}</>;
 };
 
 export default UsersLayout;

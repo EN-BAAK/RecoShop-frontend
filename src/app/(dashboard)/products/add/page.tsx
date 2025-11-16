@@ -7,18 +7,19 @@ import { ProductCreation, SubCategory } from "@/types/global";
 import SubmitButton from "@/components/forms/SubmitButton";
 import InputField from "@/components/forms/InputField";
 import TextAreaField from "@/components/forms/TextAreaField";
-import MultiSelectorField from "@/components/forms/MultiSelectorField";
 import SelectImageField from "@/components/forms/SelectImageField";
 import PageHolder from "@/app/PageHolder";
-import { useGetAllSubCategories } from "@/hooks/useSubCategory";
 import { product as initialValues } from "@/constants/formValues";
 import { createProduct as createProductValidation } from "@/constants/formValidation";
+import SelectorField from "@/components/forms/SelectorField";
+import { useGetAllCategories } from "@/hooks/useCategory";
 
 const CreateProductPage: React.FC = () => {
   const { mutateAsync: createProduct } = useCreateProduct();
-  const { data: subCategories = [], isLoading } = useGetAllSubCategories();
+  const { data, isLoading } = useGetAllCategories();
   const [image, setImage] = useState<File | undefined>(undefined);
 
+  const categories = data?.data || []
 
   const onSubmit = async (
     values: ProductCreation,
@@ -29,47 +30,25 @@ const CreateProductPage: React.FC = () => {
     formData.append("brand", values.brand);
     formData.append("price", values.price.toString());
     formData.append("desc", values.desc);
-    values.categories.forEach((cat: number) => formData.append("categories[]", String(cat)));
+    formData.append("categoryId", values.categoryId.toString());
+    // values.categories.forEach((cat: number) =>
+    //   formData.append("categories[]", String(cat))
+    // );
     if (image) formData.append("image", image);
 
     await createProduct(formData);
     formik.setSubmitting(false);
   };
 
-  const categoryOptions = (false || [
-    {
-      id: 1,
-      title: "hello",
-      desc: "",
-      categoryId: 2
-    },
-    {
-      id: 2,
-      title: "Bitch",
-      desc: "",
-      categoryId: 2
-    },
-    {
-      id: 3,
-      title: "Talal",
-      desc: "",
-      categoryId: 2
-    },
-    {
-      id: 4,
-      title: "Sakkal",
-      desc: "",
-      categoryId: 2
-    },
-  ]).map((cat: SubCategory) => ({
+  const categoryOptions = categories.map((cat: SubCategory) => ({
     key: cat.title,
     value: String(cat.id),
   }));
 
   return (
     <PageHolder
-      title="إضافة منتج جديد"
-      desc="قم بإضافة منتج جديد لتوسيع متجرك الإلكتروني."
+      title="Add New Product"
+      desc="Add a new product to expand your online store."
     >
       <div className="bg-background p-8 border border-muted rounded-xl overflow-y-auto">
         <Formik
@@ -82,37 +61,37 @@ const CreateProductPage: React.FC = () => {
               <InputField
                 name="title"
                 type="text"
-                label="اسم المنتج"
-                placeholder="مثال: سماعة بلوتوث، قميص رجالي..."
+                label="Product Name"
+                placeholder="Example: Bluetooth Headphones, Men's Shirt..."
                 required
               />
 
               <InputField
                 name="brand"
                 type="text"
-                label="العلامة التجارية"
-                placeholder="اسم الشركة المصنعة..."
+                label="Brand"
+                placeholder="Manufacturer name..."
                 required
               />
 
               <InputField
                 name="price"
                 type="number"
-                label="السعر"
-                placeholder="أدخل السعر بالليرة السورية..."
+                label="Price"
+                placeholder="Enter the price in SYP..."
                 required
               />
 
               <TextAreaField
                 name="desc"
-                label="الوصف"
-                placeholder="أضف وصفاً تفصيلياً للمنتج..."
+                label="Description"
+                placeholder="Add a detailed description of the product..."
               />
 
               {!isLoading && (
-                <MultiSelectorField
-                  name="categories"
-                  label="الفئات"
+                <SelectorField
+                  name="categoryId"
+                  label="category"
                   options={categoryOptions}
                   required
                   styles="font-sans"
@@ -120,7 +99,7 @@ const CreateProductPage: React.FC = () => {
               )}
 
               <SelectImageField
-                label="صورة المنتج"
+                label="Product Image"
                 value={image}
                 setValue={setImage}
                 className="mt-4"
@@ -132,7 +111,7 @@ const CreateProductPage: React.FC = () => {
                 isSubmitting={isSubmitting}
                 isDirty={dirty}
                 isValid={isValid}
-                label="إضافة المنتج"
+                label="Add Product"
               />
             </Form>
           )}

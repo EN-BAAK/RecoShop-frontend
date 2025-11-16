@@ -18,7 +18,6 @@ const MultiSelectorField: React.FC<MultiSelectorFieldProps> = ({
   labelStyle = "",
   innerDivStyle = "",
   dir = "ltr",
-  required = false,
   disabled = false,
   maxSelection,
 }) => {
@@ -70,8 +69,7 @@ const MultiSelectorField: React.FC<MultiSelectorFieldProps> = ({
                   labelStyle
                 )}
               >
-                {label}
-                {required && <span className="text-danger mr-1">*</span>}
+                {label}:
               </label>
             )}
 
@@ -92,7 +90,7 @@ const MultiSelectorField: React.FC<MultiSelectorFieldProps> = ({
                     type="text"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    placeholder="ابحث عن خيار..."
+                    placeholder="Search for options..."
                     disabled={disabled || isMaxReached}
                     className={cn(
                       "bg-transparent pr-10 pl-3 border-0 focus-visible:ring-0 focus-visible:ring-offset-0 font-sans",
@@ -114,7 +112,7 @@ const MultiSelectorField: React.FC<MultiSelectorFieldProps> = ({
               <div className="p-3 space-y-2">
                 <div className="flex items-center justify-between">
                   <p className="font-sans font-semibold text-xs text-muted-foreground">
-                    الخيارات المتاحة
+                    Available options
                   </p>
                   {maxSelection && (
                     <p className="font-sans text-xs text-muted-foreground">
@@ -128,8 +126,8 @@ const MultiSelectorField: React.FC<MultiSelectorFieldProps> = ({
                     {availableOptions.length === 0 ? (
                       <p className="w-full py-4 text-center font-sans text-sm text-muted-foreground">
                         {debouncedSearch
-                          ? "لا توجد نتائج للبحث"
-                          : "لا توجد خيارات متاحة"}
+                          ? "No results found"
+                          : "No options available"}
                       </p>
                     ) : (
                       availableOptions.map((option) => (
@@ -155,7 +153,7 @@ const MultiSelectorField: React.FC<MultiSelectorFieldProps> = ({
               {selectedOptions.length > 0 && (
                 <div className="p-3 space-y-2 border-t border-muted">
                   <p className="font-sans font-semibold text-xs text-primary">
-                    الخيارات المحددة ({selectedOptions.length})
+                    Selected options ({selectedOptions.length})
                   </p>
                   <ScrollArea className="max-h-48">
                     <div className="pr-3 flex flex-wrap gap-2">
@@ -180,7 +178,7 @@ const MultiSelectorField: React.FC<MultiSelectorFieldProps> = ({
 
             {isMaxReached && !disabled && (
               <p className="font-sans text-xs text-accent animate-in fade-in slide-in-from-top-1 duration-200">
-                تم الوصول إلى الحد الأقصى للاختيار ({maxSelection})
+                Maximum selection reached ({maxSelection})
               </p>
             )}
 
@@ -194,4 +192,4 @@ const MultiSelectorField: React.FC<MultiSelectorFieldProps> = ({
   );
 };
 
-export default MultiSelectorField;
+export default MultiSelectorField

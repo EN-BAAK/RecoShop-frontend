@@ -6,7 +6,7 @@ import { useDeleteCategory } from "@/hooks/useCategory";
 import { useRouter } from "next/navigation";
 import { useAppContext } from "@/contexts/AppProvider";
 import { Edit3, Trash2, MoreVertical } from "lucide-react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
 const Category: React.FC<CategoryProps> = ({ category }) => {
@@ -20,9 +20,9 @@ const Category: React.FC<CategoryProps> = ({ category }) => {
 
   const handleDelete = () => {
     showWarning({
-      message: "هل انت متاكد انك تريد حذف هذه الفئة؟",
-      btn1: "الغاء",
-      btn2: "حذف",
+      message: "Are you sure you want to delete this category?",
+      btn1: "Cancel",
+      btn2: "Delete",
       handleBtn2: () => deleteCategory(category.id),
     });
   };
@@ -41,14 +41,14 @@ const Category: React.FC<CategoryProps> = ({ category }) => {
                 variant="ghost"
                 size="icon"
                 className="bg-transparent h-8 w-8 flex justify-center items-center rounded-full cursor-pointer transition duration-300 hover:bg-muted"
-                aria-label="خيارات"
+                aria-label="Options"
               >
                 <MoreVertical className="h-4 w-4 text-muted-foreground" />
               </Button>
             </DropdownMenuTrigger>
 
             <DropdownMenuContent align="end" className="bg-background w-40 font-sans">
-              <DropdownMenuLabel>الإجراءات</DropdownMenuLabel>
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
 
               <DropdownMenuItem
@@ -56,7 +56,7 @@ const Category: React.FC<CategoryProps> = ({ category }) => {
                 className="group flex items-center gap-2 font-sans text-orange-600 cursor-pointer transition duration-300 hover:text-background focus:bg-orange-600"
               >
                 <Edit3 className="h-4 w-4 transition duration-300 group-hover:text-background" />
-                <span>تعديل</span>
+                <span>Edit</span>
               </DropdownMenuItem>
 
               <DropdownMenuItem
@@ -65,7 +65,7 @@ const Category: React.FC<CategoryProps> = ({ category }) => {
                 className="group flex items-center gap-2 font-sans text-danger cursor-pointer transition duration-300 hover:text-background disabled:opacity-50 focus:bg-danger/90"
               >
                 <Trash2 className="h-4 w-4 transition duration-300 group-hover:text-background" />
-                <span>حذف</span>
+                <span>Delete</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

@@ -5,16 +5,16 @@ import { CommonParentProps } from "@/types/components";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 
-const keywords = [...(mainMetadata.keywords || []), "لوحة التحكم", "إدارة", "التجارة الإلكترونية", "إدارة المنتجات", "إدارة المستخدمين"];
+const keywords = [...(mainMetadata.keywords || []), "Dashboard", "Admin", "E-commerce", "Manage Products", "Manage Users"];
 
 export const metadata: Metadata = {
-  description: "لوحة تحكم المسؤول لإدارة المنتجات، المستخدمين، الفئات، والطلبات داخل RecoShop.",
+  description: "Admin dashboard to manage products, users, categories, and orders inside RecoShop.",
   keywords,
   openGraph: {
-    title: "لوحة التحكم | RecoShop",
-    description: "لوحة تحكم المسؤول لإدارة المنتجات، المستخدمين، الفئات، والطلبات داخل RecoShop.",
+    title: "Dashboard | RecoShop",
+    description: "Admin dashboard to manage products, users, categories, and orders inside RecoShop.",
     siteName: "RecoShop",
-    locale: "ar_SY",
+    locale: "en_US",
     type: "website",
   },
 };

@@ -10,11 +10,11 @@ import { editSubCategory as editSubCategoryValidation } from "@/constants/formVa
 import InputField from "@/components/forms/InputField";
 import TextAreaField from "@/components/forms/TextAreaField";
 import SubmitButton from "@/components/forms/SubmitButton";
+import SelectorField from "@/components/forms/SelectorField";
+import PageHolder from "@/app/PageHolder";
 import LoadingPage from "@/components/LoadingPage";
 import ErrorPage from "@/components/ErrorPage";
 import EmptyElement from "@/components/EmptyElement";
-import PageHolder from "@/app/PageHolder";
-import SelectorField from "@/components/forms/SelectorField";
 
 const EditSubCategoryPage: React.FC = () => {
   const params = useParams();
@@ -38,15 +38,10 @@ const EditSubCategoryPage: React.FC = () => {
   ) => {
     const changedValues: Partial<SubCategoryCreation> = {};
 
-    if (values.title !== initialValues.title) {
-      changedValues.title = values.title;
-    }
-    if (values.desc !== initialValues.desc) {
-      changedValues.desc = values.desc;
-    }
-    if (values.categoryId !== initialValues.categoryId) {
+    if (values.title !== initialValues.title) changedValues.title = values.title;
+    if (values.desc !== initialValues.desc) changedValues.desc = values.desc;
+    if (values.categoryId !== initialValues.categoryId)
       changedValues.categoryId = values.categoryId;
-    }
 
     await updateSubCategory({ id: Number(params.id), data: changedValues });
     formik.setSubmitting(false);
@@ -54,8 +49,8 @@ const EditSubCategoryPage: React.FC = () => {
 
   return (
     <PageHolder
-      title="تعديل التصنيف الفرعي"
-      desc="يمكنك تعديل بيانات التصنيف الفرعي الحالية"
+      title="Edit Subcategory"
+      desc="Modify the details of the selected subcategory."
     >
       {isFetching ? (
         <LoadingPage />
@@ -63,10 +58,10 @@ const EditSubCategoryPage: React.FC = () => {
         <ErrorPage action={refetch} msg={error.message} />
       ) : !subCategory ? (
         <EmptyElement
-          title="التصنيف الفرعي غير موجود"
+          title="Subcategory Not Found"
           button={{
             action: goBack,
-            msg: "العودة إلى التصنيفات الفرعية",
+            msg: "Back to Subcategories",
           }}
         />
       ) : (
@@ -75,31 +70,29 @@ const EditSubCategoryPage: React.FC = () => {
             enableReinitialize
             initialValues={subCategory}
             validationSchema={editSubCategoryValidation}
-            onSubmit={(values, helpers) =>
-              onSubmit(values, helpers, subCategory)
-            }
+            onSubmit={(values, helpers) => onSubmit(values, helpers, subCategory)}
           >
             {({ dirty, isValid, isSubmitting }) => (
               <Form className="space-y-6">
                 <InputField
                   type="text"
                   name="title"
-                  label="اسم التصنيف الفرعي"
-                  placeholder="اسم التصنيف الفرعي..."
+                  label="Subcategory Name"
+                  placeholder="Subcategory Name..."
                 />
 
                 <TextAreaField
                   name="desc"
-                  label="الوصف"
-                  placeholder="الوصف التفصيلي للتصنيف الفرعي..."
+                  label="Description"
+                  placeholder="Detailed description of the subcategory..."
                 />
 
                 <SelectorField
                   name="categoryId"
-                  label="التصنيف الرئيسي"
+                  label="Parent Category"
                   options={categories.map((cat: Category) => ({
                     value: cat.id,
-                    label: cat.title,
+                    key: cat.title,
                   }))}
                 />
 
@@ -109,7 +102,7 @@ const EditSubCategoryPage: React.FC = () => {
                   isSubmitting={isSubmitting}
                   isDirty={dirty}
                   isValid={isValid}
-                  label="تحديث التصنيف الفرعي"
+                  label="Update Subcategory"
                 />
               </Form>
             )}

@@ -4,10 +4,10 @@ import { EmptyElementProps } from "@/types/components";
 import { PlusCircle } from "lucide-react";
 import CustomButton from "./forms/Button";
 
-const EmptyElement: React.FC<EmptyElementProps> = ({ title = "لايوجد بيانات بعد", desc, button }) => {
+const EmptyElement: React.FC<EmptyElementProps> = ({ title = "No data yet", desc, button }) => {
   return (
     <div className="h-full w-full flex items-center justify-center text-center">
-      <div className="space-y-4 text-center">
+      <div className="flex flex-col items-center justify-center gap-4 text-center">
         <Image
           src="/no-data.png"
           alt="Empty"
@@ -24,8 +24,7 @@ const EmptyElement: React.FC<EmptyElementProps> = ({ title = "لايوجد بي�
           <p className="font-sans text-muted-foreground">
             {desc}
           </p>
-        )
-        }
+        )}
 
         {button &&
           <CustomButton label={button.msg} onClick={button.action} icon={PlusCircle} variant="orange" />

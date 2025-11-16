@@ -59,7 +59,7 @@ const InputField: React.FC<InputFieldProps> = ({
           autoComplete={autoComplete}
           disabled={disabled}
           required={required}
-          className={cn(Icon && dir === "rtl" ? "pr-10" : "pl-10")}
+          className={cn(Icon && (dir === "rtl" ? "pr-10" : "pl-10"))}
         />
 
         {type === "password" && (

@@ -8,14 +8,14 @@ import { CommonParentProps } from "@/types/components"
 
 const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-body-en",
+  variable: "--font-body",
   weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-heading-en",
+  variable: "--font-heading",
   weight: ["400", "500", "600", "700"],
   display: "swap",
 });

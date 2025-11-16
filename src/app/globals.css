@@ -110,7 +110,7 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: "Reem Kufi", serif;
+  font-family: var(--font-heading), serif;
 }
 
 
@@ -121,7 +121,7 @@ h4 {
 
   body {
     @apply bg-background text-foreground;
-    font-family: "Tajawal", sans-serif;
+    font-family: var(--font-body), sans-serif;
   }
 
 }

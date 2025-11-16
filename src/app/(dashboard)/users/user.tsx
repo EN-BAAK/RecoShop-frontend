@@ -3,7 +3,6 @@
 import { Trash2, Mail, Phone, MapPin, User as UserIcon } from "lucide-react";
 import { useDeleteUser } from "@/hooks/useUser";
 import { useAppContext } from "@/contexts/AppProvider";
-import { Button } from "@/components/ui/button";
 import { UserProps } from "@/types/components";
 import { ROLE, SEX } from "@/types/variables";
 import Avatar from "@/components/Avatar";
@@ -15,9 +14,9 @@ const UserCard: React.FC<UserProps> = ({ user }) => {
 
   const handleDelete = () => {
     showWarning({
-      message: `هل أنت متأكد من حذف المستخدم "${user.firstName} ${user.lastName}"؟ لا يمكن التراجع عن هذا الإجراء.`,
-      btn1: "إلغاء",
-      btn2: "نعم، احذف",
+      message: `Are you sure you want to delete the user "${user.firstName} ${user.lastName}"? This action cannot be undone.`,
+      btn1: "Cancel",
+      btn2: "Yes, Delete",
       handleBtn2: () => {
         deleteUser(user.id);
       },
@@ -25,13 +24,13 @@ const UserCard: React.FC<UserProps> = ({ user }) => {
   };
 
   const getGenderLabel = (gender: SEX) => {
-    return gender === SEX.MALE ? "ذكر" : "أنثى";
+    return gender === SEX.MALE ? "Male" : "Female";
   };
 
   const getRoleLabel = (role: ROLE) => {
     const roleLabels: Record<string, string> = {
-      ADMIN: "مدير",
-      Client: "مستخدم",
+      ADMIN: "Admin",
+      Client: "User",
     };
     return roleLabels[role] || role;
   };
@@ -87,7 +86,7 @@ const UserCard: React.FC<UserProps> = ({ user }) => {
       <div className="pt-4 flex items-center gap-2 border-t border-muted">
         <CustomButton
           icon={Trash2}
-          label={isPending ? "جاري الحذف..." : "حذف"}
+          label={isPending ? "Deleting..." : "Delete"}
           onClick={handleDelete}
           disabled={isPending}
           variant="danger-outline"

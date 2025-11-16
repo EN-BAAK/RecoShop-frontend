@@ -42,7 +42,7 @@ export const AppProvider = ({ children }: CommonParentProps): React.JSX.Element 
         }
       }}
     >
-      <div className="fixed left-0 z-50">
+      <div className="fixed left-0 z-100">
         {toasts.map((toast, i) => (
           <Toast
             key={i}

@@ -46,7 +46,7 @@ const TextAreaField: React.FC<TextAreaFieldProps> = ({
           placeholder={placeholder}
           dir={dir}
           rows={4}
-          className={cn(Icon && dir === "rtl" ? "pr-10" : "pl-10")}
+          className={cn(Icon && (dir === "rtl" ? "pr-10" : "pl-10"))}
         />
       </div>
 

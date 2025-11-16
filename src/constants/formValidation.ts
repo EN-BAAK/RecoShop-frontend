@@ -91,10 +91,13 @@ export const createProduct = Yup.object({
 
   desc: Yup.string().max(500, "Description is too long (max 500 characters)"),
 
-  categories: Yup.array()
-    .of(Yup.string().required())
-    .min(1, "Select at least one category")
-    .required("Categories selection is required"),
+  // categories: Yup.array()
+  //   .of(Yup.string().required())
+  //   .min(1, "Select at least one category")
+  //   .required("Categories selection is required"),
+  categoryId: Yup.number()
+    .min(1, "Select a valid category")
+    .optional(),
 });
 
 export const editProduct = Yup.object({
@@ -118,9 +121,12 @@ export const editProduct = Yup.object({
     .max(500, "Description is too long (max 500 characters)")
     .optional(),
 
-  categories: Yup.array()
-    .of(Yup.number().required())
-    .min(1, "Select at least one category")
+  // categories: Yup.array()
+  //   .of(Yup.number().required())
+  //   .min(1, "Select at least one category")
+  //   .optional(),
+  categoryId: Yup.number()
+    .min(1, "Select a valid category")
     .optional(),
 });
 

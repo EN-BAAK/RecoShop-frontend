@@ -1,24 +1,24 @@
-import React from 'react';
-import { CommonParentProps } from '@/types/components';
-import { Metadata } from 'next';
+import React from "react";
+import { CommonParentProps } from "@/types/components";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "إدارة التصنيفات الفرعية",
+  title: "Subcategory Management",
   description:
-    "قم بإدارة جميع التصنيفات الفرعية في RecoShop بسهولة. أضف، عدل أو احذف التصنيفات الفرعية لتنظيم منتجاتك بشكل أكثر دقة واحترافية.",
-  keywords: ["RecoShop", "تصنيفات فرعية", "إدارة التصنيفات الفرعية", "تجارة إلكترونية", "متجر سوري", "ملابس", "إلكترونيات", "منتجات منزلية", "عناية شخصية", "أجهزة طبية",],
+    "Manage all subcategories in RecoShop easily. Add, edit, or delete subcategories to better organize your products professionally.",
+  keywords: ["RecoShop", "subcategories", "subcategory management", "ecommerce", "clothes", "electronics", "home products", "personal care", "medical devices",],
   openGraph: {
-    title: "إدارة التصنيفات الفرعية - RecoShop",
+    title: "Subcategory Management - RecoShop",
     description:
-      "قم بإدارة جميع التصنيفات الفرعية في RecoShop بسهولة. أضف، عدل أو احذف التصنيفات الفرعية لتنظيم منتجاتك بشكل أكثر دقة واحترافية.",
+      "Manage all subcategories in RecoShop easily. Add, edit, or delete subcategories to better organize your products professionally.",
     siteName: "RecoShop",
-    locale: "ar_SY",
+    locale: "en_US",
     type: "website",
   },
 };
 
 const SubCategoryLayout: React.FC<CommonParentProps> = ({ children }) => {
-  return <React.Fragment>{children}</React.Fragment>;
+  return <>{children}</>;
 };
 
 export default SubCategoryLayout;

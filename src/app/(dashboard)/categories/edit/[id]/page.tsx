@@ -16,23 +16,24 @@ import PageHolder from "@/app/PageHolder";
 
 const EditCategoryPage: React.FC = () => {
   const params = useParams();
-  const router = useRouter()
-  const { data: categoryData, isFetching, isError, error, refetch } = useGetCategoryById(Number(params.id));
+  const router = useRouter();
+  const { data: categoryData, isFetching, isError, error, refetch } =
+    useGetCategoryById(Number(params.id));
   const { mutateAsync: updateCategory } = useUpdateCategory();
 
-  const category = categoryData?.data
+  const category = categoryData?.data;
 
-  const goBack = () => router.back()
+  const goBack = () => router.back();
 
-  const onSubmit = async (values: CategoryCreation, formik: FormikHelpers<CategoryCreation>, initialValues: CategoryCreation) => {
+  const onSubmit = async (
+    values: CategoryCreation,
+    formik: FormikHelpers<CategoryCreation>,
+    initialValues: CategoryCreation
+  ) => {
     const changedValues: Partial<CategoryCreation> = {};
 
-    if (values.title !== initialValues.title) {
-      changedValues.title = values.title;
-    }
-    if (values.desc !== initialValues.desc) {
-      changedValues.desc = values.desc;
-    }
+    if (values.title !== initialValues.title) changedValues.title = values.title;
+    if (values.desc !== initialValues.desc) changedValues.desc = values.desc;
 
     await updateCategory({ id: Number(params.id), data: changedValues });
     formik.setSubmitting(false);
@@ -40,57 +41,55 @@ const EditCategoryPage: React.FC = () => {
 
   return (
     <PageHolder
-      title="تعديل التصنيف"
-      desc="يمكنك تعديل بيانات التصنيف الحالية"
+      title="Edit Category"
+      desc="Modify the details of the selected category."
     >
-      {
-        isFetching
-          ? <LoadingPage />
-          : isError
-            ? <ErrorPage action={refetch} msg={error.message} />
-            : !category
-              ? <EmptyElement
-                title="الفئة غير موجودة"
-                button={{
-                  action: goBack,
-                  msg: "العودة الى الفئات"
-                }}
-              />
-              : <div className="p-8 border border-muted rounded-xl">
-                <Formik
-                  enableReinitialize
-                  initialValues={category}
-                  validationSchema={editCategoryValidation}
-                  onSubmit={(values, helpers) => onSubmit(values, helpers, category)}
-                >
-                  {({ dirty, isValid, isSubmitting }) => (
-                    <Form className="space-y-6">
-                      <InputField
-                        type="text"
-                        name="title"
-                        placeholder="اسم التصنيف..."
-                        label="اسم التصنيف"
-                      />
+      {isFetching ? (
+        <LoadingPage />
+      ) : isError ? (
+        <ErrorPage action={refetch} msg={error.message} />
+      ) : !category ? (
+        <EmptyElement
+          title="Category Not Found"
+          button={{ action: goBack, msg: "Back to Categories" }}
+        />
+      ) : (
+        <div className="p-8 border border-muted rounded-xl">
+          <Formik
+            enableReinitialize
+            initialValues={category}
+            validationSchema={editCategoryValidation}
+            onSubmit={(values, helpers) => onSubmit(values, helpers, category)}
+          >
+            {({ dirty, isValid, isSubmitting }) => (
+              <Form className="space-y-6">
+                <InputField
+                  type="text"
+                  name="title"
+                  label="Category Name"
+                  placeholder="Category name..."
+                  required
+                />
 
-                      <TextAreaField
-                        name="desc"
-                        placeholder="الوصف التفصيلي للتصنيف..."
-                        label="الوصف"
-                      />
+                <TextAreaField
+                  name="desc"
+                  label="Description"
+                  placeholder="Detailed description of the category..."
+                />
 
-                      <div className="border-t border-muted" />
+                <div className="border-t border-muted" />
 
-                      <SubmitButton
-                        isSubmitting={isSubmitting}
-                        isDirty={dirty}
-                        isValid={isValid}
-                        label="تحديث التصنيف"
-                      />
-                    </Form>
-                  )}
-                </Formik>
-              </div>
-      }
+                <SubmitButton
+                  isSubmitting={isSubmitting}
+                  isDirty={dirty}
+                  isValid={isValid}
+                  label="Update Category"
+                />
+              </Form>
+            )}
+          </Formik>
+        </div>
+      )}
     </PageHolder>
   );
 };
