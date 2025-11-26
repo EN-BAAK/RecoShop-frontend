@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Formik, Form, FormikHelpers } from "formik";
 import { useCreateProduct } from "@/hooks/useProduct";
-import { ProductCreation, SubCategory } from "@/types/global";
+import { Category, ProductCreation, SubCategory } from "@/types/global";
 import SubmitButton from "@/components/forms/SubmitButton";
 import InputField from "@/components/forms/InputField";
 import TextAreaField from "@/components/forms/TextAreaField";
@@ -11,15 +11,19 @@ import SelectImageField from "@/components/forms/SelectImageField";
 import PageHolder from "@/app/PageHolder";
 import { product as initialValues } from "@/constants/formValues";
 import { createProduct as createProductValidation } from "@/constants/formValidation";
-import SelectorField from "@/components/forms/SelectorField";
 import { useGetAllCategories } from "@/hooks/useCategory";
+import { useGetSubCategoriesByCategory } from "@/hooks/useSubCategory";
+import MultiSelectorField from "@/components/forms/MultiSelectorField";
 
 const CreateProductPage: React.FC = () => {
-  const { mutateAsync: createProduct } = useCreateProduct();
-  const { data, isLoading } = useGetAllCategories();
   const [image, setImage] = useState<File | undefined>(undefined);
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
 
-  const categories = data?.data || []
+  const { mutateAsync: createProduct } = useCreateProduct();
+  const { data: categoriesData, isFetching: isCategoriesLoading } = useGetAllCategories();
+  const { data: SubCategoriesData, isFetching: isSubCategoriesLoading } = useGetSubCategoriesByCategory(selectedCategory);
+
+  const categories = categoriesData?.data || []
 
   const onSubmit = async (
     values: ProductCreation,
@@ -30,20 +34,25 @@ const CreateProductPage: React.FC = () => {
     formData.append("brand", values.brand);
     formData.append("price", values.price.toString());
     formData.append("desc", values.desc);
-    formData.append("categoryId", values.categoryId.toString());
-    // values.categories.forEach((cat: number) =>
-    //   formData.append("categories[]", String(cat))
-    // );
+    values.categories.forEach((cat: number) =>
+      formData.append("categories[]", String(cat))
+    );
     if (image) formData.append("image", image);
 
     await createProduct(formData);
     formik.setSubmitting(false);
   };
 
-  const categoryOptions = categories.map((cat: SubCategory) => ({
+  const categoryOptions = categories.map((cat: Omit<Category, "desc">) => ({
     key: cat.title,
-    value: String(cat.id),
+    value: cat.title,
   }));
+
+  const subCategoryOptions = SubCategoriesData?.data?.map((sub: Omit<SubCategory, "desc" | "categoryId">) => ({
+    key: sub.title,
+    value: String(sub.id),
+  })) || [];
+
 
   return (
     <PageHolder
@@ -56,7 +65,7 @@ const CreateProductPage: React.FC = () => {
           validationSchema={createProductValidation}
           onSubmit={onSubmit}
         >
-          {({ dirty, isValid, isSubmitting }) => (
+          {({ dirty, isValid, isSubmitting, setFieldValue }) => (
             <Form className="space-y-6">
               <InputField
                 name="title"
@@ -88,11 +97,31 @@ const CreateProductPage: React.FC = () => {
                 placeholder="Add a detailed description of the product..."
               />
 
-              {!isLoading && (
-                <SelectorField
-                  name="categoryId"
+              {!isCategoriesLoading && (
+                <select
+                  className="w-full border p-3 rounded-md bg-background"
+                  value={selectedCategory}
+                  onChange={(e) => {
+                    const title = e.target.value;
+                    setSelectedCategory(title);
+                    setFieldValue("categories", []);
+                  }}
+                >
+                  <option value="" disabled>Select Category</option>
+
+                  {categoryOptions.map((cat: { value: string, key: string }) => (
+                    <option key={cat.value} value={cat.value}>
+                      {cat.key}
+                    </option>
+                  ))}
+                </select>
+              )}
+
+              {(!isSubCategoriesLoading && !isCategoriesLoading) && (
+                <MultiSelectorField
+                  name="categories"
                   label="category"
-                  options={categoryOptions}
+                  options={subCategoryOptions}
                   required
                   styles="font-sans"
                 />

@@ -68,3 +68,12 @@ export type ProductProps = {
 export type UserProps = {
   user: User
 }
+
+export type ProductImageProps = {
+  id: number,
+  height?: number,
+  width?: number,
+  imageStyle?: string,
+  title: string,
+  containerStyle: string
+}

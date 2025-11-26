@@ -1,4 +1,4 @@
-import { getAllSubCategories, getSubCategoryById, createSubCategory, updateSubCategory, deleteSubCategory, } from "@/api-client";
+import { getAllSubCategories, getSubCategoryById, createSubCategory, updateSubCategory, deleteSubCategory, getSubCategoriesByCategory, } from "@/api-client";
 import { useAppContext } from "@/contexts/AppProvider";
 import { APIResponse } from "@/types/hooks";
 import { SubCategoryGlobal, } from "@/types/global";
@@ -19,6 +19,18 @@ export const useGetSubCategoryById = (id: number) => {
     queryFn: () => getSubCategoryById(id),
     enabled: !!id,
     retry: false,
+  });
+};
+
+export const useGetSubCategoriesByCategory = (
+  category: string = "",
+  options: { enabled?: boolean } = {}
+) => {
+  return useQuery({
+    queryKey: ["sub-categories-identifies", category],
+    queryFn: () => getSubCategoriesByCategory(category),
+    retry: false,
+    enabled: options.enabled ?? true,
   });
 };
 

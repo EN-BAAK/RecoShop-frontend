@@ -1,4 +1,4 @@
-import { getAllProducts, getProductById, createProduct, updateProduct, deleteProduct, } from "@/api-client";
+import { getAllProducts, getProductSettingsById, createProduct, updateProduct, deleteProduct, getProductImage, } from "@/api-client";
 import { useAppContext } from "@/contexts/AppProvider";
 import { APIResponse } from "@/types/hooks";
 import { ProductGlobal } from "@/types/global";
@@ -13,14 +13,22 @@ export const useGetAllProducts = () => {
   });
 };
 
-export const useGetProductById = (id: number) => {
+export const useGetProductSettingsById = (id: number) => {
   return useQuery({
-    queryKey: ["products", id],
-    queryFn: () => getProductById(id),
+    queryKey: ["product-settings", id],
+    queryFn: () => getProductSettingsById(id),
     enabled: !!id,
     retry: false,
   });
 };
+
+export const useGetProductImage = (id: number) => {
+  return useQuery({
+    queryKey: ["product-image", id],
+    queryFn: () => getProductImage(id),
+    retry: false
+  })
+}
 
 export const useCreateProduct = () => {
   const queryClient = useQueryClient();
@@ -63,6 +71,9 @@ export const useUpdateProduct = () => {
 
   const onSuccess = (data: APIResponse<ProductGlobal>) => {
     const updatedProduct = data.data;
+
+    queryClient.invalidateQueries({ queryKey: ["product-settings", updatedProduct.id] })
+    queryClient.removeQueries({ queryKey: ["product-image", updatedProduct.id] })
 
     queryClient.setQueryData<APIResponse<ProductGlobal[]>>(
       ["products"],
@@ -107,6 +118,9 @@ export const useDeleteProduct = () => {
         };
       }
     );
+
+    queryClient.invalidateQueries({ queryKey: ["product-settings", id] })
+    queryClient.invalidateQueries({ queryKey: ["product-image", id] })
     pushToast({ message: data.message, type: "SUCCESS" });
   };
 

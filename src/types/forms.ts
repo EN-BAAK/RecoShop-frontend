@@ -73,6 +73,7 @@ export type SelectImageFieldProps = {
   value?: File;
   setValue: React.Dispatch<React.SetStateAction<File | undefined>>;
   label?: string;
+  setIsImageChanged?: React.Dispatch<React.SetStateAction<boolean>>;
   className?: string;
   currentImage?: string | null;
 };

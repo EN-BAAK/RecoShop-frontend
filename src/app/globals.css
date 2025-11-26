@@ -113,7 +113,6 @@ h4 {
   font-family: var(--font-heading), serif;
 }
 
-
 @layer base {
   * {
     @apply border-muted;

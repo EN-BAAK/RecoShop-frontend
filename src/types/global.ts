@@ -57,12 +57,11 @@ export type Product = {
 }
 
 export type ProductCreation = Omit<Product, "id" | "imgURL"> & {
-  // categories: number[]
-  categoryId: number
+  categories: number[]
 }
 
 export type ProductGlobal = Product & {
-  // categories: string[]
+  subCategories: Omit<SubCategory, "desc" | "categoryId">[],
   category: string
 }
 

@@ -10,7 +10,7 @@ import LoadingPage from "@/components/LoadingPage";
 import ErrorPage from "@/components/ErrorPage";
 import EmptyElement from "@/components/EmptyElement";
 import { ProductGlobal } from "@/types/global";
-import Product from "./product";
+import Product from "./Product";
 
 const ProductsPage: React.FC = () => {
   const router = useRouter();
@@ -34,7 +34,7 @@ const ProductsPage: React.FC = () => {
         <Link href="/products/add" passHref>
           <CustomButton
             label="Add New Product"
-            className="w-fit rounded-full absolute bottom-8 left-8 z-50"
+            className="w-fit rounded-full absolute bottom-2 left-8 z-50"
             icon={PlusCircle}
           />
         </Link>
@@ -55,7 +55,7 @@ const ProductsPage: React.FC = () => {
         />
       ) : (
         <div className="overflow-y-auto">
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 xs:gird-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
             {products.map((product: ProductGlobal) => (
               <Product key={product.id} product={product} />
             ))}

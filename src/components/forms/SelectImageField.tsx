@@ -9,6 +9,7 @@ const SelectImageField: React.FC<SelectImageFieldProps> = ({
   value,
   setValue,
   currentImage,
+  setIsImageChanged,
   label,
   className = "",
 }) => {
@@ -20,6 +21,7 @@ const SelectImageField: React.FC<SelectImageFieldProps> = ({
     if (file) {
       setValue(file);
       setIsImageExists(true);
+      setIsImageChanged?.(true)
     }
   };
 
@@ -27,6 +29,7 @@ const SelectImageField: React.FC<SelectImageFieldProps> = ({
     setValue(undefined);
     setIsImageExists(false);
     if (inputRef.current) inputRef.current.value = "";
+    setIsImageChanged?.(true)
   };
 
   useEffect(() => {

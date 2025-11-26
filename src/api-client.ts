@@ -221,6 +221,18 @@ export const getSubCategoryById = async (id: number) => {
   return responseBody
 }
 
+export const getSubCategoriesByCategory = async (category: string) => {
+  const response = await fetch(`${API_URL}/sub-categories/identifies/${category}`, {
+    credentials: "include",
+  })
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}
+
 export const createSubCategory = async (formData: SubCategoryCreation) => {
   const response = await fetch(`${API_URL}/sub-categories`, {
     method: "POST",
@@ -276,8 +288,8 @@ export const getAllProducts = async () => {
   return responseBody
 }
 
-export const getProductById = async (id: number) => {
-  const response = await fetch(`${API_URL}/products/${id}`, {
+export const getProductSettingsById = async (id: number) => {
+  const response = await fetch(`${API_URL}/products/settings/${id}`, {
     credentials: "include",
   })
 
@@ -287,6 +299,16 @@ export const getProductById = async (id: number) => {
 
   return responseBody
 }
+
+export const getProductImage = async (id: number) => {
+  const response = await fetch(`${API_URL}/products/${id}/image`, {
+    credentials: "include"
+  });
+
+  if (!response.ok) throw new Error("Failed fetch profile image");
+
+  return response.blob();
+};
 
 export const createProduct = async (formData: FormData) => {
   const response = await fetch(`${API_URL}/products`, {

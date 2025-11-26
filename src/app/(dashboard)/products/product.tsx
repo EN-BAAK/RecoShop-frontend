@@ -1,14 +1,15 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { MoreVertical, Edit3, Trash2, Package } from "lucide-react";
+import { MoreVertical, Edit3, Trash2 } from "lucide-react";
 import { useDeleteProduct } from "@/hooks/useProduct";
 import { useAppContext } from "@/contexts/AppProvider";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu";
-import Image from "next/image";
 import { ProductProps } from "@/types/components";
 import { Button } from "@/components/ui/button";
 import { DropdownMenuLabel, DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
+import ProductImage from "./ProductImage";
+import { SubCategory } from "@/types/global";
 
 const Product: React.FC<ProductProps> = ({ product }) => {
   const router = useRouter();
@@ -37,23 +38,12 @@ const Product: React.FC<ProductProps> = ({ product }) => {
   };
 
   return (
-    <div className="bg-background p-6 border border-muted rounded-xl shadow-sm relative font-sans transition-shadow duration-200 hover:shadow-md group">
-      {product.imgURL ? (
-        <div className="bg-muted h-48 mb-4 rounded-lg relative overflow-hidden">
-          <Image
-            loading="lazy"
-            src={product.imgURL}
-            alt={product.title}
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-        </div>
-      ) : (
-        <div className="bg-muted h-48 mb-4 rounded-lg flex items-center justify-center relative overflow-hidden">
-          <Package className="w-16 h-16 text-muted-foreground/30" />
-        </div>
-      )}
+    <div className="bg-background border border-muted rounded-xl shadow-sm relative font-sans transition-shadow duration-200 hover:shadow-md group">
+      <div className="p-1">
+        <ProductImage id={product.id} title={product.title} height={200} width={100} containerStyle="bg-muted mb-4 rounded-lg relative overflow-hidden" />
+      </div>
 
-      <div className="mb-4">
+      <div className="p-2">
         <div className="mb-3 flex items-start justify-between gap-2">
           <div className="flex-1 min-w-0">
             <h3 className="mb-1 leading-tight line-clamp-2 font-sans font-semibold text-xl text-primary">
@@ -109,24 +99,26 @@ const Product: React.FC<ProductProps> = ({ product }) => {
           </span>
         </div>
 
-        {/* {product.categories && product.categories.length > 0 && (
+        {product.subCategories && product.subCategories.length > 0 && (
           <div className="mt-3 flex flex-wrap gap-2">
-            {product.categories.map((category: string, index: number) => (
+            {product.subCategories.map((category: Omit<SubCategory, "desc" | "categoryId">) => (
               <span
-                key={`${category}-${index}`}
+                key={`category-${product.id}-${category.id}`}
                 className="bg-primary/10 px-2.5 py-1 rounded-md font-sans font-medium text-xs text-primary"
               >
-                {category}
+                {category.title}
               </span>
             ))}
           </div>
-        )} */}
-        <span
-          className="bg-primary/10 px-2.5 py-1 rounded-md font-sans font-medium text-xs text-primary"
-        >
-          {/* {product.category} */}
-        </span>
+        )}
 
+        {product.category && (
+          <div className="absolute right-2 top-2">
+            <span className="bg-primary/10 px-3 py-1 rounded-md font-sans font-medium text-xs text-primary">
+              {product.category}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -98,6 +98,8 @@ export const useDeleteCategory = () => {
         data: oldData.data.filter((cat) => cat.id !== id)
       }
     })
+
+    queryClient.invalidateQueries({ queryKey: ["categories", id] })
     pushToast({ message: data.message, type: "SUCCESS" })
   }
 
