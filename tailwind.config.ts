@@ -9,6 +9,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      gridTemplateColumns: {
+        gridTemplateColumns: {
+          '5': 'repeat(5, minmax(0, 1fr))',
+          '6': 'repeat(6, minmax(0, 1fr))',
+        },
+      },
       colors: {
         primary: "#2E8B57",
         accent: "#C44536",

@@ -305,7 +305,7 @@ export const getProductImage = async (id: number) => {
     credentials: "include"
   });
 
-  if (!response.ok) throw new Error("Failed fetch profile image");
+  if (!response.ok) throw new Error("Failed fetch product image");
 
   return response.blob();
 };
@@ -387,3 +387,72 @@ export const deleteUser = async (id: number) => {
 
   return responseBody
 }
+
+export const getAllBrands = async () => {
+  const response = await fetch(`${API_URL}/brands`, {
+    credentials: "include",
+  });
+
+  const responseBody = await response.json();
+  if (!response.ok) throw new Error(responseBody.message);
+
+  return responseBody;
+};
+
+export const getBrandById = async (id: number) => {
+  const response = await fetch(`${API_URL}/brands/${id}`, {
+    credentials: "include",
+  });
+
+  const responseBody = await response.json();
+  if (!response.ok) throw new Error(responseBody.message);
+
+  return responseBody;
+};
+
+export const getBrandImageById = async (id: number) => {
+  const response = await fetch(`${API_URL}/brands/${id}/image`, {
+    credentials: "include",
+  });
+
+  if (!response.ok) throw new Error("Failed fetch brand image");
+  return response.blob();
+};
+
+export const createBrand = async (formData: FormData) => {
+  const response = await fetch(`${API_URL}/brands`, {
+    method: "POST",
+    credentials: "include",
+    body: formData,
+  });
+
+  const responseBody = await response.json();
+  if (!response.ok) throw new Error(responseBody.message);
+
+  return responseBody;
+};
+
+export const updateBrand = async ({ id, data, }: UpdateItemWithFormData) => {
+  const response = await fetch(`${API_URL}/brands/${id}`, {
+    method: "PUT",
+    credentials: "include",
+    body: data,
+  });
+
+  const responseBody = await response.json();
+  if (!response.ok) throw new Error(responseBody.message);
+
+  return responseBody;
+};
+
+export const deleteBrand = async (id: number) => {
+  const response = await fetch(`${API_URL}/brands/${id}`, {
+    method: "DELETE",
+    credentials: "include",
+  });
+
+  const responseBody = await response.json();
+  if (!response.ok) throw new Error(responseBody.message);
+
+  return responseBody;
+};

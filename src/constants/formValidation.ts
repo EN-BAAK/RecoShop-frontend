@@ -78,10 +78,9 @@ export const createProduct = Yup.object({
     .min(3, "Product name must be at least 3 characters")
     .max(100, "Product name is too long (max 100 characters)"),
 
-  brand: Yup.string()
+  brandId: Yup.number()
     .required("Brand is required")
-    .min(2, "Brand name is too short")
-    .max(50, "Brand name is too long"),
+    .min(1, "Select a valid category"),
 
   price: Yup.number()
     .typeError("Enter a valid number for price")
@@ -91,13 +90,10 @@ export const createProduct = Yup.object({
 
   desc: Yup.string().max(500, "Description is too long (max 500 characters)"),
 
-  // categories: Yup.array()
-  //   .of(Yup.string().required())
-  //   .min(1, "Select at least one category")
-  //   .required("Categories selection is required"),
-  categoryId: Yup.number()
-    .min(1, "Select a valid category")
-    .optional(),
+  categories: Yup.array()
+    .of(Yup.string().required())
+    .min(1, "Select at least one category")
+    .required("Categories selection is required"),
 });
 
 export const editProduct = Yup.object({
@@ -106,9 +102,8 @@ export const editProduct = Yup.object({
     .max(100, "Product name is too long (max 100 characters)")
     .optional(),
 
-  brand: Yup.string()
-    .min(2, "Brand name is too short")
-    .max(50, "Brand name is too long")
+  brandId: Yup.string()
+    .min(1, "Select a valid category")
     .optional(),
 
   price: Yup.number()
@@ -121,12 +116,9 @@ export const editProduct = Yup.object({
     .max(500, "Description is too long (max 500 characters)")
     .optional(),
 
-  // categories: Yup.array()
-  //   .of(Yup.number().required())
-  //   .min(1, "Select at least one category")
-  //   .optional(),
-  categoryId: Yup.number()
-    .min(1, "Select a valid category")
+  categories: Yup.array()
+    .of(Yup.number().required())
+    .min(1, "Select at least one category")
     .optional(),
 });
 
@@ -152,4 +144,11 @@ export const forgotPasswordStep2 = Yup.object({
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password")], "Passwords do not match")
     .required("Confirm password is required"),
+});
+
+export const createBrand = Yup.object().shape({
+  name: Yup.string()
+    .required("Brand name is required")
+    .min(2, "Brand name must be at least 2 characters")
+    .max(50, "Brand name cannot exceed 50 characters"),
 });

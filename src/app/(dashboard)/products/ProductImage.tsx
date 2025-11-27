@@ -19,8 +19,6 @@ const ProductImage: React.FC<ProductImageProps> = ({ id, height = 35, width = 35
     }
   }, [profileImage]);
 
-  const iconHeight = height / 100
-
   return (
     <div className={cn(
       `h-[${height}px]`,

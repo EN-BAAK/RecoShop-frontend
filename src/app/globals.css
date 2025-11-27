@@ -92,6 +92,10 @@ html {
   text-align: left;
 }
 
+.revert-layer {
+  height: revert-layer  ;
+}
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Formik, Form, FormikHelpers } from "formik";
 import { useCreateProduct } from "@/hooks/useProduct";
-import { Category, ProductCreation, SubCategory } from "@/types/global";
+import { Brand, Category, ProductCreation, SubCategory } from "@/types/global";
 import SubmitButton from "@/components/forms/SubmitButton";
 import InputField from "@/components/forms/InputField";
 import TextAreaField from "@/components/forms/TextAreaField";
@@ -14,6 +14,8 @@ import { createProduct as createProductValidation } from "@/constants/formValida
 import { useGetAllCategories } from "@/hooks/useCategory";
 import { useGetSubCategoriesByCategory } from "@/hooks/useSubCategory";
 import MultiSelectorField from "@/components/forms/MultiSelectorField";
+import { useGetAllBrands } from "@/hooks/useBrand";
+import SelectorField from "@/components/forms/SelectorField";
 
 const CreateProductPage: React.FC = () => {
   const [image, setImage] = useState<File | undefined>(undefined);
@@ -21,6 +23,7 @@ const CreateProductPage: React.FC = () => {
 
   const { mutateAsync: createProduct } = useCreateProduct();
   const { data: categoriesData, isFetching: isCategoriesLoading } = useGetAllCategories();
+  const { data: brandsData, isFetching: isBrandsLoading } = useGetAllBrands();
   const { data: SubCategoriesData, isFetching: isSubCategoriesLoading } = useGetSubCategoriesByCategory(selectedCategory);
 
   const categories = categoriesData?.data || []
@@ -31,7 +34,7 @@ const CreateProductPage: React.FC = () => {
   ) => {
     const formData = new FormData();
     formData.append("title", values.title);
-    formData.append("brand", values.brand);
+    formData.append("brandId", values.brandId.toString());
     formData.append("price", values.price.toString());
     formData.append("desc", values.desc);
     values.categories.forEach((cat: number) =>
@@ -50,6 +53,11 @@ const CreateProductPage: React.FC = () => {
 
   const subCategoryOptions = SubCategoriesData?.data?.map((sub: Omit<SubCategory, "desc" | "categoryId">) => ({
     key: sub.title,
+    value: String(sub.id),
+  })) || [];
+
+  const brandOptions = brandsData?.data?.map((sub: Omit<Brand, "imgURL">) => ({
+    key: sub.name,
     value: String(sub.id),
   })) || [];
 
@@ -75,13 +83,15 @@ const CreateProductPage: React.FC = () => {
                 required
               />
 
-              <InputField
-                name="brand"
-                type="text"
-                label="Brand"
-                placeholder="Manufacturer name..."
-                required
-              />
+              {!isBrandsLoading &&
+                <SelectorField
+                  options={brandOptions}
+                  name="brandId"
+                  required
+                  label="brand"
+                  styles="font-sans"
+                />
+              }
 
               <InputField
                 name="price"
@@ -98,23 +108,27 @@ const CreateProductPage: React.FC = () => {
               />
 
               {!isCategoriesLoading && (
-                <select
-                  className="w-full border p-3 rounded-md bg-background"
-                  value={selectedCategory}
-                  onChange={(e) => {
-                    const title = e.target.value;
-                    setSelectedCategory(title);
-                    setFieldValue("categories", []);
-                  }}
-                >
-                  <option value="" disabled>Select Category</option>
+                <React.Fragment>
+                  <label className="mb-1">Group:</label>
 
-                  {categoryOptions.map((cat: { value: string, key: string }) => (
-                    <option key={cat.value} value={cat.value}>
-                      {cat.key}
-                    </option>
-                  ))}
-                </select>
+                  <select
+                    className="w-full border p-3 rounded-md bg-background"
+                    value={selectedCategory}
+                    onChange={(e) => {
+                      const title = e.target.value;
+                      setSelectedCategory(title);
+                      setFieldValue("categories", []);
+                    }}
+                  >
+                    <option value="" disabled>Select Category</option>
+
+                    {categoryOptions.map((cat: { value: string, key: string }) => (
+                      <option key={cat.value} value={cat.value}>
+                        {cat.key}
+                      </option>
+                    ))}
+                  </select>
+                </React.Fragment>
               )}
 
               {(!isSubCategoriesLoading && !isCategoriesLoading) && (

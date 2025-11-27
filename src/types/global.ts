@@ -56,8 +56,9 @@ export type Product = {
   imgURL?: string
 }
 
-export type ProductCreation = Omit<Product, "id" | "imgURL"> & {
-  categories: number[]
+export type ProductCreation = Omit<Product, "id" | "imgURL" | "brand"> & {
+  categories: number[],
+  brandId: number
 }
 
 export type ProductGlobal = Product & {
@@ -85,3 +86,11 @@ export interface AccessItem {
   roles: ROLE[];
   children?: AccessItem[];
 }
+
+export type Brand = {
+  id: number,
+  name: string,
+  imgURL?: string,
+}
+
+export type BrandCreation = Omit<Brand, "id" | "imgURL">

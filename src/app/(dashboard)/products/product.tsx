@@ -58,7 +58,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
             <DropdownMenuTrigger asChild>
               <Button
                 className="bg-transparent h-8 w-8 flex justify-center items-center rounded-full cursor-pointer transition duration-300 hover:bg-muted"
-                aria-label="optoins"
+                aria-label="options"
                 variant="ghost"
                 size="icon"
               >

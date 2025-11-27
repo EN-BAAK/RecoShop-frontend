@@ -1,4 +1,4 @@
-import { Category, ProductGlobal, SubCategoryGlobal, User } from "./global";
+import { Brand, Category, ProductGlobal, SubCategoryGlobal, User } from "./global";
 import { Notification, Variant } from "./variables";
 
 export type ToastMessage = {
@@ -76,4 +76,16 @@ export type ProductImageProps = {
   imageStyle?: string,
   title: string,
   containerStyle: string
+}
+
+export type BrandImageProps = {
+  id: number,
+  height?: number,
+  width?: number,
+  imageStyle?: string,
+  title: string,
+}
+
+export type BrandProps = {
+  brand: Brand
 }

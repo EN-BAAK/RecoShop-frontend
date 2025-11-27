@@ -30,7 +30,7 @@ export const subcategory: SubCategoryCreation = {
 
 export const product: ProductCreation = {
   title: "",
-  brand: "",
+  brandId: 0,
   price: 0,
   desc: "",
   categories: [],
@@ -45,4 +45,8 @@ export const forgotPasswordStep2: ForgotPasswordStep2 = {
   code: "",
   password: "",
   confirmPassword: "",
+};
+
+export const brand = {
+  name: "",
 };

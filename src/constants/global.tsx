@@ -1,11 +1,12 @@
 import { AccessItem } from "@/types/global";
 import { NavItem } from "@/types/variables";
-import { LayoutDashboard, Package, ShoppingBag, Users, ShoppingCart, Settings, Layers, } from "lucide-react";
+import { LayoutDashboard, Package, ShoppingBag, Users, ShoppingCart, Settings, Layers, Tags } from "lucide-react";
 
 export const navItems: NavItem[] = [
   { title: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { title: "Categories", href: "/categories", icon: Package },
   { title: "Subcategories", href: "/subcategories", icon: Layers },
+  { title: "Brands", href: "/brands", icon: Tags },
   { title: "Products", href: "/products", icon: ShoppingBag },
   { title: "Users", href: "/users", icon: Users },
   { title: "Orders", href: "/orders", icon: ShoppingCart },
