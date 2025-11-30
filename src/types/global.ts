@@ -11,6 +11,10 @@ export type User = {
   gender: SEX
 }
 
+export type UserGlobal = Omit<User, "role"> & {
+  isVerified: boolean
+}
+
 export type LoginProps = {
   email: string,
   password: string

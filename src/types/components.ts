@@ -1,5 +1,5 @@
-import { Brand, Category, ProductGlobal, SubCategoryGlobal, User } from "./global";
-import { Notification, Variant } from "./variables";
+import { Brand, Category, ProductGlobal, SubCategoryGlobal, UserGlobal } from "./global";
+import { Notification, SEX, Variant } from "./variables";
 
 export type ToastMessage = {
   message: string;
@@ -66,7 +66,7 @@ export type ProductProps = {
 }
 
 export type UserProps = {
-  user: User
+  user: UserGlobal
 }
 
 export type ProductImageProps = {
@@ -88,4 +88,8 @@ export type BrandImageProps = {
 
 export type BrandProps = {
   brand: Brand
+}
+
+export type GenderBadgeProps = {
+  gender: SEX
 }

@@ -4,10 +4,10 @@ import { User } from "@/types/global";
 import { APIResponse } from "@/types/hooks";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-export const useGetAllUsers = () => {
+export const useGetAllUsers = (isVerified?: boolean) => {
   return useQuery({
     queryKey: ["users"],
-    queryFn: getAllUsers,
+    queryFn: () => getAllUsers(isVerified),
     retry: false,
   });
 };

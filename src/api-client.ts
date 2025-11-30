@@ -351,17 +351,21 @@ export const deleteProduct = async (id: number) => {
   return responseBody
 }
 
-export const getAllUsers = async () => {
-  const response = await fetch(`${API_URL}/users`, {
+export const getAllUsers = async (isVerified?: boolean) => {
+  const extensionURL =
+    isVerified === undefined ? "" : `?isVerified=${isVerified}`;
+
+  const response = await fetch(`${API_URL}/users${extensionURL}`, {
     credentials: "include",
-  })
+  });
 
-  const responseBody = await response.json()
+  const responseBody = await response.json();
 
-  if (!response.ok) throw new Error(responseBody.message)
+  if (!response.ok) throw new Error(responseBody.message);
 
-  return responseBody
-}
+  return responseBody;
+};
+
 
 export const getUserById = async (id: number) => {
   const response = await fetch(`${API_URL}/users/${id}`, {

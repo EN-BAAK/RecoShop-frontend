@@ -1,14 +1,18 @@
 "use client";
 
-import { Trash2, Mail, Phone, MapPin, User as UserIcon } from "lucide-react";
+import React from "react";
+import { Trash2, Phone, MapPin, Check } from "lucide-react";
 import { useDeleteUser } from "@/hooks/useUser";
 import { useAppContext } from "@/contexts/AppProvider";
 import { UserProps } from "@/types/components";
-import { ROLE, SEX } from "@/types/variables";
 import Avatar from "@/components/Avatar";
+import { TableRow, TableCell } from "@/components/ui/table";
 import CustomButton from "@/components/forms/Button";
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
+import { GenderBadge } from "./GenderBadge";
 
-const UserCard: React.FC<UserProps> = ({ user }) => {
+const UserRow: React.FC<UserProps> = ({ user }) => {
   const { showWarning } = useAppContext();
   const { mutate: deleteUser, isPending } = useDeleteUser();
 
@@ -23,78 +27,70 @@ const UserCard: React.FC<UserProps> = ({ user }) => {
     });
   };
 
-  const getGenderLabel = (gender: SEX) => {
-    return gender === SEX.MALE ? "Male" : "Female";
-  };
-
-  const getRoleLabel = (role: ROLE) => {
-    const roleLabels: Record<string, string> = {
-      ADMIN: "Admin",
-      Client: "User",
-    };
-    return roleLabels[role] || role;
-  };
-
   return (
-    <div className="bg-white p-6 border border-muted rounded-xl shadow-sm font-sans relative transition-shadow duration-200 hover:shadow-md group">
-      <div className="mb-4 flex items-start justify-between">
+    <TableRow>
+      <TableCell>
         <div className="flex items-center gap-3">
-          <Avatar firstName={user.firstName} width={50} height={50} />
-
-          <div className="flex-1 min-w-0">
-            <h3 className="text-lg font-semibold text-foreground line-clamp-1">
+          <Avatar firstName={user.firstName} width={40} height={40} />
+          <div className="min-w-0">
+            <div className="truncate text-sm font-medium text-foreground">
               {user.firstName} {user.lastName}
-            </h3>
-
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-md bg-primary/10 text-primary">
-              {getRoleLabel(user.role)}
-            </span>
+            </div>
+            <div className="truncate text-xs text-muted-foreground">
+              {user.email}
+            </div>
           </div>
         </div>
-      </div>
+      </TableCell>
 
-      <div className="mb-4 space-y-3">
-        <div className="flex items-center gap-2 text-sm">
-          <Mail className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-          <span className="text-muted-foreground truncate" dir="ltr">
-            {user.email}
-          </span>
+      <TableCell>
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Phone className="flex-shrink-0 w-4 h-4 text-muted-foreground" />
+          <span>{user.phone}</span>
         </div>
+      </TableCell>
 
-        <div className="flex items-center gap-2 text-sm">
-          <Phone className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-          <span className="text-muted-foreground" dir="ltr">
-            {user.phone}
-          </span>
+      <TableCell>
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <MapPin className="flex-shrink-0 w-4 h-4 text-muted-foreground" />
+          <span>{user.governorate}</span>
         </div>
+      </TableCell>
 
-        <div className="flex items-center gap-2 text-sm">
-          <MapPin className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-          <span className="text-muted-foreground">
-            {user.governorate}
-          </span>
-        </div>
+      <TableCell>
+        <GenderBadge gender={user.gender} />
+      </TableCell>
 
-        <div className="flex items-center gap-2 text-sm">
-          <UserIcon className="w-4 h-4 text-muted-foreground flex-shrink-0" />
-          <span className="text-muted-foreground">
-            {getGenderLabel(user.gender)}
-          </span>
-        </div>
-      </div>
+      <TableCell>
+        <Badge className={cn(
+          "flex items-center gap-2",
+          user.isVerified ? "bg-primary/20 text-primary" : "bg-accent/20 text-accent"
+        )}>
+          {user.isVerified ? (
+            <React.Fragment>
+              Verified
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              Not Verified
+            </React.Fragment>
+          )}
+        </Badge>
+      </TableCell>
 
-      <div className="pt-4 flex items-center gap-2 border-t border-muted">
+      <TableCell className="text-right">
         <CustomButton
-          icon={Trash2}
-          label={isPending ? "Deleting..." : "Delete"}
+          variant="danger"
           onClick={handleDelete}
           disabled={isPending}
-          variant="danger-outline"
-          className="rounded-md"
+          aria-label="Delete user"
+          className="w-fit px-2 inline rounded-md"
+          iconClassName="w-4 h-4"
+          icon={Trash2}
         />
-      </div>
-    </div>
+      </TableCell>
+    </TableRow>
   );
 };
 
-export default UserCard;
+export default UserRow;
