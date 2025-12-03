@@ -18,7 +18,7 @@ const CategoriesPage: React.FC = () => {
   const { data, isFetching, isError, error, refetch } = useGetAllCategories();
 
   const handleAddNewCategory = () => {
-    router.push("/categories/add");
+    router.push("categories/add");
   };
 
   const categories = data?.data || [];
@@ -28,7 +28,7 @@ const CategoriesPage: React.FC = () => {
       title="Manage Categories"
       desc="Easily manage your product categories to better organize your online store."
       outerElement={
-        <Link href="/categories/add" passHref>
+        <Link href="categories/add" passHref>
           <CustomButton
             label="Add New Category"
             className="w-fit rounded-full absolute bottom-8 left-8 z-50"

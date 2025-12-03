@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 export const useGetAllBrands = () => {
   return useQuery({
-    queryKey: ["brands"],
+    queryKey: ["da-brands"],
     queryFn: getAllBrands,
     retry: false,
   });
@@ -15,7 +15,7 @@ export const useGetAllBrands = () => {
 
 export const useGetBrandById = (id: number) => {
   return useQuery({
-    queryKey: ["brand", id],
+    queryKey: ["da-brand", id],
     queryFn: () => getBrandById(id),
     enabled: !!id,
     retry: false,
@@ -24,7 +24,7 @@ export const useGetBrandById = (id: number) => {
 
 export const useGetBrandImage = (id: number) => {
   return useQuery({
-    queryKey: ["brand-image", id],
+    queryKey: ["da-brand-image", id],
     queryFn: () => getBrandImageById(id),
     retry: false
   })
@@ -39,7 +39,7 @@ export const useCreateBrand = () => {
     const newBrand = data.data;
 
     queryClient.setQueryData<APIResponse<Brand[]>>(
-      ["brands"],
+      ["da-brands"],
       (oldData) => {
         if (!oldData) return oldData;
 
@@ -51,7 +51,7 @@ export const useCreateBrand = () => {
     );
 
     pushToast({ message: data.message, type: "SUCCESS" });
-    router.push("/brands");
+    router.push("/dashboard/brands");
   };
 
   const onError = (error: Error) => {
@@ -73,11 +73,11 @@ export const useUpdateBrand = () => {
   const onSuccess = (data: APIResponse<Brand>) => {
     const updated = data.data;
 
-    queryClient.invalidateQueries({ queryKey: ["brand", updated.id] })
-    queryClient.removeQueries({ queryKey: ["brand-image", updated.id] })
+    queryClient.invalidateQueries({ queryKey: ["da-brand", updated.id] })
+    queryClient.removeQueries({ queryKey: ["da-brand-image", updated.id] })
 
     queryClient.setQueryData<APIResponse<Brand[]>>(
-      ["brands"],
+      ["da-brands"],
       (oldData) => {
         if (!oldData) return oldData;
 
@@ -90,10 +90,10 @@ export const useUpdateBrand = () => {
       }
     );
 
-    queryClient.invalidateQueries({ queryKey: ["brands", updated.id] });
+    queryClient.invalidateQueries({ queryKey: ["da-brands", updated.id] });
 
     pushToast({ message: data.message, type: "SUCCESS" });
-    router.push("/brands");
+    router.push("/dashboard/brands");
   };
 
   return useMutation({
@@ -110,7 +110,7 @@ export const useDeleteBrand = () => {
 
   const onSuccess = (data: APIResponse<Brand>, id: number) => {
     queryClient.setQueryData<APIResponse<Brand[]>>(
-      ["brands"],
+      ["da-brands"],
       (oldData) => {
         if (!oldData) return oldData;
 
@@ -121,8 +121,8 @@ export const useDeleteBrand = () => {
       }
     );
 
-    queryClient.invalidateQueries({ queryKey: ["brand", id] })
-    queryClient.invalidateQueries({ queryKey: ["brand-image", id] })
+    queryClient.invalidateQueries({ queryKey: ["da-brand", id] })
+    queryClient.invalidateQueries({ queryKey: ["da-brand-image", id] })
     pushToast({ message: data.message, type: "SUCCESS" });
   };
 

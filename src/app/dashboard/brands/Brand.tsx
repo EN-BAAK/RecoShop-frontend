@@ -16,7 +16,7 @@ const Brand: React.FC<BrandProps> = ({ brand }) => {
   const { mutate: deleteBrand, isPending } = useDeleteBrand();
 
   const handleEdit = () => {
-    router.push(`/brands/edit/${brand.id}`);
+    router.push(`brands/edit/${brand.id}`);
   };
 
   const handleDelete = () => {

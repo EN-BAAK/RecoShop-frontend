@@ -1,5 +1,5 @@
 import { AccessItem } from "@/types/global";
-import { NavItem } from "@/types/variables";
+import { NavItem, ROLE } from "@/types/variables";
 import { LayoutDashboard, Package, ShoppingBag, Users, ShoppingCart, Settings, Layers, Tags } from "lucide-react";
 
 export const navItems: NavItem[] = [
@@ -26,10 +26,22 @@ export const colors: string[] = [
   "bg-cyan-600",
 ];
 
-
 export const accessGuid: AccessItem[] = [
   { authorized: false, path: "/login", roles: [] },
   { authorized: false, path: "/signup", roles: [] },
   { authorized: false, path: "/verify", roles: [] },
   { authorized: false, path: "/forgot-password", roles: [] },
+
+  {
+    authorized: true,
+    path: "/dashboard",
+    roles: [ROLE.ADMIN, ROLE.MANAGER],
+    children: [
+      { authorized: true, path: "/dashboard/brands", roles: [ROLE.ADMIN, ROLE.MANAGER] },
+      { authorized: true, path: "/dashboard/categories", roles: [ROLE.ADMIN, ROLE.MANAGER] },
+      { authorized: true, path: "/dashboard/subcategories", roles: [ROLE.ADMIN, ROLE.MANAGER] },
+      { authorized: true, path: "/dashboard/products", roles: [ROLE.ADMIN, ROLE.MANAGER] },
+      { authorized: true, path: "/dashboard/users", roles: [ROLE.ADMIN] },
+    ],
+  },
 ];

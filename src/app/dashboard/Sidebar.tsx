@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Menu, X, LogOut, ChevronLeft } from "lucide-react";
 import { navItems } from "@/constants/global";
@@ -10,7 +10,6 @@ import Avatar from "@/components/Avatar";
 import { useAppContext } from "@/contexts/AppProvider";
 import LoadingPage from "@/components/LoadingPage";
 import CustomButton from "@/components/forms/Button";
-import { ROLE } from "@/types/variables";
 import { useLogout } from "@/hooks/useAuth";
 import Image from "next/image";
 
@@ -19,19 +18,9 @@ const Sidebar: React.FC = () => {
 
   const pathname = usePathname();
   const { user } = useAppContext();
-  const router = useRouter();
   const { mutate: logout, isPending: isLoggingOut } = useLogout();
 
   const toggleSidebar = () => setIsOpen(!isOpen);
-
-  const roleText =
-    user?.role === ROLE.ADMIN ? "Admin" : "Shopper";
-
-  useEffect(() => {
-    if (!user) {
-      router.replace("/login");
-    }
-  }, [user, router]);
 
   if (!user) return <LoadingPage />;
 
@@ -115,7 +104,7 @@ const Sidebar: React.FC = () => {
               <p className="truncate font-sans font-semibold text-sm text-foreground">
                 {user.firstName} {user.lastName}
               </p>
-              <p className="font-sans text-xs text-muted-foreground">{roleText}</p>
+              <p className="lowercase font-sans text-xs text-muted-foreground">{user.role}</p>
             </div>
           </div>
 

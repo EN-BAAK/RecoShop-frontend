@@ -6,7 +6,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const useGetAllUsers = (isVerified?: boolean) => {
   return useQuery({
-    queryKey: ["users"],
+    queryKey: ["da-users"],
     queryFn: () => getAllUsers(isVerified),
     retry: false,
   });
@@ -14,7 +14,7 @@ export const useGetAllUsers = (isVerified?: boolean) => {
 
 export const useGetUserById = (id: number) => {
   return useQuery({
-    queryKey: ["users", id],
+    queryKey: ["da-users", id],
     queryFn: () => getUserById(id),
     enabled: !!id,
     retry: false,
@@ -27,7 +27,7 @@ export const useDeleteUser = () => {
 
   const onSuccess = (data: APIResponse<User>, id: number) => {
     queryClient.setQueryData<APIResponse<User[]>>(
-      ["users"],
+      ["da-users"],
       (oldData) => {
         if (!oldData) return oldData;
         return {

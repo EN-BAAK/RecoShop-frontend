@@ -3,37 +3,31 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { PlusCircle } from "lucide-react";
-import { useGetAllProducts } from "@/hooks/useProduct";
 import PageHolder from "@/app/PageHolder";
 import CustomButton from "@/components/forms/Button";
 import LoadingPage from "@/components/LoadingPage";
 import ErrorPage from "@/components/ErrorPage";
 import EmptyElement from "@/components/EmptyElement";
-import { ProductGlobal } from "@/types/global";
-import Product from "./Product";
+import { Brand as BrandType } from "@/types/global";
+import { useGetAllBrands } from "@/hooks/useBrand";
+import Brand from "./Brand";
 
-const ProductsPage: React.FC = () => {
+const BrandPage: React.FC = () => {
   const router = useRouter();
-  const {
-    data,
-    isLoading: isFetching,
-    isError,
-    error,
-    refetch,
-  } = useGetAllProducts();
+  const { data, isLoading: isFetching, isError, error, refetch, } = useGetAllBrands();
 
-  const products = data?.data || []
+  const brands = data?.data || []
 
-  const handleAddNewProduct = () => router.push("/products/add")
+  const handleAddNewBrand = () => router.push("brands/add")
 
   return (
     <PageHolder
       title="Product Management"
       desc="Flexible management for your products to simplify organizing your online store and viewing all details."
       outerElement={
-        <Link href="/products/add" passHref>
+        <Link href="brands/add" passHref>
           <CustomButton
-            label="Add New Product"
+            label="Add New Brand"
             className="w-fit rounded-full absolute bottom-2 left-8 z-50"
             icon={PlusCircle}
           />
@@ -44,20 +38,20 @@ const ProductsPage: React.FC = () => {
         <LoadingPage />
       ) : isError ? (
         <ErrorPage action={refetch} msg={error?.message} />
-      ) : products.length === 0 ? (
+      ) : brands.length === 0 ? (
         <EmptyElement
-          title="There are no products yet"
-          desc="Start by adding a new product to display it in your store"
+          title="There are no brands yet"
+          desc="Start by adding a new brand to display it in your store"
           button={{
-            action: handleAddNewProduct,
-            msg: "Add New Product",
+            action: handleAddNewBrand,
+            msg: "Add New Brand",
           }}
         />
       ) : (
         <div className="overflow-y-auto">
-          <div className="grid grid-cols-1 gap-6 xs:gird-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
-            {products.map((product: ProductGlobal) => (
-              <Product key={product.id} product={product} />
+          <div className="grid grid-cols-2 gap-2 xs:gird-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-6">
+            {brands.map((brand: BrandType) => (
+              <Brand key={brand.id} brand={brand} />
             ))}
           </div>
         </div>
@@ -66,4 +60,4 @@ const ProductsPage: React.FC = () => {
   );
 };
 
-export default ProductsPage;
+export default BrandPage;

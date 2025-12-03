@@ -19,7 +19,7 @@ const SubCategoriesPage: React.FC = () => {
   const subcategories = data?.data || [];
 
   const handleAddNew = () => {
-    router.push("/subcategories/add");
+    router.push("subcategories/add");
   };
 
   return (
@@ -27,7 +27,7 @@ const SubCategoriesPage: React.FC = () => {
       title="Subcategory Management"
       desc="Manage your subcategories to better organize your products within the main categories."
       outerElement={
-        <Link href="/subcategories/add" passHref>
+        <Link href="subcategories/add" passHref>
           <CustomButton
             label="Add New Subcategory"
             className="w-fit rounded-full absolute bottom-8 left-8 z-50"

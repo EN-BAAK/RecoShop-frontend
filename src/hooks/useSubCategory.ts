@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 export const useGetAllSubCategories = () => {
   return useQuery({
-    queryKey: ["sub-categories"],
+    queryKey: ["da-sub-categories"],
     queryFn: getAllSubCategories,
     retry: false,
   });
@@ -15,7 +15,7 @@ export const useGetAllSubCategories = () => {
 
 export const useGetSubCategoryById = (id: number) => {
   return useQuery({
-    queryKey: ["sub-categories", id],
+    queryKey: ["da-sub-categories", id],
     queryFn: () => getSubCategoryById(id),
     enabled: !!id,
     retry: false,
@@ -27,7 +27,7 @@ export const useGetSubCategoriesByCategory = (
   options: { enabled?: boolean } = {}
 ) => {
   return useQuery({
-    queryKey: ["sub-categories-identifies", category],
+    queryKey: ["da-sub-categories-identifies", category],
     queryFn: () => getSubCategoriesByCategory(category),
     retry: false,
     enabled: options.enabled ?? true,
@@ -43,7 +43,7 @@ export const useCreateSubCategory = () => {
     const newSubCategory = data.data;
 
     queryClient.setQueryData<APIResponse<SubCategoryGlobal[]>>(
-      ["sub-categories"],
+      ["da-sub-categories"],
       (oldData) => {
         if (!oldData) return oldData;
         return {
@@ -54,7 +54,7 @@ export const useCreateSubCategory = () => {
     );
 
     pushToast({ message: data.message, type: "SUCCESS" });
-    router.push("/subcategories");
+    router.push("/dashboard/subcategories");
   };
 
   const onError = (error: Error) => {
@@ -77,7 +77,7 @@ export const useUpdateSubCategory = () => {
     const updated = data.data;
 
     queryClient.setQueryData<APIResponse<SubCategoryGlobal[]>>(
-      ["sub-categories"],
+      ["da-sub-categories"],
       (oldData) => {
         if (!oldData) return oldData;
         return {
@@ -89,9 +89,9 @@ export const useUpdateSubCategory = () => {
       }
     );
 
-    queryClient.invalidateQueries({ queryKey: ["sub-categories", updated.id] })
+    queryClient.invalidateQueries({ queryKey: ["da-sub-categories", updated.id] })
     pushToast({ message: data.message, type: "SUCCESS" });
-    router.push("/subcategories");
+    router.push("/dashboard/subcategories");
   };
 
   const onError = (error: Error) => {
@@ -111,7 +111,7 @@ export const useDeleteSubCategory = () => {
 
   const onSuccess = (data: APIResponse<SubCategoryGlobal>, id: number) => {
     queryClient.setQueryData<APIResponse<SubCategoryGlobal[]>>(
-      ["sub-categories"],
+      ["da-sub-categories"],
       (oldData) => {
         if (!oldData) return oldData;
         return {

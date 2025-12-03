@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Trash2, Phone, MapPin, Check } from "lucide-react";
+import { Trash2, Phone, MapPin } from "lucide-react";
 import { useDeleteUser } from "@/hooks/useUser";
 import { useAppContext } from "@/contexts/AppProvider";
 import { UserProps } from "@/types/components";

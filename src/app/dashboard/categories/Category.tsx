@@ -15,7 +15,7 @@ const Category: React.FC<CategoryProps> = ({ category }) => {
   const { mutateAsync: deleteCategory, isPending: isDeleting } = useDeleteCategory();
 
   const handleEdit = () => {
-    router.push(`/categories/edit/${category.id}`);
+    router.push(`categories/edit/${category.id}`);
   };
 
   const handleDelete = () => {

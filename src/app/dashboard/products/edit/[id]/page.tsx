@@ -66,8 +66,8 @@ const EditProductPage: React.FC = () => {
     if (values.title !== initialValues.title)
       formData.append("title", values.title);
 
-    if (values.brand !== initialValues.brand)
-      formData.append("brand", values.brand);
+    if (values.brandId !== initialValues.brandId)
+      formData.append("brand", String(values.brandId));
 
     if (values.price !== initialValues.price)
       formData.append("price", values.price.toString());

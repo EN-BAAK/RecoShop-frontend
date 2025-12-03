@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 export const useGetAllProducts = () => {
   return useQuery({
-    queryKey: ["products"],
+    queryKey: ["da-products"],
     queryFn: getAllProducts,
     retry: false,
   });
@@ -15,7 +15,7 @@ export const useGetAllProducts = () => {
 
 export const useGetProductSettingsById = (id: number) => {
   return useQuery({
-    queryKey: ["product-settings", id],
+    queryKey: ["da-product-settings", id],
     queryFn: () => getProductSettingsById(id),
     enabled: !!id,
     retry: false,
@@ -24,7 +24,7 @@ export const useGetProductSettingsById = (id: number) => {
 
 export const useGetProductImage = (id: number) => {
   return useQuery({
-    queryKey: ["product-image", id],
+    queryKey: ["da-product-image", id],
     queryFn: () => getProductImage(id),
     retry: false
   })
@@ -39,7 +39,7 @@ export const useCreateProduct = () => {
     const newProduct = data.data;
 
     queryClient.setQueryData<APIResponse<ProductGlobal[]>>(
-      ["products"],
+      ["da-products"],
       (oldData) => {
         if (!oldData) return oldData;
         return {
@@ -50,7 +50,7 @@ export const useCreateProduct = () => {
     );
 
     pushToast({ message: data.message, type: "SUCCESS" });
-    router.push("/products");
+    router.push("/dashboard/products");
   };
 
   const onError = (error: Error) => {
@@ -72,11 +72,11 @@ export const useUpdateProduct = () => {
   const onSuccess = (data: APIResponse<ProductGlobal>) => {
     const updatedProduct = data.data;
 
-    queryClient.invalidateQueries({ queryKey: ["product-settings", updatedProduct.id] })
-    queryClient.removeQueries({ queryKey: ["product-image", updatedProduct.id] })
+    queryClient.invalidateQueries({ queryKey: ["da-product-settings", updatedProduct.id] })
+    queryClient.removeQueries({ queryKey: ["da-product-image", updatedProduct.id] })
 
     queryClient.setQueryData<APIResponse<ProductGlobal[]>>(
-      ["products"],
+      ["da-products"],
       (oldData) => {
         if (!oldData) return oldData;
         return {
@@ -89,7 +89,7 @@ export const useUpdateProduct = () => {
     );
 
     pushToast({ message: data.message, type: "SUCCESS" });
-    router.push("/products");
+    router.push("/dashboard/products");
   };
 
   const onError = (error: Error) => {
@@ -109,7 +109,7 @@ export const useDeleteProduct = () => {
 
   const onSuccess = (data: APIResponse<ProductGlobal>, id: number) => {
     queryClient.setQueryData<APIResponse<ProductGlobal[]>>(
-      ["products"],
+      ["da-products"],
       (oldData) => {
         if (!oldData) return oldData;
         return {
@@ -119,8 +119,8 @@ export const useDeleteProduct = () => {
       }
     );
 
-    queryClient.invalidateQueries({ queryKey: ["product-settings", id] })
-    queryClient.invalidateQueries({ queryKey: ["product-image", id] })
+    queryClient.invalidateQueries({ queryKey: ["da-product-settings", id] })
+    queryClient.invalidateQueries({ queryKey: ["da-product-image", id] })
     pushToast({ message: data.message, type: "SUCCESS" });
   };
 

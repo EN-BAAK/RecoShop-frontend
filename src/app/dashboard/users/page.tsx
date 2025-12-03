@@ -17,7 +17,7 @@ const UsersPage: React.FC = () => {
   const users = (data?.data || []) as UserGlobal[];
 
   const handleAddNewUser = () => {
-    router.push("/users/add");
+    router.push("users/add");
   };
 
   return (

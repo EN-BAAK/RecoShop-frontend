@@ -15,6 +15,8 @@ export type UserGlobal = Omit<User, "role"> & {
   isVerified: boolean
 }
 
+export type CachedUser = { data: User; timestamp: number } | null
+
 export type LoginProps = {
   email: string,
   password: string

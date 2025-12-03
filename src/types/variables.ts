@@ -1,8 +1,9 @@
 export type Variant = "primary" | "primary-outline" | "accent" | "accent-outline" | "danger" | "danger-outline" | "orange" | "orange-outline" | "transparent" | "transparent-outline" | "primary-gradient" | "primary-gradient-outline" | "accent-gradient" | "accent-gradient-outline";
 
 export enum ROLE {
-  ADMIN = "Admin",
-  CLIENT = "Client"
+  ADMIN = "ADMIN",
+  CUSTOMER = "CUSTOMER",
+  MANAGER = "MANAGER"
 }
 export type Input = "text" | "color" | "number" | "password" | "email";
 export type Dir = "auto" | "ltr" | "rtl";

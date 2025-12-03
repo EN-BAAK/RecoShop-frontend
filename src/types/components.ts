@@ -1,5 +1,5 @@
 import { Brand, Category, ProductGlobal, SubCategoryGlobal, UserGlobal } from "./global";
-import { Notification, SEX, Variant } from "./variables";
+import { Notification, ROLE, SEX, Variant } from "./variables";
 
 export type ToastMessage = {
   message: string;
@@ -93,3 +93,7 @@ export type BrandProps = {
 export type GenderBadgeProps = {
   gender: SEX
 }
+
+export type ProtectedPageProps = {
+  allowedRoles: ROLE[];
+} & CommonParentProps

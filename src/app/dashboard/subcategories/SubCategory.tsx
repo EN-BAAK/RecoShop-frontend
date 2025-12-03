@@ -15,7 +15,7 @@ const SubCategory: React.FC<SubCategoryProps> = ({ subCategory }) => {
   const { mutate: deleteSubCategory, isPending: isDeleting } = useDeleteSubCategory();
 
   const handleEdit = () => {
-    router.push(`/subcategories/edit/${subCategory.id}`);
+    router.push(`subcategories/edit/${subCategory.id}`);
   };
 
   const handleDelete = () => {

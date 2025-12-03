@@ -8,7 +8,6 @@ import { Input } from "@/components/ui/input";
 import Avatar from "@/components/Avatar";
 import CustomButton from "@/components/forms/Button";
 import { useRouter } from "next/navigation";
-import { ROLE } from "@/types/variables";
 import LoadingPage from "@/components/LoadingPage";
 import Notifications from "./Notifications";
 
@@ -20,8 +19,6 @@ const Header: React.FC = () => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
   };
-
-  const roleText = user?.role === ROLE.ADMIN ? "Administrator" : "Customer";
 
   useEffect(() => {
     if (!user) {
@@ -63,7 +60,7 @@ const Header: React.FC = () => {
               <p className="leading-tight font-sans font-semibold text-sm text-foreground">
                 {user.firstName} {user.lastName}
               </p>
-              <p className="text-xs text-muted-foreground font-sans">{roleText}</p>
+              <p className="lowercase font-sans text-xs text-muted-foreground">{user.role}</p>
             </div>
           </div>
 

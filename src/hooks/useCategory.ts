@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation"
 
 export const useGetAllCategories = () => {
   return useQuery({
-    queryKey: ["categories"],
+    queryKey: ["da-categories"],
     queryFn: getAllCategories,
     retry: false
   })
@@ -17,7 +17,7 @@ export const useGetAllCategories = () => {
 
 export const useGetCategoryById = (id: number) => {
   return useQuery({
-    queryKey: ["categories", id],
+    queryKey: ["da-categories", id],
     queryFn: () => getCategoryById(id),
     enabled: !!id,
     retry: false
@@ -32,7 +32,7 @@ export const useCreateCategory = () => {
   const onSuccess = (data: APIResponse<Category>) => {
     const newCategory = data.data
 
-    queryClient.setQueryData<APIResponse<Category[]>>(["categories"], (oldData) => {
+    queryClient.setQueryData<APIResponse<Category[]>>(["da-categories"], (oldData) => {
       if (!oldData) return oldData
       return {
         ...oldData,
@@ -41,7 +41,7 @@ export const useCreateCategory = () => {
     })
 
     pushToast({ message: data.message, type: "SUCCESS" })
-    router.push("/categories")
+    router.push("/dashboard/categories")
   }
 
   const onError = (error: Error) => {
@@ -62,7 +62,7 @@ export const useUpdateCategory = () => {
 
   const onSuccess = (data: APIResponse<Category>) => {
     const updated = data.data
-    queryClient.setQueryData<APIResponse<Category[]>>(["categories"], (oldData) => {
+    queryClient.setQueryData<APIResponse<Category[]>>(["da-categories"], (oldData) => {
       if (!oldData) return oldData
       return {
         ...oldData,
@@ -70,9 +70,9 @@ export const useUpdateCategory = () => {
       }
     })
 
-    queryClient.invalidateQueries({ queryKey: ["categories", updated.id] })
+    queryClient.invalidateQueries({ queryKey: ["da-categories", updated.id] })
     pushToast({ message: data.message, type: "SUCCESS" })
-    router.push("/categories")
+    router.push("/dashboard/categories")
   }
 
   const onError = (error: Error) => {
@@ -91,7 +91,7 @@ export const useDeleteCategory = () => {
   const { pushToast } = useAppContext()
 
   const onSuccess = (data: APIResponse<unknown>, id: number) => {
-    queryClient.setQueryData<APIResponse<Category[]>>(["categories"], (oldData) => {
+    queryClient.setQueryData<APIResponse<Category[]>>(["da-categories"], (oldData) => {
       if (!oldData) return oldData
       return {
         ...oldData,
@@ -99,7 +99,7 @@ export const useDeleteCategory = () => {
       }
     })
 
-    queryClient.invalidateQueries({ queryKey: ["categories", id] })
+    queryClient.invalidateQueries({ queryKey: ["da-categories", id] })
     pushToast({ message: data.message, type: "SUCCESS" })
   }
 

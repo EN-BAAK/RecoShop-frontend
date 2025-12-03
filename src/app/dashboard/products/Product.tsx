@@ -17,7 +17,7 @@ const Product: React.FC<ProductProps> = ({ product }) => {
   const { mutate: deleteProduct, isPending } = useDeleteProduct();
 
   const handleEdit = () => {
-    router.push(`/products/edit/${product.id}`);
+    router.push(`products/edit/${product.id}`);
   };
 
   const handleDelete = () => {

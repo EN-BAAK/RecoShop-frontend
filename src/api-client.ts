@@ -1,9 +1,44 @@
-import { clearSessionItem, setSessionItem } from "./lib/helpers";
-import { CategoryCreation, ForgotPasswordStep1, ForgotPasswordStep2, LoginProps, ProductCreation, SubCategoryCreation, User, VerifyAccountProps } from "./types/global";
+import { CachedUser, CategoryCreation, ForgotPasswordStep1, ForgotPasswordStep2, LoginProps, SubCategoryCreation, User, VerifyAccountProps } from "./types/global";
 import { APIResponse, UpdateItemType, UpdateItemWithFormData } from "./types/hooks";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL!
-const USER_INFO = process.env.NEXT_PUBLIC_USER_INFO!
+
+let cachedUser: CachedUser = null;
+const CACHE_DURATION = 60 * 1000;
+
+export const validateAuthenticationWithCaching = async (
+  token: string
+): Promise<APIResponse<User> | null> => {
+  const now = Date.now();
+
+  if (cachedUser && now - cachedUser.timestamp < CACHE_DURATION) {
+    return {
+      success: true,
+      message: "User fetched from cache",
+      data: cachedUser.data,
+    };
+  }
+
+  try {
+    const response = await fetch(`${API_URL}/auth/verify-protected-middleware`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const responseBody = await response.json();
+
+    if (!response.ok) return null;
+
+    cachedUser = { data: responseBody.data, timestamp: now };
+
+    return responseBody;
+  } catch {
+    return null;
+  }
+};
 
 export const validateAuthentication = async (): Promise<APIResponse<User>> => {
   const response = await fetch(`${API_URL}/auth/verify`, {
@@ -12,14 +47,6 @@ export const validateAuthentication = async (): Promise<APIResponse<User>> => {
 
   const responseBody = await response.json();
   if (!response.ok) throw new Error(responseBody.message);
-
-  if (responseBody.data) {
-    setSessionItem(USER_INFO, {
-      username: `${responseBody.data.firstName} ${responseBody.data.lastName}`,
-      role: responseBody.data.role,
-      email: responseBody.data.email
-    });
-  }
 
   return responseBody;
 };
@@ -35,10 +62,6 @@ export const login = async (formData: LoginProps) => {
   const responseBody = await response.json();
   if (!response.ok) throw new Error(responseBody.message);
 
-  if (responseBody.data?.user) {
-    setSessionItem(USER_INFO, responseBody.data);
-  }
-
   return responseBody;
 };
 
@@ -50,8 +73,6 @@ export const logout = async () => {
 
   const responseBody = await response.json();
   if (!response.ok) throw new Error(responseBody.message);
-
-  clearSessionItem(USER_INFO);
 
   return responseBody;
 };
@@ -82,11 +103,9 @@ export const verifyAccount = async (formData: VerifyAccountProps & { email: stri
   const responseBody = await response.json();
   if (!response.ok) throw new Error(responseBody.message);
 
-  if (responseBody.data?.user) {
-    setSessionItem(USER_INFO, responseBody.data);
-  }
+  if (responseBody.data?.user)
 
-  return responseBody;
+    return responseBody;
 };
 
 export const resendVerificationCode = async (email: string) => {
