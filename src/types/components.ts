@@ -93,7 +93,3 @@ export type BrandProps = {
 export type GenderBadgeProps = {
   gender: SEX
 }
-
-export type ProtectedPageProps = {
-  allowedRoles: ROLE[];
-} & CommonParentProps
