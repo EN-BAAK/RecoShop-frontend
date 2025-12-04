@@ -77,7 +77,7 @@ const SelectImageField: React.FC<SelectImageFieldProps> = ({
           <button
             type="button"
             onClick={handleRemove}
-            className="bg-red-500 p-1 rounded-full absolute top-1 right-1 text-white transition duration-300 cursor-pointer hover:bg-red-600"
+            className="bg-red-500 p-1 rounded-full absolute top-1 right-1 text-background transition duration-300 cursor-pointer hover:bg-red-600"
           >
             <FiX className="w-4 h-4" />
           </button>

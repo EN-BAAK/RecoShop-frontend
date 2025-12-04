@@ -3,12 +3,12 @@ import { NavItem, ROLE } from "@/types/variables";
 import { LayoutDashboard, Package, ShoppingBag, Users, ShoppingCart, Settings, Layers, Tags } from "lucide-react";
 
 export const navItems: NavItem[] = [
-  { title: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { title: "Categories", href: "/categories", icon: Package },
-  { title: "Subcategories", href: "/subcategories", icon: Layers },
-  { title: "Brands", href: "/brands", icon: Tags },
-  { title: "Products", href: "/products", icon: ShoppingBag },
-  { title: "Users", href: "/users", icon: Users },
+  { title: "Dashboard", href: "/dashboard/", icon: LayoutDashboard },
+  { title: "Categories", href: "/dashboard/categories", icon: Package },
+  { title: "Subcategories", href: "/dashboard/subcategories", icon: Layers },
+  { title: "Brands", href: "/dashboard/brands", icon: Tags },
+  { title: "Products", href: "/dashboard/products", icon: ShoppingBag },
+  { title: "Users", href: "/dashboard/users", icon: Users },
   { title: "Orders", href: "/orders", icon: ShoppingCart },
   { title: "Settings", href: "/settings", icon: Settings },
 ];

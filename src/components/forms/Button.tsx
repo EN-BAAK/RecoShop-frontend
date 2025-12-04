@@ -24,13 +24,13 @@ const CustomButton: React.FC<CustomButtonProps> = ({
     orange: "bg-orange-600 text-background hover:bg-orange-500",
     "orange-outline": "border border-orange-600 bg-transparent text-orange-600 hover:bg-orange-600/10",
 
-    transparent: "bg-transparent text-foreground hover:text-foreground/75",
-    "transparent-outline": "border border-foreground/40 bg-transparent text-foreground hover:bg-foreground/5",
+    transparent: "bg-transparent text-background hover:text-background/75",
+    "transparent-outline": "border border-foreground/40 bg-transparent text-background hover:bg-foreground/5",
 
-    "primary-gradient": "bg-gradient-to-r from-primary to-green-600 text-white hover:opacity-90",
+    "primary-gradient": "bg-gradient-to-r from-primary to-green-600 text-background hover:opacity-90",
     "primary-gradient-outline": "border border-primary bg-transparent text-primary hover:bg-primary/10",
 
-    "accent-gradient": "bg-gradient-to-r from-accent to-red-600 text-white hover:opacity-90",
+    "accent-gradient": "bg-gradient-to-r from-accent to-red-600 text-background hover:opacity-90",
     "accent-gradient-outline": "border border-accent bg-transparent text-accent hover:bg-accent/10",
   }[variant]
 

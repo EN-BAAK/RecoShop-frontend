@@ -8,12 +8,12 @@ export const GenderBadge: React.FC<GenderBadgeProps> = ({ gender }) => {
     [SEX.MALE]: {
       label: "Male",
       icon: <Mars className="w-3 h-3" />,
-      className: "bg-blue-600 text-white hover:bg-blue-700",
+      className: "bg-blue-600 text-background hover:bg-blue-700",
     },
     [SEX.FEMALE]: {
       label: "Female",
       icon: <Venus className="w-3 h-3" />,
-      className: "bg-pink-600 text-white hover:bg-pink-700",
+      className: "bg-pink-600 text-background hover:bg-pink-700",
     },
   };
 

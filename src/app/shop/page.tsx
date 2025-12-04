@@ -1,13 +1,11 @@
-// /shop/page.tsx
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { useGetProductsInfinite } from '@/hooks/useGetProductsInfinite';
 import { Input } from '@/components/ui/input';
-
 import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
 import ProductCard from './Product';
+import { useGetProductsInfinite } from '@/hooks/useProduct';
 
 const AVAILABLE_CATEGORIES = [
   'Electronics',
@@ -37,12 +35,11 @@ const ShopPage = () => {
   const { data, fetchNextPage, hasNextPage, isFetching, status } =
     useGetProductsInfinite({
       limit: 20,
-      category: selectedCategories.length > 0 ? selectedCategories : undefined,
+      category: selectedCategories.length > 0 ? selectedCategories[0] : undefined,
       search: debouncedSearch,
-      offsetUnit: 'products',
+      offsetUnit: 0,
     });
 
-  // Intersection Observer for infinite scroll
   useEffect(() => {
     if (!loadMoreRef.current || !containerRef.current) return;
 
@@ -154,7 +151,7 @@ const ShopPage = () => {
                 {selectedCategories.map((category) => (
                   <div
                     key={category}
-                    className="inline-flex items-center gap-1 px-3 py-1 bg-primary text-white rounded-full text-sm"
+                    className="inline-flex items-center gap-1 px-3 py-1 bg-primary text-forgound rounded-full text-sm"
                   >
                     {category}
                     <button
@@ -237,7 +234,7 @@ const ShopPage = () => {
             {!hasNextPage && allProducts.length > 0 && (
               <div className="text-center py-8">
                 <p className="text-accent dark:text-slate-400">
-                  You've reached the end of our collection
+                  Youve reached the end of our collection
                 </p>
               </div>
             )}

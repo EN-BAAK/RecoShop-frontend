@@ -326,6 +326,32 @@ export const getShopProductsInfinite = async ({ limit, offsetUnit = 0, category,
   return responseBody;
 };
 
+export const getShopProductsPaginatedByCategory = async ({
+  limit,
+  category,
+  search,
+  page = 0,
+}: GetShopProductsParams) => {
+  const offset = page * limit;
+
+  const queryParams = new URLSearchParams();
+  queryParams.append("limit", String(limit));
+  queryParams.append("offset", String(offset));
+
+  if (category) queryParams.append("category", category);
+  if (search) queryParams.append("search", search);
+
+  const response = await fetch(
+    `${API_URL}/products/shop?${queryParams.toString()}`
+  );
+
+  const responseBody = await response.json();
+  if (!response.ok) throw new Error(responseBody.message);
+
+  return responseBody;
+};
+
+
 export const getProductSettingsById = async (id: number) => {
   const response = await fetch(`${API_URL}/products/settings/${id}`, {
     credentials: "include",

@@ -1,8 +1,7 @@
-// /shop/product.tsx
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
+// import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ShoppingCart, Heart } from 'lucide-react';
@@ -57,15 +56,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, isLarge = false }) =
             <Heart
               size={20}
               className={`${isWishlisted
-                  ? 'fill-danger text-danger'
-                  : 'text-accent dark:text-slate-400'
+                ? 'fill-danger text-danger'
+                : 'text-accent dark:text-slate-400'
                 }`}
             />
           </button>
 
           {product.categories.length > 0 && (
             <div className="absolute bottom-4 left-4">
-              <Badge variant="secondary" className="bg-primary text-white">
+              <Badge variant="secondary" className="bg-primary text-background">
                 {product.categories[0]}
               </Badge>
             </div>
@@ -95,7 +94,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, isLarge = false }) =
 
           <Button
             onClick={handleAddToCart}
-            className="w-full mt-6 bg-primary hover:bg-blue-600 text-white font-medium flex items-center justify-center gap-2"
+            className="w-full mt-6 bg-primary hover:bg-blue-600 text-background font-medium flex items-center justify-center gap-2"
           >
             <ShoppingCart size={18} />
             Add to Cart
@@ -137,8 +136,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, isLarge = false }) =
           <Heart
             size={16}
             className={`${isWishlisted
-                ? 'fill-danger text-danger'
-                : 'text-accent dark:text-slate-400'
+              ? 'fill-danger text-danger'
+              : 'text-accent dark:text-slate-400'
               }`}
           />
         </button>
@@ -146,7 +145,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, isLarge = false }) =
         {/* Category Badge */}
         {product.categories.length > 0 && (
           <div className="absolute bottom-2 left-2">
-            <Badge variant="secondary" className="bg-primary text-white text-xs">
+            <Badge variant="secondary" className="bg-primary text-background text-xs">
               {product.categories[0]}
             </Badge>
           </div>
@@ -176,7 +175,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, isLarge = false }) =
         <Button
           onClick={handleAddToCart}
           size="sm"
-          className="w-full mt-3 bg-primary hover:bg-blue-600 text-white text-xs"
+          className="w-full mt-3 bg-primary hover:bg-blue-600 text-background text-xs"
         >
           <ShoppingCart size={14} className="mr-1" />
           Add

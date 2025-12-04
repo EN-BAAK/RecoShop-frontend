@@ -30,3 +30,10 @@ export type UseGetProductsInfiniteProps = {
   category?: string;
   search?: string;
 };
+
+export type UseGetProductsPaginatedByCategoryProps = {
+  limit: number;
+  page: number;
+  category?: string;
+  search?: string;
+};

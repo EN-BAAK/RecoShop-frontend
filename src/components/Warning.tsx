@@ -31,11 +31,11 @@ const Warning: React.FC<WarningProps> = ({
               styleBtn1 === "secondary" &&
               "bg-gray-200 hover:bg-gray-300 text-black",
               styleBtn1 === "default" &&
-              "bg-blue-600 hover:bg-blue-700 text-white",
+              "bg-blue-600 hover:bg-blue-700 text-background",
               styleBtn1 === "outline" &&
               "border border-gray-400 bg-background hover:bg-gray-100 text-black",
               styleBtn1 === "destructive" &&
-              "bg-red-600 hover:bg-red-700 text-white"
+              "bg-red-600 hover:bg-red-700 text-background"
             )}
           >
             {btn1}
@@ -51,11 +51,11 @@ const Warning: React.FC<WarningProps> = ({
               styleBtn2 === "secondary" &&
               "bg-gray-200 hover:bg-gray-300 text-black",
               styleBtn2 === "default" &&
-              "bg-blue-600 hover:bg-blue-700 text-white",
+              "bg-blue-600 hover:bg-blue-700 text-background",
               styleBtn2 === "outline" &&
               "border border-gray-400 bg-background hover:bg-gray-100 text-black",
               styleBtn2 === "destructive" &&
-              "bg-red-600 hover:bg-red-700 text-white"
+              "bg-red-600 hover:bg-red-700 text-background"
             )}
           >
             {btn2}

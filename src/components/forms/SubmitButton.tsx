@@ -23,24 +23,24 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
   else if (disabled) buttonLabel = disabledLabel
 
   const variantClasses = {
-    "primary": "bg-primary text-white hover:bg-primary/90",
-    "primary-outline": "border border-primary text-primary hover:bg-primary hover:text-white",
-    "accent": "bg-accent text-white hover:bg-accent/90",
-    "accent-outline": "border border-accent text-accent hover:bg-accent hover:text-white",
-    "danger": "bg-danger text-white hover:bg-danger/90",
-    "danger-outline": "border border-danger text-danger hover:bg-danger hover:text-white",
-    "orange": "bg-orange-600 text-white hover:bg-orange-500",
-    "orange-outline": "border border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white",
+    "primary": "bg-primary text-background hover:bg-primary/90",
+    "primary-outline": "border border-primary text-primary hover:bg-primary hover:text-background",
+    "accent": "bg-accent text-background hover:bg-accent/90",
+    "accent-outline": "border border-accent text-accent hover:bg-accent hover:text-background",
+    "danger": "bg-danger text-background hover:bg-danger/90",
+    "danger-outline": "border border-danger text-danger hover:bg-danger hover:text-background",
+    "orange": "bg-orange-600 text-background hover:bg-orange-500",
+    "orange-outline": "border border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-background",
     "transparent": "bg-transparent text-foreground hover:text-foreground/70",
-    "transparent-outline": "border border-foreground/40 text-foreground hover:border-foreground hover:text-foreground",
+    "transparent-outline": "border border-foreground/40 text-background hover:border-foreground hover:text-background",
     "primary-gradient":
-      "bg-gradient-to-r from-primary to-green-600 text-white hover:opacity-90",
+      "bg-gradient-to-r from-primary to-green-600 text-background hover:opacity-90",
     "primary-gradient-outline":
-      "border border-primary text-primary hover:bg-gradient-to-r hover:from-primary hover:to-green-600 hover:text-white",
+      "border border-primary text-primary hover:bg-gradient-to-r hover:from-primary hover:to-green-600 hover:text-background",
     "accent-gradient":
-      "bg-gradient-to-r from-accent to-red-600 text-white hover:opacity-90",
+      "bg-gradient-to-r from-accent to-red-600 text-background hover:opacity-90",
     "accent-gradient-outline":
-      "border border-accent text-accent hover:bg-gradient-to-r hover:from-accent hover:to-red-600 hover:text-white",
+      "border border-accent text-accent hover:bg-gradient-to-r hover:from-accent hover:to-red-600 hover:text-background",
   }[variant];
 
   return (

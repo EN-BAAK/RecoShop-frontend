@@ -135,7 +135,7 @@ const MultiSelectorField: React.FC<MultiSelectorFieldProps> = ({
                           key={option.value}
                           variant="outline"
                           className={cn(
-                            "font-sans cursor-pointer transition-all duration-200 hover:bg-primary hover:text-white hover:border-primary animate-in fade-in slide-in-from-top-2",
+                            "font-sans cursor-pointer transition-all duration-200 hover:bg-primary hover:text-foreground hover:border-primary animate-in fade-in slide-in-from-top-2",
                             disabled || isMaxReached
                               ? "cursor-not-allowed opacity-50"
                               : ""
@@ -161,7 +161,7 @@ const MultiSelectorField: React.FC<MultiSelectorFieldProps> = ({
                         <Badge
                           key={option.value}
                           className={cn(
-                            "bg-primary text-white font-sans cursor-pointer transition-all duration-200 hover:bg-primary/80 animate-in fade-in slide-in-from-bottom-2",
+                            "bg-primary text-foreground font-sans cursor-pointer transition-all duration-200 hover:bg-primary/80 animate-in fade-in slide-in-from-bottom-2",
                             disabled && "cursor-not-allowed opacity-50"
                           )}
                           onClick={() => handleDeselect(option.value)}
