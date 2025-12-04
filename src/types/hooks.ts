@@ -15,3 +15,18 @@ export type UpdateItemWithFormData = {
   id: number | string,
   data: FormData
 }
+
+export type GetShopProductsParams = {
+  limit: number;
+  offsetUnit?: number;
+  category?: string;
+  search?: string;
+  page: number
+};
+
+export type UseGetProductsInfiniteProps = {
+  limit: number;
+  offsetUnit?: number;
+  category?: string;
+  search?: string;
+};

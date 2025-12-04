@@ -12,7 +12,7 @@ import SubmitButton from "@/components/forms/SubmitButton";
 import LoadingPage from "@/components/LoadingPage";
 import ErrorPage from "@/components/ErrorPage";
 import EmptyElement from "@/components/EmptyElement";
-import PageHolder from "@/app/PageHolder";
+import PageHolder from "@/app/dashboard/DashboardPageHolder";
 
 const EditCategoryPage: React.FC = () => {
   const params = useParams();

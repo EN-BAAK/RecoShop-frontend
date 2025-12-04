@@ -6,7 +6,7 @@ import { Formik, Form, FormikHelpers } from "formik";
 import { useGetBrandById, useGetBrandImage, useUpdateBrand } from "@/hooks/useBrand";
 import { BrandCreation } from "@/types/global";
 import { createBrand as editBrandValidation } from "@/constants/formValidation";
-import PageHolder from "@/app/PageHolder";
+import PageHolder from "@/app/dashboard/DashboardPageHolder";
 import LoadingPage from "@/components/LoadingPage";
 import ErrorPage from "@/components/ErrorPage";
 import EmptyElement from "@/components/EmptyElement";

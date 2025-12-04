@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { PlusCircle } from "lucide-react";
 import { useGetAllProducts } from "@/hooks/useProduct";
-import PageHolder from "@/app/PageHolder";
+import PageHolder from "@/app/dashboard/DashboardPageHolder";
 import CustomButton from "@/components/forms/Button";
 import LoadingPage from "@/components/LoadingPage";
 import ErrorPage from "@/components/ErrorPage";

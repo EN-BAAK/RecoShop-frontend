@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import CustomButton from "@/components/forms/Button";
 import { PlusCircle } from "lucide-react";
-import PageHolder from "@/app/PageHolder";
+import PageHolder from "@/app/dashboard/DashboardPageHolder";
 
 const CategoriesPage: React.FC = () => {
   const router = useRouter();

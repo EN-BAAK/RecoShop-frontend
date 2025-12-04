@@ -62,12 +62,16 @@ export type Product = {
   imgURL?: string
 }
 
+export type ShopProduct = {
+  categories: string[]
+} & Omit<Product, "imgURL">
+
 export type ProductCreation = Omit<Product, "id" | "imgURL" | "brand"> & {
   categories: number[],
   brandId: number
 }
 
-export type ProductGlobal = Product & {
+export type ProductGlobal = Omit<Product, "imgURL"> & {
   subCategories: Omit<SubCategory, "desc" | "categoryId">[],
   category: string
 }

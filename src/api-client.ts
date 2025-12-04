@@ -1,5 +1,5 @@
 import { CachedUser, CategoryCreation, ForgotPasswordStep1, ForgotPasswordStep2, LoginProps, SubCategoryCreation, User, VerifyAccountProps } from "./types/global";
-import { APIResponse, UpdateItemType, UpdateItemWithFormData } from "./types/hooks";
+import { APIResponse, GetShopProductsParams, UpdateItemType, UpdateItemWithFormData } from "./types/hooks";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL!
 
@@ -306,6 +306,25 @@ export const getAllProducts = async () => {
 
   return responseBody
 }
+
+export const getShopProductsInfinite = async ({ limit, offsetUnit = 0, category, search, page = 0 }: GetShopProductsParams) => {
+  const offset = page * limit + offsetUnit;
+
+  const queryParams = new URLSearchParams();
+
+  queryParams.append("limit", String(limit));
+  queryParams.append("offset", String(offset));
+
+  if (category) queryParams.append("category", category);
+  if (search) queryParams.append("search", search);
+
+  const response = await fetch(`${API_URL}/products/shop?${queryParams.toString()}`);
+
+  const responseBody = await response.json();
+  if (!response.ok) throw new Error(responseBody.message);
+
+  return responseBody;
+};
 
 export const getProductSettingsById = async (id: number) => {
   const response = await fetch(`${API_URL}/products/settings/${id}`, {

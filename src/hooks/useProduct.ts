@@ -1,8 +1,8 @@
-import { getAllProducts, getProductSettingsById, createProduct, updateProduct, deleteProduct, getProductImage, } from "@/api-client";
+import { getAllProducts, getProductSettingsById, createProduct, updateProduct, deleteProduct, getProductImage, getShopProductsInfinite, } from "@/api-client";
 import { useAppContext } from "@/contexts/AppProvider";
-import { APIResponse } from "@/types/hooks";
+import { APIResponse, UseGetProductsInfiniteProps } from "@/types/hooks";
 import { ProductGlobal } from "@/types/global";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 export const useGetAllProducts = () => {
@@ -11,6 +11,18 @@ export const useGetAllProducts = () => {
     queryFn: getAllProducts,
     retry: false,
   });
+};
+
+export const useGetProductsInfinite = ({ limit, category, search, offsetUnit }: UseGetProductsInfiniteProps) => {
+  return useInfiniteQuery({
+    queryKey: ["da-products-infinite", category, search],
+    queryFn: ({ pageParam = 0 }) =>
+      getShopProductsInfinite({ limit, page: pageParam, category, search, offsetUnit }),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) =>
+      lastPage.data.hasMore ? lastPage.data.nextPage : undefined,
+    retry: false,
+  })
 };
 
 export const useGetProductSettingsById = (id: number) => {

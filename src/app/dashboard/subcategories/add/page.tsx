@@ -7,7 +7,7 @@ import { useGetAllCategories } from "@/hooks/useCategory";
 import { Category, SubCategoryCreation } from "@/types/global";
 import { subcategory as subCategoryInitialValues } from "@/constants/formValues";
 import { createSubCategory as createSubCategoryValidation } from "@/constants/formValidation";
-import PageHolder from "@/app/PageHolder";
+import PageHolder from "@/app/dashboard/DashboardPageHolder";
 import InputField from "@/components/forms/InputField";
 import TextAreaField from "@/components/forms/TextAreaField";
 import SubmitButton from "@/components/forms/SubmitButton";

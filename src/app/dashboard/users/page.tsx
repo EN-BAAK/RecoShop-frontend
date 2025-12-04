@@ -5,7 +5,7 @@ import { useGetAllUsers } from "@/hooks/useUser";
 import { UserGlobal } from "@/types/global";
 import UserRow from "./user";
 import { Table, TableHeader, TableBody, TableHead, TableRow as TR } from "@/components/ui/table";
-import PageHolder from "@/app/PageHolder";
+import PageHolder from "@/app/dashboard/DashboardPageHolder";
 import LoadingPage from "@/components/LoadingPage";
 import ErrorPage from "@/components/ErrorPage";
 import EmptyElement from "@/components/EmptyElement";

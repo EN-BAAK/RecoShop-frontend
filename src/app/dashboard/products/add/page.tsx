@@ -8,7 +8,7 @@ import SubmitButton from "@/components/forms/SubmitButton";
 import InputField from "@/components/forms/InputField";
 import TextAreaField from "@/components/forms/TextAreaField";
 import SelectImageField from "@/components/forms/SelectImageField";
-import PageHolder from "@/app/PageHolder";
+import PageHolder from "@/app/dashboard/DashboardPageHolder";
 import { product as initialValues } from "@/constants/formValues";
 import { createProduct as createProductValidation } from "@/constants/formValidation";
 import { useGetAllCategories } from "@/hooks/useCategory";

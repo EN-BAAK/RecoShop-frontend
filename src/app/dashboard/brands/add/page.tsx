@@ -7,7 +7,7 @@ import { BrandCreation } from "@/types/global";
 import SubmitButton from "@/components/forms/SubmitButton";
 import InputField from "@/components/forms/InputField";
 import SelectImageField from "@/components/forms/SelectImageField";
-import PageHolder from "@/app/PageHolder";
+import PageHolder from "@/app/dashboard/DashboardPageHolder";
 import { createBrand as createBrandValidation } from "@/constants/formValidation";
 import { brand as initialValues } from "@/constants/formValues";
 

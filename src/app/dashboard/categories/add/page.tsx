@@ -9,7 +9,7 @@ import { createCategory as createCategoryValidation } from "@/constants/formVali
 import SubmitButton from "@/components/forms/SubmitButton";
 import InputField from "@/components/forms/InputField";
 import TextAreaField from "@/components/forms/TextAreaField";
-import PageHolder from "@/app/PageHolder";
+import PageHolder from "@/app/dashboard/DashboardPageHolder";
 
 const CreateCategoryPage: React.FC = () => {
   const { mutateAsync: createCategory } = useCreateCategory();

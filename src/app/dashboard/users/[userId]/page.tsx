@@ -5,7 +5,7 @@ import { Mail, Phone, MapPin, User as UserIcon, Shield, Users } from "lucide-rea
 import { useGetUserById } from "@/hooks/useUser";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ROLE, SEX } from "@/types/variables";
-import PageHolder from "@/app/PageHolder";
+import PageHolder from "@/app/dashboard/DashboardPageHolder";
 import Avatar from "@/components/Avatar";
 import LoadingPage from "@/components/LoadingPage";
 import ErrorPage from "@/components/ErrorPage";

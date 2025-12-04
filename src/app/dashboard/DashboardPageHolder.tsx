@@ -1,7 +1,7 @@
 import React from 'react'
 import { PageHolderProps } from '@/types/layouts'
 
-const PageHolder: React.FC<PageHolderProps> = ({ children, title, desc, outerElement }) => {
+const DashboardPageHolder: React.FC<PageHolderProps> = ({ children, title, desc, outerElement }) => {
   return (
     <div className='bg-background h-full max-h-full p-2 sm:p-6 flex flex-col gap-3 relative overflow-hidden'>
       <div>
@@ -23,4 +23,4 @@ const PageHolder: React.FC<PageHolderProps> = ({ children, title, desc, outerEle
   )
 }
 
-export default PageHolder
+export default DashboardPageHolder

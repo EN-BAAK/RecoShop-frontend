@@ -8,7 +8,7 @@ import { useGetAllCategories } from "@/hooks/useCategory";
 import { useGetSubCategoriesByCategory } from "@/hooks/useSubCategory";
 import { Category, ProductCreation, SubCategory } from "@/types/global";
 import { editProduct as editProductValidation } from "@/constants/formValidation";
-import PageHolder from "@/app/PageHolder";
+import PageHolder from "@/app/dashboard/DashboardPageHolder";
 import LoadingPage from "@/components/LoadingPage";
 import ErrorPage from "@/components/ErrorPage";
 import EmptyElement from "@/components/EmptyElement";
