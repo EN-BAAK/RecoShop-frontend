@@ -37,8 +37,8 @@ const CreateProductPage: React.FC = () => {
     formData.append("brandId", values.brandId.toString());
     formData.append("price", values.price.toString());
     formData.append("desc", values.desc);
-    values.categories.forEach((cat: number) =>
-      formData.append("categories[]", String(cat))
+    values.categories.forEach((cat: string) =>
+      formData.append("categories[]", cat)
     );
     if (image) formData.append("image", image);
 

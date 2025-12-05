@@ -63,11 +63,11 @@ export type Product = {
 }
 
 export type ShopProduct = {
-  categories: string[]
+  categories: string[],
 } & Omit<Product, "imgURL">
 
 export type ProductCreation = Omit<Product, "id" | "imgURL" | "brand"> & {
-  categories: number[],
+  categories: string[],
   brandId: number
 }
 

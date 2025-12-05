@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Formik, Form, FormikHelpers } from "formik";
-import { useGetBrandById, useGetBrandImage, useUpdateBrand } from "@/hooks/useBrand";
+import { useGetBrandById, useGetBrandImageById, useUpdateBrand } from "@/hooks/useBrand";
 import { BrandCreation } from "@/types/global";
 import { createBrand as editBrandValidation } from "@/constants/formValidation";
 import PageHolder from "@/app/dashboard/DashboardPageHolder";
@@ -23,7 +23,7 @@ const EditBrandPage: React.FC = () => {
   const [isImageChanged, setIsImageChanged] = useState(false);
 
   const { data: brandData, isFetching: isBrandLoading, isError, error, refetch } = useGetBrandById(Number(params.id));
-  const { data: brandImage, isFetching: isImgLoading } = useGetBrandImage(Number(params.id));
+  const { data: brandImage, isFetching: isImgLoading } = useGetBrandImageById(Number(params.id));
 
   const { mutateAsync: updateBrand } = useUpdateBrand();
   const brand = brandData?.data;

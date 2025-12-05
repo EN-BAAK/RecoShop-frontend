@@ -4,11 +4,11 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Package } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useGetBrandImageById } from "@/hooks/useBrand";
-import { DashboardBrandImagProps } from "@/types/components";
+import { useGetBrandImageByName } from "@/hooks/useBrand";
+import { ShopBrandImagProps } from "@/types/components";
 
-const BrandImage: React.FC<DashboardBrandImagProps> = ({ id, imageStyle, title }) => {
-  const { data: profileImage } = useGetBrandImageById(id);
+const BrandImage: React.FC<ShopBrandImagProps> = ({ imageStyle, title }) => {
+  const { data: profileImage } = useGetBrandImageByName(title);
   const [brandImageUrl, setBrandImageUrl] = useState<string | null>(null);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const BrandImage: React.FC<DashboardBrandImagProps> = ({ id, imageStyle, title }
         />
       ) : (
         <div className="w-full h-full flex items-center justify-center">
-          <Package className="text-muted-foreground/30" size={50} />
+          <Package className="text-muted-foreground/30" size={15} />
         </div >
       )}
     </React.Fragment>

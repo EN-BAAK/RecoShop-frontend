@@ -53,6 +53,7 @@ export const useCreateSubCategory = () => {
       }
     );
 
+    queryClient.invalidateQueries({ queryKey: ["da-sub-categories-identifies"] })
     pushToast({ message: data.message, type: "SUCCESS" });
     router.push("/dashboard/subcategories");
   };
@@ -90,6 +91,7 @@ export const useUpdateSubCategory = () => {
     );
 
     queryClient.invalidateQueries({ queryKey: ["da-sub-categories", updated.id] })
+    queryClient.invalidateQueries({ queryKey: ["da-sub-categories-identifies"] })
     pushToast({ message: data.message, type: "SUCCESS" });
     router.push("/dashboard/subcategories");
   };

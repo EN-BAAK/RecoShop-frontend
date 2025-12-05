@@ -5,13 +5,13 @@ import { MoreVertical, Edit3, Trash2 } from "lucide-react";
 import { useDeleteProduct } from "@/hooks/useProduct";
 import { useAppContext } from "@/contexts/AppProvider";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, } from "@/components/ui/dropdown-menu";
-import { ProductProps } from "@/types/components";
+import { DashboardProductProps } from "@/types/components";
 import { Button } from "@/components/ui/button";
 import { DropdownMenuLabel, DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
-import ProductImage from "./ProductImage";
+import ProductImage from "@/components/ProductImage";
 import { SubCategory } from "@/types/global";
 
-const Product: React.FC<ProductProps> = ({ product }) => {
+const Product: React.FC<DashboardProductProps> = ({ product }) => {
   const router = useRouter();
   const { showWarning } = useAppContext();
   const { mutate: deleteProduct, isPending } = useDeleteProduct();
@@ -32,15 +32,14 @@ const Product: React.FC<ProductProps> = ({ product }) => {
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
-      currency: "SYP",
-      minimumFractionDigits: 0,
+      currency: "USD",
     }).format(price);
   };
 
   return (
     <div className="bg-background border border-muted rounded-xl shadow-sm relative font-sans transition-shadow duration-200 hover:shadow-md group">
-      <div className="p-1">
-        <ProductImage id={product.id} title={product.title} height={200} width={100} containerStyle="bg-muted mb-4 rounded-lg relative overflow-hidden" />
+      <div className="w-full p-1">
+        <ProductImage id={product.id} title={product.title} imageStyle="bg-muted mb-4 rounded-lg relative overflow-hidden" />
       </div>
 
       <div className="p-2">

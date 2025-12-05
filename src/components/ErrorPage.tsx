@@ -2,10 +2,14 @@ import React from 'react';
 import { ErrorPageProps } from '@/types/components';
 import Image from 'next/image';
 import CustomButton from './forms/Button';
+import { cn } from '@/lib/utils';
 
-const ErrorPage: React.FC<ErrorPageProps> = ({ msg, action }) => {
+const ErrorPage: React.FC<ErrorPageProps> = ({ msg, action, className }) => {
   return (
-    <div className="h-full w-full flex justify-center items-center">
+    <div className={cn(
+      "h-full w-full flex justify-center items-center",
+      className
+    )}>
       <div className="flex flex-col items-center justify-center gap-4 text-center">
         <Image
           src="/error.png"

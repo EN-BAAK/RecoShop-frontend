@@ -31,9 +31,9 @@ const Brand: React.FC<BrandProps> = ({ brand }) => {
   };
 
   return (
-    <div className="p-2 font-sans font-normal text-base text-primary relative">
-      <div className="p-1 flex justify-center items-center">
-        <BrandImage id={brand.id} title={brand.name} width={100} height={100} />
+    <div className="p-2 flex flex-col justify-center items-center font-sans font-normal text-base text-primary relative">
+      <div className="p-1 w-22 h-22 flex justify-center items-center">
+        <BrandImage id={brand.id} title={brand.name} />
       </div>
 
       <h3 className="flex-1 line-clamp-2 leading-tight text-center font-sans font-semibold text-xl text-primary">

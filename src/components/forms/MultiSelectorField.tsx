@@ -44,11 +44,15 @@ const MultiSelectorField: React.FC<MultiSelectorFieldProps> = ({
         const isMaxReached =
           maxSelection !== undefined && selectedValues.length >= maxSelection;
 
-        const handleSelect = (value: string) => {
+        const handleSelect = async (value: string) => {
           if (disabled || isMaxReached) return;
-          const newValues = [...selectedValues, value];
-          form.setFieldValue(name, newValues);
+
+          const newValues = Array.isArray(selectedValues) ? [...selectedValues, value] : [value];
+          await form.setFieldValue(name, newValues);
           form.setFieldTouched(name, true);
+
+          form.validateField(name);
+
           setSearch("");
         };
 
@@ -65,7 +69,7 @@ const MultiSelectorField: React.FC<MultiSelectorFieldProps> = ({
               <label
                 htmlFor={name}
                 className={cn(
-                  "block font-sans font-medium text-sm text-foreground",
+                  "block font-sans font-medium text-sm",
                   labelStyle
                 )}
               >
@@ -101,7 +105,7 @@ const MultiSelectorField: React.FC<MultiSelectorFieldProps> = ({
                     <button
                       type="button"
                       onClick={() => setSearch("")}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                      className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-background transition-colors"
                     >
                       <X className="w-4 h-4" />
                     </button>
@@ -135,7 +139,7 @@ const MultiSelectorField: React.FC<MultiSelectorFieldProps> = ({
                           key={option.value}
                           variant="outline"
                           className={cn(
-                            "font-sans cursor-pointer transition-all duration-200 hover:bg-primary hover:text-foreground hover:border-primary animate-in fade-in slide-in-from-top-2",
+                            "font-sans cursor-pointer transition-all duration-200 hover:bg-primary hover:text-background hover:border-primary animate-in fade-in slide-in-from-top-2",
                             disabled || isMaxReached
                               ? "cursor-not-allowed opacity-50"
                               : ""
@@ -161,7 +165,7 @@ const MultiSelectorField: React.FC<MultiSelectorFieldProps> = ({
                         <Badge
                           key={option.value}
                           className={cn(
-                            "bg-primary text-foreground font-sans cursor-pointer transition-all duration-200 hover:bg-primary/80 animate-in fade-in slide-in-from-bottom-2",
+                            "bg-primary text-background font-sans cursor-pointer transition-all duration-200 hover:bg-primary/80 animate-in fade-in slide-in-from-bottom-2",
                             disabled && "cursor-not-allowed opacity-50"
                           )}
                           onClick={() => handleDeselect(option.value)}

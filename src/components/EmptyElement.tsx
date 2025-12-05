@@ -3,10 +3,14 @@ import React from "react";
 import { EmptyElementProps } from "@/types/components";
 import { PlusCircle } from "lucide-react";
 import CustomButton from "./forms/Button";
+import { cn } from "@/lib/utils";
 
-const EmptyElement: React.FC<EmptyElementProps> = ({ title = "No data yet", desc, button }) => {
+const EmptyElement: React.FC<EmptyElementProps> = ({ title = "No data yet", desc, button, className }) => {
   return (
-    <div className="h-full w-full flex items-center justify-center text-center">
+    <div className={cn(
+      "h-full w-full flex items-center justify-center text-center",
+      className
+    )}>
       <div className="flex flex-col items-center justify-center gap-4 text-center">
         <Image
           src="/no-data.png"

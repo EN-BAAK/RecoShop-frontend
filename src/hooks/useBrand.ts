@@ -1,4 +1,4 @@
-import { getAllBrands, getBrandById, createBrand, updateBrand, deleteBrand, getBrandImageById, } from "@/api-client";
+import { getAllBrands, getBrandById, createBrand, updateBrand, deleteBrand, getBrandImageById, getBrandImageByName, } from "@/api-client";
 import { useAppContext } from "@/contexts/AppProvider";
 import { Brand } from "@/types/global";
 import { APIResponse } from "@/types/hooks";
@@ -22,10 +22,18 @@ export const useGetBrandById = (id: number) => {
   });
 };
 
-export const useGetBrandImage = (id: number) => {
+export const useGetBrandImageById = (id: number) => {
   return useQuery({
     queryKey: ["da-brand-image", id],
     queryFn: () => getBrandImageById(id),
+    retry: false
+  })
+}
+
+export const useGetBrandImageByName = (name: string) => {
+  return useQuery({
+    queryKey: ["shop-brand-image", name],
+    queryFn: () => getBrandImageByName(name),
     retry: false
   })
 }

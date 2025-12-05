@@ -1,5 +1,5 @@
-import { Brand, Category, ProductGlobal, SubCategoryGlobal, UserGlobal } from "./global";
-import { Notification, ROLE, SEX, Variant } from "./variables";
+import { Brand, Category, ProductGlobal, ShopProduct, SubCategoryGlobal, UserGlobal } from "./global";
+import { Notification, SEX, Variant } from "./variables";
 
 export type ToastMessage = {
   message: string;
@@ -29,13 +29,20 @@ export type CommonParentProps = {
   readonly children: React.ReactNode
 }
 
+export type LoadingPageProps = {
+  className?: string,
+  msg?: string
+}
+
 export type ErrorPageProps = {
   msg?: string,
+  className?: string,
   action: () => void
 }
 
 export type EmptyElementProps = {
   title?: string,
+  className?: string,
   desc?: string
   button?: {
     action: () => void
@@ -61,7 +68,7 @@ export type SubCategoryProps = {
   subCategory: SubCategoryGlobal
 }
 
-export type ProductProps = {
+export type DashboardProductProps = {
   product: ProductGlobal
 }
 
@@ -71,17 +78,17 @@ export type UserProps = {
 
 export type ProductImageProps = {
   id: number,
-  height?: number,
-  width?: number,
   imageStyle?: string,
   title: string,
-  containerStyle: string
 }
 
-export type BrandImageProps = {
+export type DashboardBrandImagProps = {
   id: number,
-  height?: number,
-  width?: number,
+  imageStyle?: string,
+  title: string,
+}
+
+export type ShopBrandImagProps = {
   imageStyle?: string,
   title: string,
 }
@@ -92,4 +99,12 @@ export type BrandProps = {
 
 export type GenderBadgeProps = {
   gender: SEX
+}
+
+export type ShopProductProps = {
+  product: ShopProduct
+}
+
+export type ShopProductSection = {
+  category: string
 }

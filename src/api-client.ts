@@ -486,6 +486,12 @@ export const getBrandImageById = async (id: number) => {
   if (!response.ok) throw new Error("Failed fetch brand image");
   return response.blob();
 };
+export const getBrandImageByName = async (name: string) => {
+  const response = await fetch(`${API_URL}/brands/name/${name}/image`);
+
+  if (!response.ok) throw new Error("Failed fetch brand image");
+  return response.blob();
+};
 
 export const createBrand = async (formData: FormData) => {
   const response = await fetch(`${API_URL}/brands`, {
