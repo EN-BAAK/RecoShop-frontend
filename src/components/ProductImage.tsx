@@ -6,13 +6,16 @@ import { Package } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useGetProductImage } from "@/hooks/useProduct";
 import { ProductImageProps } from "@/types/components";
+import { useOnScreen } from "@/hooks/useHelpers";
 
 const ProductImage: React.FC<ProductImageProps> = ({
   id,
   imageStyle,
   title,
 }) => {
-  const { data: profileImage } = useGetProductImage(id);
+  const { isVisible, ref } = useOnScreen();
+  const { data: profileImage } = useGetProductImage({ id, enable: isVisible });
+
   const [productImageUrl, setProductImageUrl] = useState<string | null>(null);
 
   useEffect(() => {
@@ -24,23 +27,21 @@ const ProductImage: React.FC<ProductImageProps> = ({
   }, [profileImage]);
 
   return (
-    <React.Fragment>
-      {
-        productImageUrl ? (
-          <Image
-            src={productImageUrl}
-            alt={title}
-            width={50}
-            height={50}
-            loading="lazy"
-            className={cn("h-full w-full", imageStyle)}
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center">
-            <Package className="text-muted-foreground/30" size={50} />
-          </div >
-        )}
-    </React.Fragment>
+    <div ref={ref} className="w-full h-full">
+      {productImageUrl ? (
+        <Image
+          src={productImageUrl}
+          alt={title}
+          width={50}
+          height={50}
+          className={cn("h-full w-full object-cover", imageStyle)}
+        />
+      ) : (
+        <div className="w-full h-full flex items-center justify-center">
+          <Package className="text-muted-foreground/30" size={50} />
+        </div>
+      )}
+    </div>
   );
 };
 

@@ -2,8 +2,6 @@
 
 import React from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useGetProductsPaginatedByCategory } from "@/hooks/useProduct";
 import { ShopProductSection } from "@/types/components";
 import { ShopProduct } from "@/types/global";
@@ -20,18 +18,10 @@ const EmblaOptions = {
 } as Parameters<typeof useEmblaCarousel>[0];
 
 export function Section({ category }: ShopProductSection) {
-  const { data: productsData, isFetching, isError } = useGetProductsPaginatedByCategory({ limit: 10, page: 0, category: category, search: "", });
+  const { data: productsData, isFetching, isError } = useGetProductsPaginatedByCategory({ limit: 6, page: 0, category: category, search: "", });
   const products = (productsData?.data || []) as ShopProduct[];
 
-  const [emblaRef, emblaApi] = useEmblaCarousel(EmblaOptions);
-
-  const scrollPrev = React.useCallback(() => {
-    emblaApi && emblaApi.scrollPrev();
-  }, [emblaApi]);
-
-  const scrollNext = React.useCallback(() => {
-    emblaApi && emblaApi.scrollNext();
-  }, [emblaApi]);
+  const [emblaRef] = useEmblaCarousel(EmblaOptions);
 
   if (isFetching) {
     return (
@@ -54,11 +44,11 @@ export function Section({ category }: ShopProductSection) {
         </div>
 
         <div className="overflow-hidden" ref={emblaRef}>
-          <div className="flex -ml-2 select-none touch-pan-y">
+          <div className="flex gap-1 select-none touch-pan-y">
             {products.map((product) => (
               <div
                 key={product.id}
-                className="min-w-0 pl-2 flex-[0_0_80%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%]"
+                className="min-w-0 flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] flex justify-center"
               >
                 <ProductCard product={product} />
               </div>

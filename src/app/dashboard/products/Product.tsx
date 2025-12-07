@@ -38,8 +38,8 @@ const Product: React.FC<DashboardProductProps> = ({ product }) => {
 
   return (
     <div className="bg-background border border-muted rounded-xl shadow-sm relative font-sans transition-shadow duration-200 hover:shadow-md group">
-      <div className="w-full p-1">
-        <ProductImage id={product.id} title={product.title} imageStyle="bg-muted mb-4 rounded-lg relative overflow-hidden" />
+      <div className="h-48 w-full p-1">
+        <ProductImage id={product.id} title={product.title} imageStyle="bg-muted rounded-lg relative overflow-hidden" />
       </div>
 
       <div className="p-2">
@@ -113,7 +113,7 @@ const Product: React.FC<DashboardProductProps> = ({ product }) => {
 
         {product.category && (
           <div className="absolute right-2 top-2">
-            <span className="bg-primary/10 px-3 py-1 rounded-md font-sans font-medium text-xs text-primary">
+            <span className="bg-primary/85 px-3 py-1 rounded-md font-sans font-medium text-xs text-background">
               {product.category}
             </span>
           </div>

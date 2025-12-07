@@ -43,11 +43,12 @@ export const useGetProductSettingsById = (id: number) => {
   });
 };
 
-export const useGetProductImage = (id: number) => {
+export const useGetProductImage = ({ id, enable }: { id: number, enable: boolean }) => {
   return useQuery({
     queryKey: ["da-product-image", id],
     queryFn: () => getProductImage(id),
-    retry: false
+    retry: false,
+    enabled: enable
   })
 }
 

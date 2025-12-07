@@ -30,11 +30,12 @@ export const useGetBrandImageById = (id: number) => {
   })
 }
 
-export const useGetBrandImageByName = (name: string) => {
+export const useGetBrandImageByName = ({ name, enable }: { name: string, enable?: boolean }) => {
   return useQuery({
     queryKey: ["shop-brand-image", name],
     queryFn: () => getBrandImageByName(name),
-    retry: false
+    retry: false,
+    enabled: enable
   })
 }
 

@@ -13,11 +13,11 @@ const ProductCard: React.FC<ShopProductProps> = ({ product }) => {
   }).format(product.price);
 
   return (
-    <div className="min-w-[280px] sm:min-w-[300px] lg:min-w-[320px] max-w-[320px] mx-2 transition-all duration-300 ease-in-out">
+    <div className="h-full min-w-[280px] sm:min-w-[300px] lg:min-w-[320px] max-w-[320px] mx-2 transition-all duration-300 ease-in-out">
       <div className="bg-background h-full p-1 flex flex-col border border-muted rounded-lg shadow-sm relative overflow-hidden transform transition-all duration-300 group hover:shadow-lg hover:-translate-y-1">
 
-        <div className="w-full p-1 h-48 border-b border-muted overflow-hidden">
-          <ProductImage id={product.id} title={product.title} />
+        <div className="w-full p-1 h-48 border-b border-muted rounded-md overflow-hidden">
+          <ProductImage id={product.id} title={product.title} imageStyle="rounded-md" />
         </div>
 
         <div className="p-4 border-b border-muted">
