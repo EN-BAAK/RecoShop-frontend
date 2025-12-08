@@ -150,8 +150,18 @@ export const resetForgottenPassword = async ({ code, email, password }: Omit<For
 };
 
 export const getAllCategories = async () => {
-  const response = await fetch(`${API_URL}/categories`, {
-    credentials: "include",
+  const response = await fetch(`${API_URL}/categories`)
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}
+
+export const getAllCategoriesIdentities = async () => {
+  const response = await fetch(`${API_URL}/categories/identities`, {
+    credentials: "include"
   })
 
   const responseBody = await response.json()
@@ -217,9 +227,7 @@ export const deleteCategory = async (id: number) => {
 }
 
 export const getAllSubCategories = async () => {
-  const response = await fetch(`${API_URL}/sub-categories`, {
-    credentials: "include",
-  })
+  const response = await fetch(`${API_URL}/sub-categories`)
 
   const responseBody = await response.json()
 
@@ -307,25 +315,6 @@ export const getAllProducts = async () => {
   return responseBody
 }
 
-export const getShopProductsInfinite = async ({ limit, offsetUnit = 0, category, search, page = 0 }: GetShopProductsParams) => {
-  const offset = page * limit + offsetUnit;
-
-  const queryParams = new URLSearchParams();
-
-  queryParams.append("limit", String(limit));
-  queryParams.append("offset", String(offset));
-
-  if (category) queryParams.append("category", category);
-  if (search) queryParams.append("search", search);
-
-  const response = await fetch(`${API_URL}/products/shop?${queryParams.toString()}`);
-
-  const responseBody = await response.json();
-  if (!response.ok) throw new Error(responseBody.message);
-
-  return responseBody;
-};
-
 export const getShopProductsPaginatedByCategory = async ({
   limit,
   category,
@@ -365,9 +354,7 @@ export const getProductSettingsById = async (id: number) => {
 }
 
 export const getProductImage = async (id: number) => {
-  const response = await fetch(`${API_URL}/products/${id}/image`, {
-    credentials: "include"
-  });
+  const response = await fetch(`${API_URL}/products/${id}/image`);
 
   if (!response.ok) throw new Error("Failed fetch product image");
 
@@ -458,6 +445,17 @@ export const deleteUser = async (id: number) => {
 
 export const getAllBrands = async () => {
   const response = await fetch(`${API_URL}/brands`, {
+    credentials: "include",
+  });
+
+  const responseBody = await response.json();
+  if (!response.ok) throw new Error(responseBody.message);
+
+  return responseBody;
+};
+
+export const getAllBrandsIdentities = async () => {
+  const response = await fetch(`${API_URL}/brands/identities`, {
     credentials: "include",
   });
 

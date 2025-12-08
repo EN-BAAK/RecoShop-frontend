@@ -1,8 +1,8 @@
-import { getAllProducts, getProductSettingsById, createProduct, updateProduct, deleteProduct, getProductImage, getShopProductsInfinite, getShopProductsPaginatedByCategory, } from "@/api-client";
+import { getAllProducts, getProductSettingsById, createProduct, updateProduct, deleteProduct, getProductImage, getShopProductsPaginatedByCategory, } from "@/api-client";
 import { useAppContext } from "@/contexts/AppProvider";
-import { APIResponse, UseGetProductsInfiniteProps, UseGetProductsPaginatedByCategoryProps } from "@/types/hooks";
+import { APIResponse, UseGetProductsPaginatedByCategoryProps } from "@/types/hooks";
 import { ProductGlobal } from "@/types/global";
-import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 export const useGetAllProducts = () => {
@@ -11,18 +11,6 @@ export const useGetAllProducts = () => {
     queryFn: getAllProducts,
     retry: false,
   });
-};
-
-export const useGetProductsInfinite = ({ limit, category, search, offsetUnit }: UseGetProductsInfiniteProps) => {
-  return useInfiniteQuery({
-    queryKey: ["da-products-infinite", category, search],
-    queryFn: ({ pageParam = 0 }) =>
-      getShopProductsInfinite({ limit, page: pageParam, category, search, offsetUnit }),
-    initialPageParam: 0,
-    getNextPageParam: (lastPage) =>
-      lastPage.data.hasMore ? lastPage.data.nextPage : undefined,
-    retry: false,
-  })
 };
 
 export const useGetProductsPaginatedByCategory = ({ limit, page, category, search, }: UseGetProductsPaginatedByCategoryProps) => {
@@ -43,7 +31,7 @@ export const useGetProductSettingsById = (id: number) => {
   });
 };
 
-export const useGetProductImage = ({ id, enable }: { id: number, enable: boolean }) => {
+export const useGetProductImage = ({ id, enable = true }: { id: number, enable?: boolean }) => {
   return useQuery({
     queryKey: ["da-product-image", id],
     queryFn: () => getProductImage(id),

@@ -11,10 +11,10 @@ import SelectImageField from "@/components/forms/SelectImageField";
 import PageHolder from "@/app/dashboard/DashboardPageHolder";
 import { product as initialValues } from "@/constants/formValues";
 import { createProduct as createProductValidation } from "@/constants/formValidation";
-import { useGetAllCategories } from "@/hooks/useCategory";
+import { useGetAllCategoriesIdentities } from "@/hooks/useCategory";
 import { useGetSubCategoriesByCategory } from "@/hooks/useSubCategory";
 import MultiSelectorField from "@/components/forms/MultiSelectorField";
-import { useGetAllBrands } from "@/hooks/useBrand";
+import { useGetAllBrandsIdentities } from "@/hooks/useBrand";
 import SelectorField from "@/components/forms/SelectorField";
 
 const CreateProductPage: React.FC = () => {
@@ -22,8 +22,8 @@ const CreateProductPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
 
   const { mutateAsync: createProduct } = useCreateProduct();
-  const { data: categoriesData, isFetching: isCategoriesLoading } = useGetAllCategories();
-  const { data: brandsData, isFetching: isBrandsLoading } = useGetAllBrands();
+  const { data: categoriesData, isFetching: isCategoriesLoading } = useGetAllCategoriesIdentities();
+  const { data: brandsData, isFetching: isBrandsLoading } = useGetAllBrandsIdentities();
   const { data: SubCategoriesData, isFetching: isSubCategoriesLoading } = useGetSubCategoriesByCategory(selectedCategory);
 
   const categories = categoriesData?.data || []
@@ -60,7 +60,6 @@ const CreateProductPage: React.FC = () => {
     key: sub.name,
     value: String(sub.id),
   })) || [];
-
 
   return (
     <PageHolder

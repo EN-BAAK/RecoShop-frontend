@@ -4,9 +4,9 @@ import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Formik, Form, FormikHelpers } from "formik";
 import { useGetProductSettingsById, useGetProductImage, useUpdateProduct, } from "@/hooks/useProduct";
-import { useGetAllCategories } from "@/hooks/useCategory";
+import { useGetAllCategoriesIdentities } from "@/hooks/useCategory";
 import { useGetSubCategoriesByCategory } from "@/hooks/useSubCategory";
-import { Category, ProductCreation, SubCategory } from "@/types/global";
+import { Brand, Category, ProductCreation, SubCategory } from "@/types/global";
 import { editProduct as editProductValidation } from "@/constants/formValidation";
 import PageHolder from "@/app/dashboard/DashboardPageHolder";
 import LoadingPage from "@/components/LoadingPage";
@@ -17,6 +17,8 @@ import TextAreaField from "@/components/forms/TextAreaField";
 import MultiSelectorField from "@/components/forms/MultiSelectorField";
 import SelectImageField from "@/components/forms/SelectImageField";
 import SubmitButton from "@/components/forms/SubmitButton";
+import { useGetAllBrandsIdentities } from "@/hooks/useBrand";
+import SelectorField from "@/components/forms/SelectorField";
 
 const EditProductPage: React.FC = () => {
   const params = useParams();
@@ -28,8 +30,9 @@ const EditProductPage: React.FC = () => {
   const [isImageChanged, setIsImageChanged] = useState(false);
 
   const { data: productData, isFetching: isProductLoading, isError, error, refetch } = useGetProductSettingsById(Number(params.id));
-  const { data: productImage, isFetching: isImgLoading } = useGetProductImage(Number(params.id));
-  const { data: categoriesData, isLoading: isCategoriesLoading } = useGetAllCategories();
+  const { data: productImage, isFetching: isImgLoading } = useGetProductImage({ id: Number(params.id) });
+  const { data: brandsData, isFetching: isBrandsLoading } = useGetAllBrandsIdentities();
+  const { data: categoriesData, isLoading: isCategoriesLoading } = useGetAllCategoriesIdentities();
 
   const shouldFetchSub = Boolean(selectedCategory);
   const { data: subCategoriesData, isFetching: isSubCategoriesLoading, } = useGetSubCategoriesByCategory(
@@ -99,6 +102,11 @@ const EditProductPage: React.FC = () => {
       value: String(s.id),
     })) || [];
 
+  const brandOptions = brandsData?.data?.map((sub: Omit<Brand, "imgURL">) => ({
+    key: sub.name,
+    value: String(sub.id),
+  })) || [];
+
   const goBack = () => router.back();
 
   return (
@@ -131,13 +139,15 @@ const EditProductPage: React.FC = () => {
                     required
                   />
 
-                  <InputField
-                    type="text"
-                    name="brand"
-                    label="Brand"
-                    placeholder="Brand..."
-                    required
-                  />
+                  {!isBrandsLoading &&
+                    <SelectorField
+                      options={brandOptions}
+                      name="brandId"
+                      required
+                      label="brand"
+                      styles="font-sans"
+                    />
+                  }
 
                   <InputField
                     inputMode="numeric"

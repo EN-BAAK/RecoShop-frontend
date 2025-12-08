@@ -1,6 +1,6 @@
 "use client"
 
-import { getAllCategories, getCategoryById, createCategory, updateCategory, deleteCategory } from "@/api-client"
+import { getAllCategories, getCategoryById, createCategory, updateCategory, deleteCategory, getAllCategoriesIdentities } from "@/api-client"
 import { useAppContext } from "@/contexts/AppProvider"
 import { APIResponse } from "@/types/hooks"
 import { Category, } from "@/types/global"
@@ -9,8 +9,16 @@ import { useRouter } from "next/navigation"
 
 export const useGetAllCategories = () => {
   return useQuery({
-    queryKey: ["da-categories"],
+    queryKey: ["categories"],
     queryFn: getAllCategories,
+    retry: false
+  })
+}
+
+export const useGetAllCategoriesIdentities = () => {
+  return useQuery({
+    queryKey: ["da-categories-identities"],
+    queryFn: getAllCategoriesIdentities,
     retry: false
   })
 }
@@ -32,7 +40,7 @@ export const useCreateCategory = () => {
   const onSuccess = (data: APIResponse<Category>) => {
     const newCategory = data.data
 
-    queryClient.setQueryData<APIResponse<Category[]>>(["da-categories"], (oldData) => {
+    queryClient.setQueryData<APIResponse<Category[]>>(["categories"], (oldData) => {
       if (!oldData) return oldData
       return {
         ...oldData,
@@ -40,6 +48,7 @@ export const useCreateCategory = () => {
       }
     })
 
+    queryClient.invalidateQueries({ queryKey: ["da-categories-identities"] })
     pushToast({ message: data.message, type: "SUCCESS" })
     router.push("/dashboard/categories")
   }
@@ -62,7 +71,7 @@ export const useUpdateCategory = () => {
 
   const onSuccess = (data: APIResponse<Category>) => {
     const updated = data.data
-    queryClient.setQueryData<APIResponse<Category[]>>(["da-categories"], (oldData) => {
+    queryClient.setQueryData<APIResponse<Category[]>>(["categories"], (oldData) => {
       if (!oldData) return oldData
       return {
         ...oldData,
@@ -71,6 +80,7 @@ export const useUpdateCategory = () => {
     })
 
     queryClient.invalidateQueries({ queryKey: ["da-categories", updated.id] })
+    queryClient.invalidateQueries({ queryKey: ["da-categories-identities"] })
     pushToast({ message: data.message, type: "SUCCESS" })
     router.push("/dashboard/categories")
   }
@@ -91,7 +101,7 @@ export const useDeleteCategory = () => {
   const { pushToast } = useAppContext()
 
   const onSuccess = (data: APIResponse<unknown>, id: number) => {
-    queryClient.setQueryData<APIResponse<Category[]>>(["da-categories"], (oldData) => {
+    queryClient.setQueryData<APIResponse<Category[]>>(["categories"], (oldData) => {
       if (!oldData) return oldData
       return {
         ...oldData,
@@ -100,6 +110,7 @@ export const useDeleteCategory = () => {
     })
 
     queryClient.invalidateQueries({ queryKey: ["da-categories", id] })
+    queryClient.invalidateQueries({ queryKey: ["da-categories-identities"] })
     pushToast({ message: data.message, type: "SUCCESS" })
   }
 

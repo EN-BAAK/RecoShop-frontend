@@ -1,4 +1,4 @@
-import { getAllBrands, getBrandById, createBrand, updateBrand, deleteBrand, getBrandImageById, getBrandImageByName, } from "@/api-client";
+import { getAllBrands, getBrandById, createBrand, updateBrand, deleteBrand, getBrandImageById, getBrandImageByName, getAllBrandsIdentities, } from "@/api-client";
 import { useAppContext } from "@/contexts/AppProvider";
 import { Brand } from "@/types/global";
 import { APIResponse } from "@/types/hooks";
@@ -9,6 +9,14 @@ export const useGetAllBrands = () => {
   return useQuery({
     queryKey: ["da-brands"],
     queryFn: getAllBrands,
+    retry: false,
+  });
+};
+
+export const useGetAllBrandsIdentities = () => {
+  return useQuery({
+    queryKey: ["da-brands-identities"],
+    queryFn: getAllBrandsIdentities,
     retry: false,
   });
 };
@@ -30,7 +38,7 @@ export const useGetBrandImageById = (id: number) => {
   })
 }
 
-export const useGetBrandImageByName = ({ name, enable }: { name: string, enable?: boolean }) => {
+export const useGetBrandImageByName = ({ name, enable = true }: { name: string, enable?: boolean }) => {
   return useQuery({
     queryKey: ["shop-brand-image", name],
     queryFn: () => getBrandImageByName(name),
@@ -59,6 +67,7 @@ export const useCreateBrand = () => {
       }
     );
 
+    queryClient.invalidateQueries({ queryKey: ["da-brand-identities"] })
     pushToast({ message: data.message, type: "SUCCESS" });
     router.push("/dashboard/brands");
   };
@@ -83,6 +92,7 @@ export const useUpdateBrand = () => {
     const updated = data.data;
 
     queryClient.invalidateQueries({ queryKey: ["da-brand", updated.id] })
+    queryClient.invalidateQueries({ queryKey: ["da-brand-identities"] })
     queryClient.removeQueries({ queryKey: ["da-brand-image", updated.id] })
 
     queryClient.setQueryData<APIResponse<Brand[]>>(
@@ -132,6 +142,7 @@ export const useDeleteBrand = () => {
 
     queryClient.invalidateQueries({ queryKey: ["da-brand", id] })
     queryClient.invalidateQueries({ queryKey: ["da-brand-image", id] })
+    queryClient.invalidateQueries({ queryKey: ["da-brand-identities"] })
     pushToast({ message: data.message, type: "SUCCESS" });
   };
 
