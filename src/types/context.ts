@@ -6,4 +6,9 @@ export type AppContextProps = {
   pushToast: (toastMessage: ToastMessage) => void;
   showWarning: (warning: Warning) => void;
   user?: User
-} 
+}
+
+export type ShopContextProps = {
+  search: string,
+  setSearch: React.Dispatch<React.SetStateAction<string>>
+}

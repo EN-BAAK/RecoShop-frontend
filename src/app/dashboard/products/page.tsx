@@ -22,7 +22,7 @@ const ProductsPage: React.FC = () => {
     refetch,
   } = useGetAllProducts();
 
-  const products = data?.data || []
+  const products = data?.data?.products || []
 
   const handleAddNewProduct = () => router.push("products/add")
 

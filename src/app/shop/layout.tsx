@@ -4,6 +4,7 @@ import { metadata as mainMetadata } from "@/app/layout";
 import { CommonParentProps } from "@/types/components";
 import Header from "./Header";
 import Footer from "./Footer";
+import ShopProvider from "@/contexts/ShopProvider";
 
 const keywords = [...(mainMetadata.keywords || []), "Shop", "Products", "Buy", "E-commerce", "RecoShop"];
 
@@ -21,14 +22,16 @@ export const metadata: Metadata = {
 
 const ShopLayout: React.FC<CommonParentProps> = ({ children }) => {
   return (
-    <div className="bg-background min-h-screen flex flex-col overflow-hidden">
-      <Header />
+    <div className="bg-background min-h-screen flex flex-col relative overflow-hidden">
+      <ShopProvider>
+        <Header />
 
-      <main className="w-full flex-1 flex flex-col">
-        {children}
-      </main>
+        <main className="w-full flex-1 flex flex-col">
+          {children}
+        </main>
 
-      <Footer />
+        <Footer />
+      </ShopProvider>
     </div>
   );
 };

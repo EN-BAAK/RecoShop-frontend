@@ -6,10 +6,21 @@ import Image from "next/image";
 import CustomButton from "@/components/forms/Button";
 import { useAppContext } from "@/contexts/AppProvider";
 import Link from "next/link";
+import { useDebouncedSearch } from "@/hooks/useHelpers";
+import { useEffect } from "react";
+import { useShopContext } from "@/contexts/ShopProvider";
 
 const Header = () => {
   const { user } = useAppContext()
+  const { setSearch: setShopSearch } = useShopContext()
   const isUserExists: boolean = !!user
+
+  const { debouncedSearch, search, setSearch } = useDebouncedSearch()
+
+
+  useEffect(() => {
+    setShopSearch(debouncedSearch)
+  }, [debouncedSearch, setShopSearch])
 
   return (
     <header className="bg-background/95 w-full border-b border-muted sticky shadow-md backdrop-blur-sm top-0 z-50">
@@ -32,17 +43,13 @@ const Header = () => {
           <div className="w-full relative">
             <Input
               type="text"
+              value={search}
               placeholder="Search products..."
               className="bg-background w-full py-5 pr-4 pl-11 rounded-lg transition duration-300"
+              onChange={(e) => setSearch(e.target.value)}
             />
 
-            <button
-              type="submit"
-              className="absolute left-3 top-1/2 text-muted-foreground -translate-y-1/2 transition-colors hover:text-primary"
-              aria-label="Search"
-            >
-              <Search className="w-5 h-5" />
-            </button>
+            <CustomButton className="w-fit p-0 absolute left-3 top-1/2 -translate-y-1/2" variant="transparent" icon={Search} iconClassName="w-5 h-5" aria-label="Search" />
           </div>
         </div>
 

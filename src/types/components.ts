@@ -102,9 +102,17 @@ export type GenderBadgeProps = {
 }
 
 export type ShopProductProps = {
-  product: ShopProduct
+  product: ShopProduct,
+  dir?: "vertical" | "horizontal"
 }
 
 export type ShopProductSection = {
   category: string
+}
+
+export type PaginationProps = {
+  currentPage: number,
+  totalPages: number,
+  isLoading?: boolean,
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>
 }

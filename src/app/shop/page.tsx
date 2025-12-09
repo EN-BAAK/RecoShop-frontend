@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useGetAllCategories } from "@/hooks/useCategory";
-import { Section } from "./Section";
+import Section from "./Section";
 import { Category } from "@/types/global";
 import LoadingPage from "@/components/LoadingPage";
 import ErrorPage from "@/components/ErrorPage";

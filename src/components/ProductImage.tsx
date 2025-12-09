@@ -34,7 +34,7 @@ const ProductImage: React.FC<ProductImageProps> = ({
           alt={title}
           width={50}
           height={50}
-          className={cn("h-full w-full object-cover", imageStyle)}
+          className={cn("h-full w-full", imageStyle)}
         />
       ) : (
         <div className="w-full h-full flex items-center justify-center">

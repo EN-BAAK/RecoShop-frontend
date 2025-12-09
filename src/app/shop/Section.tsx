@@ -7,6 +7,9 @@ import { ShopProductSection } from "@/types/components";
 import { ShopProduct } from "@/types/global";
 import ProductCard from "./Product";
 import LoadingPage from "@/components/LoadingPage";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { useShopContext } from "@/contexts/ShopProvider";
 
 const EmblaOptions = {
   align: "start",
@@ -17,8 +20,10 @@ const EmblaOptions = {
   },
 } as Parameters<typeof useEmblaCarousel>[0];
 
-export function Section({ category }: ShopProductSection) {
-  const { data: productsData, isFetching, isError } = useGetProductsPaginatedByCategory({ limit: 6, page: 0, category: category, search: "", });
+const Section: React.FC<ShopProductSection> = ({ category }) => {
+  const { search } = useShopContext()
+  const { data: productsData, isFetching, isError } = useGetProductsPaginatedByCategory({ limit: 6, page: 0, category: category, search, });
+
   const products = (productsData?.data || []) as ShopProduct[];
 
   const [emblaRef] = useEmblaCarousel(EmblaOptions);
@@ -50,12 +55,16 @@ export function Section({ category }: ShopProductSection) {
                 key={product.id}
                 className="min-w-0 flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] flex justify-center"
               >
-                <ProductCard product={product} />
+                <ProductCard product={product} dir="vertical" />
               </div>
             ))}
           </div>
         </div>
+
+        <Link href={`/shop/${encodeURIComponent(category)}`} className="w-fit mt-3 ms-auto me-3 flex items-center text-sm text-accent cursor-pointer hover:underline">Show more <ArrowRight /></Link>
       </div>
     </section>
   );
 }
+
+export default Section

@@ -21,3 +21,21 @@ export const clearSessionItem = (key: string): void => {
   if (typeof window === "undefined") return;
   sessionStorage.removeItem(key);
 };
+
+export const range = (start: number, end: number, step: number = 1): number[] => {
+  const result: number[] = [];
+
+  if (step === 0) throw new Error("Step cannot be 0");
+
+  const increasing = start < end;
+
+  for (
+    let i = start;
+    increasing ? i <= end : i >= end;
+    i += increasing ? step : -step
+  ) {
+    result.push(i);
+  }
+
+  return result;
+};
