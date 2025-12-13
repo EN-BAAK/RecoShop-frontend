@@ -4,8 +4,8 @@ import { ShoppingCart } from "lucide-react";
 import { ShopProductProps } from "@/types/components";
 import CustomButton from "@/components/forms/Button";
 import ProductImage from "@/components/ProductImage";
-import BrandImage from "./BrandImage";
 import { cn } from "@/lib/utils";
+import BrandImage from "@/components/BrandImage";
 
 const ProductCard: React.FC<ShopProductProps> = ({ product, dir = "vertical" }) => {
   const isHorizontal = dir === "horizontal"

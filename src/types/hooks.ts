@@ -1,8 +1,20 @@
+import { InfiniteData } from "@tanstack/react-query";
+
 export type APIResponse<T> = {
   message: string,
   success: boolean,
   data: T
 }
+
+export type PaginatedData<T> = {
+  items: T[];
+  totalPages: number;
+  currentPage: number;
+  totalCount: number;
+};
+
+export type InfiniteAPIResponse<T> =
+  InfiniteData<APIResponse<PaginatedData<T>>>;
 
 export type MutationFnType = Promise<APIResponse<unknown>>
 
@@ -37,3 +49,7 @@ export type UseGetProductsPaginatedByCategoryProps = {
   category?: string;
   search?: string;
 };
+
+export type UseGetAllProductsProps = {
+  limit: number,
+}

@@ -7,14 +7,11 @@ import { cn } from "@/lib/utils";
 import { useGetProductImage } from "@/hooks/useProduct";
 import { ProductImageProps } from "@/types/components";
 import { useOnScreen } from "@/hooks/useHelpers";
+import { Skeleton } from "./ui/skeleton";
 
-const ProductImage: React.FC<ProductImageProps> = ({
-  id,
-  imageStyle,
-  title,
-}) => {
+const ProductImage: React.FC<ProductImageProps> = ({ id, imageStyle, title, }) => {
   const { isVisible, ref } = useOnScreen();
-  const { data: profileImage } = useGetProductImage({ id, enable: isVisible });
+  const { data: profileImage, isFetching } = useGetProductImage({ id, enable: isVisible });
 
   const [productImageUrl, setProductImageUrl] = useState<string | null>(null);
 
@@ -28,19 +25,21 @@ const ProductImage: React.FC<ProductImageProps> = ({
 
   return (
     <div ref={ref} className="w-full h-full">
-      {productImageUrl ? (
-        <Image
-          src={productImageUrl}
-          alt={title}
-          width={50}
-          height={50}
-          className={cn("h-full w-full", imageStyle)}
-        />
-      ) : (
-        <div className="w-full h-full flex items-center justify-center">
-          <Package className="text-muted-foreground/30" size={50} />
-        </div>
-      )}
+      {
+        isFetching ? <Skeleton className="bg-muted h-full w-full" />
+          : productImageUrl ? (
+            <Image
+              src={productImageUrl}
+              alt={title}
+              width={50}
+              height={50}
+              className={cn("h-full w-full", imageStyle)}
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center">
+              <Package className="text-muted-foreground/30" size={50} />
+            </div>
+          )}
     </div>
   );
 };

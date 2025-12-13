@@ -80,7 +80,7 @@ export const createProduct = Yup.object({
 
   brandId: Yup.number()
     .required("Brand is required")
-    .min(1, "Select a valid category"),
+    .min(1, "Select a valid brand"),
 
   price: Yup.number()
     .typeError("Enter a valid number for price")
@@ -106,7 +106,7 @@ export const editProduct = Yup.object({
     .optional(),
 
   brandId: Yup.string()
-    .min(1, "Select a valid category")
+    .min(1, "Select a valid brand")
     .optional(),
 
   price: Yup.number()

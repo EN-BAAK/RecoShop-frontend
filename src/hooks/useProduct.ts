@@ -1,14 +1,16 @@
 import { getAllProducts, getProductSettingsById, createProduct, updateProduct, deleteProduct, getProductImage, getShopProductsPaginatedByCategory, } from "@/api-client";
 import { useAppContext } from "@/contexts/AppProvider";
-import { APIResponse, UseGetProductsPaginatedByCategoryProps } from "@/types/hooks";
+import { APIResponse, InfiniteAPIResponse, UseGetAllProductsProps, UseGetProductsPaginatedByCategoryProps } from "@/types/hooks";
 import { ProductGlobal } from "@/types/global";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
-export const useGetAllProducts = () => {
-  return useQuery({
+export const useGetAllProducts = ({ limit }: UseGetAllProductsProps) => {
+  return useInfiniteQuery({
     queryKey: ["da-products"],
-    queryFn: getAllProducts,
+    queryFn: ({ pageParam = 1 }) => getAllProducts(limit, pageParam),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => lastPage.data.hasMore ? lastPage.data.nextPage : undefined,
     retry: false,
   });
 };
@@ -48,13 +50,25 @@ export const useCreateProduct = () => {
   const onSuccess = (data: APIResponse<ProductGlobal>) => {
     const newProduct = data.data;
 
-    queryClient.setQueryData<APIResponse<ProductGlobal[]>>(
+    queryClient.setQueryData<InfiniteAPIResponse<ProductGlobal>>(
       ["da-products"],
       (oldData) => {
         if (!oldData) return oldData;
+
         return {
           ...oldData,
-          data: [newProduct, ...oldData.data],
+          pages: oldData.pages.map((page, index) => {
+            if (index !== 0) return page;
+
+            return {
+              ...page,
+              data: {
+                ...page.data,
+                items: [newProduct, ...page.data.items],
+                totalCount: page.data.totalCount + 1,
+              },
+            };
+          }),
         };
       }
     );
@@ -82,18 +96,30 @@ export const useUpdateProduct = () => {
   const onSuccess = (data: APIResponse<ProductGlobal>) => {
     const updatedProduct = data.data;
 
-    queryClient.invalidateQueries({ queryKey: ["da-product-settings", updatedProduct.id] })
-    queryClient.removeQueries({ queryKey: ["da-product-image", updatedProduct.id] })
+    queryClient.invalidateQueries({
+      queryKey: ["da-product-settings", updatedProduct.id],
+    });
 
-    queryClient.setQueryData<APIResponse<ProductGlobal[]>>(
+    queryClient.removeQueries({
+      queryKey: ["da-product-image", updatedProduct.id],
+    });
+
+    queryClient.setQueryData<InfiniteAPIResponse<ProductGlobal>>(
       ["da-products"],
       (oldData) => {
         if (!oldData) return oldData;
+
         return {
           ...oldData,
-          data: oldData.data.map((p) =>
-            p.id === updatedProduct.id ? updatedProduct : p
-          ),
+          pages: oldData.pages.map((page) => ({
+            ...page,
+            data: {
+              ...page.data,
+              items: page.data.items.map((p: ProductGlobal) =>
+                p.id === updatedProduct.id ? updatedProduct : p
+              ),
+            },
+          })),
         };
       }
     );
@@ -118,19 +144,29 @@ export const useDeleteProduct = () => {
   const { pushToast } = useAppContext();
 
   const onSuccess = (data: APIResponse<ProductGlobal>, id: number) => {
-    queryClient.setQueryData<APIResponse<ProductGlobal[]>>(
+    queryClient.setQueryData<InfiniteAPIResponse<ProductGlobal>>(
       ["da-products"],
       (oldData) => {
         if (!oldData) return oldData;
+
         return {
           ...oldData,
-          data: oldData.data.filter((p) => p.id !== id),
+          pages: oldData.pages.map((page) => ({
+            ...page,
+            data: {
+              ...page.data,
+              items: page.data.items.filter(
+                (p: ProductGlobal) => p.id !== id
+              ),
+            },
+          })),
         };
       }
     );
 
-    queryClient.invalidateQueries({ queryKey: ["da-product-settings", id] })
-    queryClient.invalidateQueries({ queryKey: ["da-product-image", id] })
+    queryClient.invalidateQueries({ queryKey: ["da-product-settings", id] });
+    queryClient.invalidateQueries({ queryKey: ["da-product-image", id] });
+
     pushToast({ message: data.message, type: "SUCCESS" });
   };
 

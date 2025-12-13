@@ -303,8 +303,8 @@ export const deleteSubCategory = async (id: number) => {
   return responseBody
 }
 
-export const getAllProducts = async () => {
-  const response = await fetch(`${API_URL}/products`, {
+export const getAllProducts = async (limit: number, page: number) => {
+  const response = await fetch(`${API_URL}/products?limit=${limit}&page=${page}`, {
     credentials: "include",
   })
 
@@ -339,7 +339,6 @@ export const getShopProductsPaginatedByCategory = async ({
 
   return responseBody;
 };
-
 
 export const getProductSettingsById = async (id: number) => {
   const response = await fetch(`${API_URL}/products/settings/${id}`, {
