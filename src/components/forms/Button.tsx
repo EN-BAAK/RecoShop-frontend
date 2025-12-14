@@ -32,6 +32,9 @@ const CustomButton: React.FC<CustomButtonProps> = ({
 
     "accent-gradient": "bg-gradient-to-r from-accent to-red-600 text-background hover:opacity-90",
     "accent-gradient-outline": "border border-accent bg-transparent text-accent hover:bg-accent/10",
+
+    blue: "bg-blue-600 text-background hover:bg-blue-500",
+    "blue-outline": "border border-blue-600 bg-transparent text-blue-600 hover:bg-blue-600/10",
   }[variant]
 
   return (

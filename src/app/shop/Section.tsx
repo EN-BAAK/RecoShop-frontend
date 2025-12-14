@@ -61,7 +61,11 @@ const Section: React.FC<ShopProductSection> = ({ category }) => {
           </div>
         </div>
 
-        <Link href={`/shop/${encodeURIComponent(category)}`} className="w-fit mt-3 ms-auto me-3 flex items-center text-sm text-accent cursor-pointer hover:underline">Show more <ArrowRight /></Link>
+        <Link href={{
+          pathname: "shop/products",
+          query: { category }
+        }}
+          className="w-fit mt-3 ms-auto me-3 flex items-center text-sm text-accent cursor-pointer hover:underline">Show more <ArrowRight /></Link>
       </div>
     </section>
   );

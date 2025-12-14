@@ -3,7 +3,7 @@ import { Basket } from "../Basket";
 import { ChatSidebar } from "../ChatSidebar";
 import { CommonParentProps } from "@/types/components";
 
-const ShopLayout: React.FC<CommonParentProps> = ({ children }) => {
+const ProductsLayout: React.FC<CommonParentProps> = ({ children }) => {
   return (
     <div className="bg-background min-h-screen">
       <div className="px-4 py-6 md:px-6 flex gap-4">
@@ -25,4 +25,4 @@ const ShopLayout: React.FC<CommonParentProps> = ({ children }) => {
   )
 }
 
-export default ShopLayout
+export default ProductsLayout

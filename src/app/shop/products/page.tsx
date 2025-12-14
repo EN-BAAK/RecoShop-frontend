@@ -5,7 +5,7 @@ import { ShopProduct } from "@/types/global"
 import React, { useState } from "react"
 import Pagination from "@/components/Pagination"
 import ProductCard from "../Product"
-import { useParams } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 import ErrorPage from "@/components/ErrorPage"
 import { range } from "@/lib/helpers"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -13,12 +13,12 @@ import EmptyElement from "@/components/EmptyElement"
 import { useShopContext } from "@/contexts/ShopProvider"
 
 const CategoryPage: React.FC = () => {
-  const params = useParams()
+  const params = useSearchParams()
   const { search } = useShopContext()
 
   const [currentPage, setCurrentPage] = useState(0)
 
-  const category = decodeURIComponent(String(params.category))
+  const category = decodeURIComponent(String(params.get("category")))
 
   const { data: productsData, isFetching, isError, error, refetch } = useGetProductsPaginatedByCategory({ limit: 6, page: currentPage, category: category, search })
 

@@ -352,6 +352,16 @@ export const getProductSettingsById = async (id: number) => {
   return responseBody
 }
 
+export const getProductById = async (id: number) => {
+  const response = await fetch(`${API_URL}/products/${id}`)
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}
+
 export const getProductImage = async (id: number) => {
   const response = await fetch(`${API_URL}/products/${id}/image`);
 

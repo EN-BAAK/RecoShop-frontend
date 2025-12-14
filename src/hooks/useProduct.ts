@@ -1,4 +1,4 @@
-import { getAllProducts, getProductSettingsById, createProduct, updateProduct, deleteProduct, getProductImage, getShopProductsPaginatedByCategory, } from "@/api-client";
+import { getAllProducts, getProductSettingsById, createProduct, updateProduct, deleteProduct, getProductImage, getShopProductsPaginatedByCategory, getProductById, } from "@/api-client";
 import { useAppContext } from "@/contexts/AppProvider";
 import { APIResponse, InfiniteAPIResponse, UseGetAllProductsProps, UseGetProductsPaginatedByCategoryProps } from "@/types/hooks";
 import { ProductGlobal } from "@/types/global";
@@ -28,6 +28,15 @@ export const useGetProductSettingsById = (id: number) => {
   return useQuery({
     queryKey: ["da-product-settings", id],
     queryFn: () => getProductSettingsById(id),
+    enabled: !!id,
+    retry: false,
+  });
+};
+
+export const useGetProductById = (id: number) => {
+  return useQuery({
+    queryKey: ["shop-product", id],
+    queryFn: () => getProductById(id),
     enabled: !!id,
     retry: false,
   });

@@ -158,3 +158,7 @@ export const createBrand = Yup.object().shape({
     .min(2, "Brand name must be at least 2 characters")
     .max(50, "Brand name cannot exceed 50 characters"),
 });
+
+export const postComment = Yup.object({
+  comment: Yup.string().min(3, 'Comment must be at least 3 characters')
+})

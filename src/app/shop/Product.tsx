@@ -1,11 +1,12 @@
 "use client"
 
-import { ShoppingCart } from "lucide-react";
+import { Eye, ShoppingCart } from "lucide-react";
 import { ShopProductProps } from "@/types/components";
 import CustomButton from "@/components/forms/Button";
 import ProductImage from "@/components/ProductImage";
 import { cn } from "@/lib/utils";
 import BrandImage from "@/components/BrandImage";
+import Link from "next/link";
 
 const ProductCard: React.FC<ShopProductProps> = ({ product, dir = "vertical" }) => {
   const isHorizontal = dir === "horizontal"
@@ -58,12 +59,27 @@ const ProductCard: React.FC<ShopProductProps> = ({ product, dir = "vertical" }) 
               {formattedPrice}
             </span>
 
-            <CustomButton
-              label="Cart"
-              icon={ShoppingCart}
-              iconClassName="h-3 w-3"
-              className="w-fit rounded-md text-xs"
-            />
+            <div className="flex items-center gap-2">
+              <Link
+                passHref
+                href={`/shop/products/${product.id}`}
+              >
+                <CustomButton
+                  label="View"
+                  variant="blue"
+                  icon={Eye}
+                  iconClassName="h-3 w-3"
+                  className="w-fit rounded-md text-xs"
+                />
+              </Link>
+
+              <CustomButton
+                label="Cart"
+                icon={ShoppingCart}
+                iconClassName="h-3 w-3"
+                className="w-fit rounded-md text-xs"
+              />
+            </div>
           </div>
         </div>
       </div>

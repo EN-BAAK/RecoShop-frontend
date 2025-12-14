@@ -116,3 +116,15 @@ export type PaginationProps = {
   isLoading?: boolean,
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>
 }
+
+export type ShopProductDetailsProps = {
+  product: ShopProduct
+}
+
+export type ProductRatingProps = {
+  rating: number
+}
+
+export type ProductCommentsProps = {
+  comments?: string[]
+}

@@ -24,7 +24,7 @@ const ProductImage: React.FC<ProductImageProps> = ({ id, imageStyle, title, }) =
   }, [profileImage]);
 
   return (
-    <div ref={ref} className="w-full h-full">
+    <div ref={ref} className="w-full h-full flex justify-center">
       {
         isFetching ? <Skeleton className="bg-muted h-full w-full" />
           : productImageUrl ? (

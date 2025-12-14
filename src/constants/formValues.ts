@@ -50,3 +50,7 @@ export const forgotPasswordStep2: ForgotPasswordStep2 = {
 export const brand = {
   name: "",
 };
+
+export const postComment = {
+  comment: ""
+}
