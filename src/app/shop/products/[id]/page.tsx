@@ -29,7 +29,7 @@ const ProductPage: React.FC = () => {
 
                 <ProductDetails product={product} />
 
-                <RelatedProducts />
+                <RelatedProducts id={productId} />
               </React.Fragment>
         }
       </div>

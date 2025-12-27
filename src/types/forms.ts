@@ -12,6 +12,8 @@ export type SubmitButtonProps = {
   className?: string
   onClick?: () => void
   variant?: Variant
+  Icon?: LucideIcon;
+  iconStyle?: string;
 }
 
 export interface BaseFieldProps {

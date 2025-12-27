@@ -162,3 +162,7 @@ export const createBrand = Yup.object().shape({
 export const postComment = Yup.object({
   comment: Yup.string().min(3, 'Comment must be at least 3 characters')
 })
+
+export const postMessage = Yup.object({
+  message: Yup.string().min(3, 'Message must be at least 3 characters')
+})

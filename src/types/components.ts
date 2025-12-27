@@ -114,7 +114,7 @@ export type PaginationProps = {
   currentPage: number,
   totalPages: number,
   isLoading?: boolean,
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>
+  handleSetCurrentPageFunc: (page: number) => void
 }
 
 export type ShopProductDetailsProps = {
@@ -127,4 +127,8 @@ export type ProductRatingProps = {
 
 export type ProductCommentsProps = {
   comments?: string[]
+}
+
+export type ShopRelatedProductsProps = {
+  id: number
 }

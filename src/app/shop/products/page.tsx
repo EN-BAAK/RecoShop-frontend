@@ -2,10 +2,10 @@
 
 import { useGetProductsPaginatedByCategory } from "@/hooks/useProduct"
 import { ShopProduct } from "@/types/global"
-import React, { useState } from "react"
+import React from "react"
 import Pagination from "@/components/Pagination"
 import ProductCard from "../Product"
-import { useSearchParams } from "next/navigation"
+import { useRouter, usePathname, useSearchParams } from "next/navigation"
 import ErrorPage from "@/components/ErrorPage"
 import { range } from "@/lib/helpers"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -13,25 +13,36 @@ import EmptyElement from "@/components/EmptyElement"
 import { useShopContext } from "@/contexts/ShopProvider"
 
 const CategoryPage: React.FC = () => {
-  const params = useSearchParams()
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
   const { search } = useShopContext()
 
-  const [currentPage, setCurrentPage] = useState(0)
+  const categoryParam = searchParams.get("category")
+  const pageParam = searchParams.get("page")
 
-  const category = decodeURIComponent(String(params.get("category")))
+  const category = categoryParam ? decodeURIComponent(String(categoryParam)) : ""
+  const page = pageParam ? parseInt(pageParam) : 1
 
-  const { data: productsData, isFetching, isError, error, refetch } = useGetProductsPaginatedByCategory({ limit: 6, page: currentPage, category: category, search })
+  const { data: productsData, isFetching, isError, error, refetch } = useGetProductsPaginatedByCategory({ limit: 6, page, category: category, search })
 
-  const products: ShopProduct[] = productsData?.data || []
-  const totalPages = productsData?.totalPages || 1
+  const products: ShopProduct[] = productsData?.data.products || []
+  const totalPages = productsData?.data.totalPages || 1
+
+  const handleNavigateToPage = (page: number) => {
+    const params = new URLSearchParams(searchParams.toString())
+    params.set("page", String(page))
+
+    router.push(`${pathname}?${params.toString()}`)
+  }
 
   return (
     <div className="space-y-8">
-      <div className="pb-6 border-b border-muted">
-        <h1 className="capitalize font-heading font-bold text-xl md:text-3xl text-foreground">
+      {category && <div className="pb-6 border-b border-muted">
+        <h1 className="capitalize font-heading font-bold text-xl md:text-3xl text-primary">
           {category}
         </h1>
-      </div>
+      </div>}
 
       {isError ? (
         <ErrorPage
@@ -57,9 +68,9 @@ const CategoryPage: React.FC = () => {
 
               <div className="mt-8 pt-6 flex justify-center border-t border-muted">
                 <Pagination
-                  currentPage={currentPage + 1}
+                  currentPage={page}
                   totalPages={totalPages}
-                  setCurrentPage={setCurrentPage}
+                  handleSetCurrentPageFunc={handleNavigateToPage}
                   isLoading={isFetching}
                 />
               </div>

@@ -15,6 +15,8 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
   className = "",
   variant = "primary",
   onClick,
+  Icon,
+  iconStyle
 }) => {
   const disabled = isSubmitting || !isDirty || !isValid
 
@@ -41,6 +43,8 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
       "bg-gradient-to-r from-accent to-red-600 text-background hover:opacity-90",
     "accent-gradient-outline":
       "border border-accent text-accent hover:bg-gradient-to-r hover:from-accent hover:to-red-600 hover:text-background",
+    blue: "",
+    "blue-outline": ""
   }[variant];
 
   return (
@@ -54,7 +58,8 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
         className
       )}
     >
-      {buttonLabel}
+      {Icon && <Icon className={cn("w-5 h-5", iconStyle)} />}
+      {label && <span>{label}</span>}
     </Button>
   )
 }

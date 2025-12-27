@@ -53,3 +53,15 @@ export type UseGetProductsPaginatedByCategoryProps = {
 export type UseGetAllProductsProps = {
   limit: number,
 }
+
+export type GetUserBillProps = {
+  startDate: Date,
+  endDate: Date
+}
+
+export type PurchaseBill = {
+  products: {
+    productId: number,
+    quantity?: number
+  }[]
+}

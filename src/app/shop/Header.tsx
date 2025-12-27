@@ -9,11 +9,11 @@ import Link from "next/link";
 import { useDebouncedSearch } from "@/hooks/useHelpers";
 import { useEffect } from "react";
 import { useShopContext } from "@/contexts/ShopProvider";
+import Avatar from "@/components/Avatar";
 
 const Header = () => {
   const { user } = useAppContext()
   const { setSearch: setShopSearch } = useShopContext()
-  const isUserExists: boolean = !!user
 
   const { debouncedSearch, search, setSearch } = useDebouncedSearch()
 
@@ -34,9 +34,9 @@ const Header = () => {
             loading="lazy"
           />
 
-          <div className="font-heading font-bold text-primary">
+          <h1 className="font-heading font-bold text-primary">
             RecoShop
-          </div>
+          </h1>
         </div>
 
         <div className="max-w-lg mx-8 hidden md:flex flex-1">
@@ -53,15 +53,25 @@ const Header = () => {
           </div>
         </div>
 
-        <Link href={isUserExists ? "/" : "/login"} passHref>
-          <CustomButton
-            icon={isUserExists ? LogOut : LogIn}
-            iconClassName="h-4 w-4"
-            variant={isUserExists ? "accent" : "primary"}
-            className="w-fit rounded-md text-xs"
-            label={isUserExists ? "Logout" : "Login"}
-          />
-        </Link>
+        <div className="flex items-center gap-1">
+          {user &&
+            <div className="flex items-center gap-1">
+              <Avatar firstName={user.firstName} width={30} height={30} />
+              <span className="text-sm">{user.firstName}</span>
+            </div>
+
+          }
+
+          <Link href={user ? "/" : "/login"} passHref>
+            <CustomButton
+              icon={user ? LogOut : LogIn}
+              iconClassName="h-4 w-4"
+              variant={user ? "transparent" : "primary"}
+              className="w-fit rounded-md text-xs"
+              label={user ? undefined : "Login"}
+            />
+          </Link>
+        </div>
       </div>
     </header>
   );

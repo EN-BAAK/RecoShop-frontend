@@ -22,9 +22,9 @@ const EmblaOptions = {
 
 const Section: React.FC<ShopProductSection> = ({ category }) => {
   const { search } = useShopContext()
-  const { data: productsData, isFetching, isError } = useGetProductsPaginatedByCategory({ limit: 6, page: 0, category: category, search, });
+  const { data: productsData, isFetching, isError } = useGetProductsPaginatedByCategory({ limit: 6, page: 1, category: category, search, });
 
-  const products = (productsData?.data || []) as ShopProduct[];
+  const products = (productsData?.data.products || []) as ShopProduct[];
 
   const [emblaRef] = useEmblaCarousel(EmblaOptions);
 
@@ -53,7 +53,7 @@ const Section: React.FC<ShopProductSection> = ({ category }) => {
             {products.map((product) => (
               <div
                 key={product.id}
-                className="min-w-0 flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] flex justify-center"
+                className="min-w-0 flex-[0_0_100%] sm:flex-[0_0_50%] xl:flex-[0_0_33.333%] flex justify-center"
               >
                 <ProductCard product={product} dir="vertical" />
               </div>

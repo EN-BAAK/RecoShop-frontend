@@ -1,5 +1,5 @@
 import { CachedUser, CategoryCreation, ForgotPasswordStep1, ForgotPasswordStep2, LoginProps, SubCategoryCreation, User, VerifyAccountProps } from "./types/global";
-import { APIResponse, GetShopProductsParams, UpdateItemType, UpdateItemWithFormData } from "./types/hooks";
+import { APIResponse, GetShopProductsParams, GetUserBillProps, PurchaseBill, UpdateItemType, UpdateItemWithFormData } from "./types/hooks";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL!
 
@@ -321,11 +321,10 @@ export const getShopProductsPaginatedByCategory = async ({
   search,
   page = 0,
 }: GetShopProductsParams) => {
-  const offset = page * limit;
 
   const queryParams = new URLSearchParams();
   queryParams.append("limit", String(limit));
-  queryParams.append("offset", String(offset));
+  queryParams.append("page", String(page));
 
   if (category) queryParams.append("category", category);
   if (search) queryParams.append("search", search);
@@ -354,6 +353,15 @@ export const getProductSettingsById = async (id: number) => {
 
 export const getProductById = async (id: number) => {
   const response = await fetch(`${API_URL}/products/${id}`)
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}
+export const getRelatedProducts = async (id: number) => {
+  const response = await fetch(`${API_URL}/products/shop/related-products/${id}`)
 
   const responseBody = await response.json()
 
@@ -537,3 +545,34 @@ export const deleteBrand = async (id: number) => {
 
   return responseBody;
 };
+
+export const getUserBills = async ({ startDate, endDate }: GetUserBillProps) => {
+  const queryParams = new URLSearchParams();
+  queryParams.append("startDate", String(startDate));
+  queryParams.append("endDate", String(endDate));
+
+  const response = await fetch(`${API_URL}/bills/${queryParams.toString()}`, {
+    credentials: "include",
+  })
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}
+
+export const purchaseBill = async ({ products }: PurchaseBill) => {
+  const response = await fetch(`${API_URL}/bills/purchase`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ products }),
+  })
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}

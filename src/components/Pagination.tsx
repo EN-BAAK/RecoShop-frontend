@@ -8,21 +8,20 @@ import CustomButton from "./forms/Button"
 const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   totalPages,
-  setCurrentPage,
+  handleSetCurrentPageFunc,
   isLoading = false,
 }) => {
 
   const goToPage = (page: number) => {
-    setCurrentPage(page)
-    window.scrollTo({ top: 0, behavior: "smooth" })
+    handleSetCurrentPageFunc(page)
   }
 
-  const onNextPage = () => {
-    if (currentPage < totalPages - 1) goToPage(currentPage + 1)
+  const onGoToLastPage = () => {
+    if (currentPage < totalPages ) goToPage(totalPages)
   }
 
-  const onPreviousPage = () => {
-    if (currentPage > 0) goToPage(currentPage - 1)
+  const onGoToFirstPage = () => {
+    if (currentPage > 1) goToPage(1)
   }
 
   const generatePages = () => {
@@ -32,8 +31,8 @@ const Pagination: React.FC<PaginationProps> = ({
       pages.push("...")
     }
 
-    const start = Math.max(0, currentPage - 2)
-    const end = Math.min(totalPages - 1, currentPage + 2)
+    const start = Math.max(1, currentPage - 2)
+    const end = Math.min(totalPages, currentPage + 2)
 
     for (let i = start; i <= end; i++) {
       pages.push(i)
@@ -52,8 +51,8 @@ const Pagination: React.FC<PaginationProps> = ({
 
       <CustomButton
         icon={ArrowLeft}
-        className="w-fit rounded-sm"
-        onClick={onPreviousPage}
+        className="w-fit h-8 rounded-sm"
+        onClick={onGoToFirstPage}
         disabled={currentPage === 1 || isLoading}
       />
 
@@ -69,9 +68,9 @@ const Pagination: React.FC<PaginationProps> = ({
           <CustomButton
             key={idx}
             disabled={isLoading}
-            className="w-fit py-1 px-3 rounded-sm"
-            variant={currentPage === (p as number + 1) ? "primary" : "primary-outline"}
-            label={String((p as number) + 1)}
+            className="w-8 h-8 rounded-sm"
+            variant={currentPage === (p as number) ? "primary" : "primary-outline"}
+            label={String((p as number))}
             onClick={() => goToPage(p as number)}
           />
         )
@@ -79,9 +78,9 @@ const Pagination: React.FC<PaginationProps> = ({
 
       <CustomButton
         icon={ArrowRight}
-        className="w-fit rounded-sm"
-        onClick={onNextPage}
-        disabled={currentPage === totalPages || isLoading}
+        className="w-fit h-8 rounded-sm"
+        onClick={onGoToLastPage}
+        disabled={(currentPage === totalPages) || isLoading}
       />
 
     </div>

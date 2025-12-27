@@ -23,7 +23,7 @@ const ShopPage: React.FC = () => {
 
   return (
     <React.Fragment>
-      <div className="bg-primary/10 mb-4 py-16">
+      <div className="bg-primary/10 py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl sm:text-5xl font-heading font-extrabold text-foreground">
             Discover Our Collections

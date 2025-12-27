@@ -104,3 +104,14 @@ export type Brand = {
 }
 
 export type BrandCreation = Omit<Brand, "id" | "imgURL">
+
+export interface BasketItem {
+  id: number;
+  quantity: number;
+  title: string,
+  price: number
+}
+
+export type Bill = {
+  id: number
+}

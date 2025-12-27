@@ -1,64 +1,55 @@
-"use client"
+"use client";
 
-import { ShoppingCart, Trash2 } from "lucide-react"
-import { useState } from "react"
+import React from "react";
+import { ShoppingCart, Trash2, } from "lucide-react";
+import { useShopContext } from "@/contexts/ShopProvider";
+import CustomButton from "@/components/forms/Button";
+import { usePurchaseBill } from "@/hooks/useBills";
 
-interface BasketItem {
-  id: number
-  title: string
-  price: number
-  quantity: number
-}
+const Basket: React.FC = () => {
+  const { basket, removeFromCart, updateQuantity, cleanCart } = useShopContext();
+  const { mutateAsync } = usePurchaseBill()
 
-export function Basket() {
-  const [items, setItems] = useState<BasketItem[]>([])
+  const subtotal = basket.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
 
-  const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  const tax = subtotal * 0.1
-  const total = subtotal + tax
+  const total = subtotal;
 
-  const removeItem = (id: number) => {
-    setItems(items.filter((item) => item.id !== id))
-  }
-
-  const updateQuantity = (id: number, quantity: number) => {
-    if (quantity <= 0) {
-      removeItem(id)
-    } else {
-      setItems(
-        items.map((item) =>
-          item.id === id ? { ...item, quantity } : item
-        )
-      )
-    }
+  const onSubmit = async () => {
+    const purchaseBill = basket.map(item => ({ productId: item.id, quantity: item.quantity }))
+    await mutateAsync({ products: purchaseBill });
+    cleanCart();
   }
 
   return (
-    <div className="bg-white border border-muted rounded-lg p-4">
-      <div className="flex items-center gap-2 mb-4 pb-4 border-b border-muted">
+    <div className="h-full flex flex-col overflow-hidden">
+      <div className="mb-4 py-4 flex items-center gap-2 border-b border-muted">
         <ShoppingCart size={20} className="text-primary" />
-        <h2 className="text-lg font-heading font-semibold text-foreground">
+        <h2 className="font-heading font-semibold text-lg text-foreground">
           Basket
         </h2>
-        {items.length > 0 && (
-          <span className="ml-auto bg-primary text-white text-xs font-bold px-2 py-1 rounded-full">
-            {items.length}
+
+        {basket.length > 0 && (
+          <span className="bg-primary ml-auto px-2 py-1 rounded-full font-bold text-xs text-background">
+            {basket.length}
           </span>
         )}
       </div>
 
-      <div className="space-y-3 max-h-64 overflow-y-auto mb-4">
-        {items.length === 0 ? (
-          <p className="text-center text-muted-foreground text-sm py-8">
-            Your basket is empty
-          </p>
-        ) : (
-          items.map((item) => (
-            <div key={item.id} className="flex gap-2 p-2 bg-muted rounded-md">
+      {basket.length === 0 ? (
+        <p className="py-8 text-center text-sm text-muted-foreground">
+          Your basket is empty
+        </p>) : (
+        <div className="flex-1 space-y-3 overflow-y-auto">
+          {basket.map((item) => (
+            <div key={item.id} className="bg-muted p-2 flex gap-2 rounded-md">
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-foreground line-clamp-1">
+                <p className="line-clamp-1 font-medium text-sm text-foreground">
                   {item.title}
                 </p>
+
                 <p className="text-xs text-muted-foreground">
                   ${item.price.toFixed(2)}
                 </p>
@@ -66,56 +57,60 @@ export function Basket() {
 
               <div className="flex items-center gap-1">
                 <button
-                  onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                  className="w-6 h-6 flex items-center justify-center bg-white border border-muted rounded text-xs hover:bg-muted"
+                  onClick={() =>
+                    updateQuantity(item.id, item.quantity - 1)
+                  }
+                  className="bg-background w-6 h-6 flex items-center justify-center border border-muted rounded text-xs cursor-pointer transition hover:bg-background/50"
                 >
                   −
                 </button>
-                <span className="w-6 text-center text-xs font-medium">
+
+                <span className="w-6 text-center font-medium text-xs">
                   {item.quantity}
                 </span>
+
                 <button
-                  onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                  className="w-6 h-6 flex items-center justify-center bg-white border border-muted rounded text-xs hover:bg-muted"
+                  onClick={() =>
+                    updateQuantity(item.id, item.quantity + 1)
+                  }
+                  className="bg-background w-6 h-6 flex items-center justify-center border border-muted rounded text-xs cursor-pointer transition hover:bg-background/50"
                 >
                   +
                 </button>
               </div>
 
-              <button
-                onClick={() => removeItem(item.id)}
-                className="text-danger hover:bg-red-50 p-1 rounded transition"
-              >
-                <Trash2 size={16} />
-              </button>
+              <CustomButton
+                onClick={() => removeFromCart(item.id)}
+                icon={Trash2}
+                variant="danger-outline"
+                className="w-fit py-1 rounded-sm"
+                iconClassName="w-3 h-3"
+              />
             </div>
-          ))
-        )}
-      </div>
-
-      {items.length > 0 && (
-        <div className="space-y-2 pt-4 border-t border-muted">
-          <div className="flex justify-between text-sm">
-            <span className="text-muted-foreground">Subtotal</span>
-            <span>${subtotal.toFixed(2)}</span>
-          </div>
-          <div className="flex justify-between text-sm">
-            <span className="text-muted-foreground">Tax (10%)</span>
-            <span>${tax.toFixed(2)}</span>
-          </div>
-          <div className="flex justify-between font-semibold text-foreground pt-2 border-t border-muted">
-            <span>Total</span>
-            <span className="text-primary text-lg">${total.toFixed(2)}</span>
-          </div>
+          ))}
         </div>
       )}
 
-      <button
-        disabled={items.length === 0}
-        className="w-full mt-4 bg-primary text-white py-2 rounded-md font-medium hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition"
-      >
-        Checkout
-      </button>
+      <div >
+        {basket.length > 0 && (
+          <div className="pt-2 flex justify-between border-t border-muted font-semibold text-foreground">
+            <span>Total</span>
+
+            <span className="text-lg text-primary">
+              ${total.toFixed(2)}
+            </span>
+          </div>
+        )}
+
+        <CustomButton
+          className="mx-auto w-[200px]"
+          label="Buy"
+          disabled={basket.length === 0}
+          onClick={onSubmit}
+        />
+      </div>
     </div>
-  )
-}
+  );
+};
+
+export default Basket;

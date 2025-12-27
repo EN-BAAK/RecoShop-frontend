@@ -54,3 +54,7 @@ export const brand = {
 export const postComment = {
   comment: ""
 }
+
+export const postMessage = {
+  message: ""
+}
