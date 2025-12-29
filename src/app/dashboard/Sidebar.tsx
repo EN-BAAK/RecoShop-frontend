@@ -8,7 +8,6 @@ import { Menu, X, LogOut, ChevronLeft } from "lucide-react";
 import { navItems } from "@/constants/global";
 import Avatar from "@/components/Avatar";
 import { useAppContext } from "@/contexts/AppProvider";
-import LoadingPage from "@/components/LoadingPage";
 import CustomButton from "@/components/forms/Button";
 import { useLogout } from "@/hooks/useAuth";
 import Image from "next/image";
@@ -22,7 +21,7 @@ const Sidebar: React.FC = () => {
 
   const toggleSidebar = () => setIsOpen(!isOpen);
 
-  if (!user) return <LoadingPage />;
+  if (!user) return;
 
   return (
     <React.Fragment>

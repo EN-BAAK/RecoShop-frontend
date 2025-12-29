@@ -9,7 +9,7 @@ import ProductCard from "./Product";
 import LoadingPage from "@/components/LoadingPage";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { useShopContext } from "@/contexts/ShopProvider";
+import { useFilteringContext } from "@/contexts/FilteringProvider";
 
 const EmblaOptions = {
   align: "start",
@@ -21,7 +21,7 @@ const EmblaOptions = {
 } as Parameters<typeof useEmblaCarousel>[0];
 
 const Section: React.FC<ShopProductSection> = ({ category }) => {
-  const { search } = useShopContext()
+  const { search } = useFilteringContext()
   const { data: productsData, isFetching, isError } = useGetProductsPaginatedByCategory({ limit: 6, page: 1, category: category, search, });
 
   const products = (productsData?.data.products || []) as ShopProduct[];

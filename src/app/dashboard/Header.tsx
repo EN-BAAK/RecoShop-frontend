@@ -1,32 +1,22 @@
 "use client";
 
-import { useEffect } from "react";
 import { Search, LogOut } from "lucide-react";
 import { useAppContext } from "@/contexts/AppProvider";
 import { useLogout } from "@/hooks/useAuth";
 import { Input } from "@/components/ui/input";
 import Avatar from "@/components/Avatar";
 import CustomButton from "@/components/forms/Button";
-import { useRouter } from "next/navigation";
-import LoadingPage from "@/components/LoadingPage";
 import Notifications from "./Notifications";
 
 const Header: React.FC = () => {
   const { user } = useAppContext();
-  const router = useRouter();
   const { mutate: logout, isPending: isLoggingOut } = useLogout();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
   };
 
-  useEffect(() => {
-    if (!user) {
-      router.replace("/login");
-    }
-  }, [user, router]);
-
-  if (!user) return <LoadingPage />;
+  if (!user) return;
 
   return (
     <header className="bg-background border-b border-muted shadow-sm">

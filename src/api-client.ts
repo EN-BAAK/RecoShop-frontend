@@ -548,10 +548,10 @@ export const deleteBrand = async (id: number) => {
 
 export const getUserBills = async ({ startDate, endDate }: GetUserBillProps) => {
   const queryParams = new URLSearchParams();
-  queryParams.append("startDate", String(startDate));
-  queryParams.append("endDate", String(endDate));
+  if (startDate) queryParams.append("startDate", String(startDate));
+  if (endDate) queryParams.append("endDate", String(endDate));
 
-  const response = await fetch(`${API_URL}/bills/${queryParams.toString()}`, {
+  const response = await fetch(`${API_URL}/bills?${queryParams}`, {
     credentials: "include",
   })
 

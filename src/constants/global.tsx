@@ -1,6 +1,6 @@
 import { AccessItem } from "@/types/global";
 import { NavItem, ROLE } from "@/types/variables";
-import { LayoutDashboard, Package, ShoppingBag, Users, ShoppingCart, Settings, Layers, Tags } from "lucide-react";
+import { LayoutDashboard, Package, ShoppingBag, Users, Layers, Tags } from "lucide-react";
 
 export const navItems: NavItem[] = [
   { title: "Dashboard", href: "/dashboard/", icon: LayoutDashboard },
@@ -9,8 +9,6 @@ export const navItems: NavItem[] = [
   { title: "Brands", href: "/dashboard/brands", icon: Tags },
   { title: "Products", href: "/dashboard/products", icon: ShoppingBag },
   { title: "Users", href: "/dashboard/users", icon: Users },
-  { title: "Orders", href: "/orders", icon: ShoppingCart },
-  { title: "Settings", href: "/settings", icon: Settings },
 ];
 
 export const colors: string[] = [
@@ -37,11 +35,11 @@ export const accessGuid: AccessItem[] = [
     path: "/dashboard",
     roles: [ROLE.ADMIN, ROLE.MANAGER],
     children: [
-      { authorized: true, path: "/dashboard/brands", roles: [ROLE.ADMIN, ROLE.MANAGER] },
-      { authorized: true, path: "/dashboard/categories", roles: [ROLE.ADMIN, ROLE.MANAGER] },
-      { authorized: true, path: "/dashboard/subcategories", roles: [ROLE.ADMIN, ROLE.MANAGER] },
-      { authorized: true, path: "/dashboard/products", roles: [ROLE.ADMIN, ROLE.MANAGER] },
-      { authorized: true, path: "/dashboard/users", roles: [ROLE.ADMIN] },
+      { authorized: true, path: "/brands", roles: [ROLE.ADMIN, ROLE.MANAGER] },
+      { authorized: true, path: "/categories", roles: [ROLE.ADMIN, ROLE.MANAGER] },
+      { authorized: true, path: "/subcategories", roles: [ROLE.ADMIN, ROLE.MANAGER] },
+      { authorized: true, path: "/products", roles: [ROLE.ADMIN, ROLE.MANAGER] },
+      { authorized: true, path: "/users", roles: [ROLE.ADMIN] },
     ],
   },
 ];

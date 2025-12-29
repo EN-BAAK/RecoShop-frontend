@@ -9,18 +9,32 @@ function findMatchedRoute(
   pathname: string,
   items: AccessItem[],
   parent?: AccessItem
-): Omit<AccessItem, "children" | "path"> | undefined {
+): { authorized: boolean; path: string; roles: ROLE[] } | undefined {
   for (const item of items) {
-    if (pathname.startsWith(item.path)) {
-      const merged: AccessItem = {
-        ...item,
-        roles: item.roles.length > 0 ? item.roles : parent?.roles ?? [],
-      };
+    const fullPath = parent
+      ? `${parent.path}${item.path}`
+      : item.path;
+
+    if (pathname === fullPath || pathname.startsWith(fullPath + "/")) {
+      const roles =
+        item.roles.length > 0
+          ? item.roles
+          : parent?.roles ?? [];
+
       if (item.children) {
-        const childMatch = findMatchedRoute(pathname, item.children, merged);
-        return childMatch || merged;
+        const childMatch = findMatchedRoute(
+          pathname,
+          item.children,
+          { ...item, path: fullPath, roles }
+        );
+        if (childMatch) return childMatch;
       }
-      return { authorized: merged.authorized, roles: merged.roles };
+
+      return {
+        authorized: item.authorized,
+        path: fullPath,
+        roles,
+      };
     }
   }
 }
@@ -29,7 +43,6 @@ export async function middleware(req: NextRequest) {
   const cookieName = process.env.COOKIE_NAME!;
   const token = req.cookies.get(cookieName)?.value;
   const { pathname } = req.nextUrl;
-
   const matched = findMatchedRoute(pathname, accessGuid);
 
   if (!matched) return NextResponse.next();
@@ -37,12 +50,14 @@ export async function middleware(req: NextRequest) {
     if (token) return NextResponse.redirect(new URL("/dashboard", req.url));
     return NextResponse.next();
   }
+
   if (matched.authorized) {
     if (!token) return NextResponse.redirect(new URL("/login", req.url));
     const reqAuth = await validateAuthenticationWithCaching(token)
+    const role = reqAuth?.data.role as ROLE;
 
-    if (matched.roles.length > 0 && !matched.roles.includes(reqAuth?.data.role as ROLE))
-      return NextResponse.redirect(new URL("/dashboard", req.url));
+    if (matched.roles.length > 0 && (!role || !matched.roles.includes(role)))
+      return NextResponse.redirect(new URL("/not-found", req.url));
 
     return NextResponse.next();
   }

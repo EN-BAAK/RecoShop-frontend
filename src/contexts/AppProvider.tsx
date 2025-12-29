@@ -6,7 +6,6 @@ import { CommonParentProps, ToastMessage, Warning as WarningProps } from "@/type
 import Warning from "@/components/Warning";
 import { useValidateAuthentication } from "@/hooks/useAuth";
 import Toast from "@/components/Toast";
-import { GOVERNORATE, ROLE, SEX } from "@/types/variables";
 
 const AppContext = createContext<AppContextProps | undefined>(undefined);
 
@@ -30,16 +29,7 @@ export const AppProvider = ({ children }: CommonParentProps): React.JSX.Element 
         isLoggedIn: !isError,
         pushToast,
         showWarning: (warningProps) => setWarning(warningProps),
-        user: data?.data || {
-          id: 1,
-          firstName: "باسل",
-          lastName: "المدني",
-          email: "swaiengineer@gmail.com",
-          gender: SEX.MALE,
-          governorate: GOVERNORATE.DAMASCUS,
-          phone: "0936093055",
-          role: ROLE.ADMIN
-        }
+        user: data?.data
       }}
     >
       <div className="fixed left-0 z-100">

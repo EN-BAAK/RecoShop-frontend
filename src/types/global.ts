@@ -112,6 +112,14 @@ export interface BasketItem {
   price: number
 }
 
-export type Bill = {
+export interface Bill {
   id: number
+  createdAt: string
+  amount: number
+  products: {
+    id: number
+    title: string
+    price: number
+    quantity: number
+  }[]
 }

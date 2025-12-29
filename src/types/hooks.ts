@@ -55,8 +55,8 @@ export type UseGetAllProductsProps = {
 }
 
 export type GetUserBillProps = {
-  startDate: Date,
-  endDate: Date
+  startDate?: string,
+  endDate?: string
 }
 
 export type PurchaseBill = {

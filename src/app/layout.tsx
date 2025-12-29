@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils"
 import ReactQueryProvider from "@/contexts/ReactQueryProvidder"
 import AppProvider from "@/contexts/AppProvider"
 import { CommonParentProps } from "@/types/components"
+import FilteringProvider from "@/contexts/FilteringProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -61,7 +62,9 @@ const RootLayout: React.FC<CommonParentProps> = ({ children }) => {
       >
         <ReactQueryProvider>
           <AppProvider>
-            {children}
+            <FilteringProvider>
+              {children}
+            </FilteringProvider>
           </AppProvider>
         </ReactQueryProvider>
       </body>

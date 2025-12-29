@@ -10,13 +10,13 @@ import ErrorPage from "@/components/ErrorPage"
 import { range } from "@/lib/helpers"
 import { Skeleton } from "@/components/ui/skeleton"
 import EmptyElement from "@/components/EmptyElement"
-import { useShopContext } from "@/contexts/ShopProvider"
+import { useFilteringContext } from "@/contexts/FilteringProvider"
 
 const CategoryPage: React.FC = () => {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const { search } = useShopContext()
+  const { search } = useFilteringContext()
 
   const categoryParam = searchParams.get("category")
   const pageParam = searchParams.get("page")

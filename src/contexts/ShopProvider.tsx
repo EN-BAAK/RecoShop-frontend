@@ -11,7 +11,6 @@ const ShopContext = createContext<ShopContextProps | undefined>(undefined);
 const ShopProvider = ({ children }: CommonParentProps): React.JSX.Element => {
   const { pushToast } = useAppContext()
   const [basket, setBasket] = useState<BasketItem[]>([]);
-  const [search, setSearch] = useState<string>("")
 
   const pushToCart = ({ id, quantity = 1, title, price }: { id: number, quantity?: number, title: string, price: number }) => {
     const existing = basket.find(item => item.id === id);
@@ -42,7 +41,7 @@ const ShopProvider = ({ children }: CommonParentProps): React.JSX.Element => {
   };
 
   return (
-    <ShopContext.Provider value={{ search, setSearch, basket, pushToCart, removeFromCart, updateQuantity, cleanCart }}>
+    <ShopContext.Provider value={{ basket, pushToCart, removeFromCart, updateQuantity, cleanCart }}>
       {children}
     </ShopContext.Provider>
   );

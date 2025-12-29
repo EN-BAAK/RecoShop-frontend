@@ -8,9 +8,12 @@ export type AppContextProps = {
   user?: User
 }
 
-export type ShopContextProps = {
+export type FilteringContextProps = {
   search: string,
   setSearch: React.Dispatch<React.SetStateAction<string>>
+}
+
+export type ShopContextProps = {
   basket: BasketItem[];
   pushToCart: ({ id, quantity, title, price }: { id: number, quantity?: number, title: string, price: number }) => void;
   removeFromCart: (id: number) => void;

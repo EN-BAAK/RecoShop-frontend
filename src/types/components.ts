@@ -1,4 +1,4 @@
-import { Brand, Category, ProductGlobal, ShopProduct, SubCategoryGlobal, UserGlobal } from "./global";
+import { Bill, Brand, Category, ProductGlobal, ShopProduct, SubCategoryGlobal, UserGlobal } from "./global";
 import { Notification, SEX, Variant } from "./variables";
 
 export type ToastMessage = {
@@ -131,4 +131,14 @@ export type ProductCommentsProps = {
 
 export type ShopRelatedProductsProps = {
   id: number
+}
+
+export interface BillProps {
+  bill: Bill
+}
+
+export interface DatePickerButtonProps {
+  date: string | undefined
+  onDateChange: (date: string | undefined) => void
+  placeholder: string
 }

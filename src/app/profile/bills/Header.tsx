@@ -7,14 +7,11 @@ import CustomButton from "@/components/forms/Button";
 import { useAppContext } from "@/contexts/AppProvider";
 import Link from "next/link";
 import { useDebouncedSearch } from "@/hooks/useHelpers";
-import { useEffect } from "react";
 import Avatar from "@/components/Avatar";
 import { useLogout } from "@/hooks/useAuth";
-import { useFilteringContext } from "@/contexts/FilteringProvider";
 
 const Header = () => {
   const { user } = useAppContext()
-  const { setSearch: setShopSearch } = useFilteringContext()
   const { mutateAsync: mutateLogoutAsync } = useLogout()
 
   const { debouncedSearch, search, setSearch } = useDebouncedSearch()
@@ -22,10 +19,6 @@ const Header = () => {
   const logout = async () => {
     await mutateLogoutAsync()
   }
-
-  useEffect(() => {
-    setShopSearch(debouncedSearch)
-  }, [debouncedSearch, setShopSearch])
 
   return (
     <header className="bg-background/95 w-full border-b border-muted sticky shadow-md backdrop-blur-sm top-0 z-50">
