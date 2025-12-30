@@ -576,3 +576,15 @@ export const purchaseBill = async ({ products }: PurchaseBill) => {
 
   return responseBody
 }
+
+export const getDashboardData = async () => {
+  const response = await fetch(`${API_URL}/dashboard`, {
+    credentials: "include",
+  })
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}

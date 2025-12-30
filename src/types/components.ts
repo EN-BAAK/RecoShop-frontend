@@ -1,4 +1,5 @@
-import { Bill, Brand, Category, ProductGlobal, ShopProduct, SubCategoryGlobal, UserGlobal } from "./global";
+import { LucideIcon } from "lucide-react";
+import { Bill, Brand, Category, ProductGlobal, ShopProduct, SubCategoryGlobal, User, UserGlobal } from "./global";
 import { Notification, SEX, Variant } from "./variables";
 
 export type ToastMessage = {
@@ -141,4 +142,45 @@ export interface DatePickerButtonProps {
   date: string | undefined
   onDateChange: (date: string | undefined) => void
   placeholder: string
+}
+
+export type StatCardProps = {
+  title: string
+  value: number | undefined
+  Icon: LucideIcon
+  IconClassName?: string
+  isLoading?: boolean,
+  gradientFrom?: string
+  gradientTo?: string,
+}
+
+export interface AdminsManagersTableProps {
+  users: User[]
+}
+
+export type UsersNumberProps = {
+  total: number,
+  title: string,
+  gradientFrom: string
+  gradientTo: string,
+  color: string,
+  isAdmin?: boolean
+}
+
+export type PurchasesDashboardChartProps = {
+  purchases: {
+    day: number
+    currentMonth: number
+    lastMonth: number
+  }[]
+}
+
+export type ProductDashboardCardProps = {
+  product: {
+    id: number,
+    title: string,
+    price: number,
+    totalQuantity: number,
+    desc: string
+  }
 }
