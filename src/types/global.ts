@@ -123,3 +123,14 @@ export interface Bill {
     quantity: number
   }[]
 }
+
+export type Comment = {
+  id: number,
+  name: string,
+  date: Date,
+  comment: string
+}
+
+export type CommentCreation = {
+  comment: string
+}

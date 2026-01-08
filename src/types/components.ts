@@ -123,11 +123,12 @@ export type ShopProductDetailsProps = {
 }
 
 export type ProductRatingProps = {
-  rating: number
+  productId: number
 }
 
 export type ProductCommentsProps = {
-  comments?: string[]
+  productId: number,
+  
 }
 
 export type ShopRelatedProductsProps = {

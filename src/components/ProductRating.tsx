@@ -1,13 +1,30 @@
 "use client"
 
+import { useGetAvgRateForProduct, useGetMyRateForProduct, useRateProduct } from "@/hooks/useRate";
+import { range } from "@/lib/helpers";
 import { cn } from "@/lib/utils";
 import { ProductRatingProps } from "@/types/components";
-import { range } from "lodash";
 import { Star } from "lucide-react";
 import React, { useState } from "react";
 
-const ProductRating: React.FC<ProductRatingProps> = ({ rating }) => {
+const ProductRating: React.FC<ProductRatingProps> = ({ productId }) => {
   const [hoverRating, setHoverRating] = useState(0);
+  const { data: dataAvgRating } = useGetAvgRateForProduct(productId)
+  const { data: dataMyRating } = useGetMyRateForProduct(productId)
+  const { mutateAsync, isPending } = useRateProduct();
+
+  const averageRate = dataAvgRating?.data.averageRate || 0.0
+  const ratesCount = dataAvgRating?.data.ratesCount || 0
+  const myRating = dataMyRating?.data.rate || 0
+
+  const onRate = async (rate: number) => {
+    if (isPending) return;
+
+    await mutateAsync({
+      productId,
+      rate,
+    });
+  };
 
   return (
     <div className="flex items-center gap-3">
@@ -18,18 +35,20 @@ const ProductRating: React.FC<ProductRatingProps> = ({ rating }) => {
             onMouseEnter={() => setHoverRating(star)}
             onMouseLeave={() => setHoverRating(0)}
             className="cursor-pointer transition-transform hover:scale-110"
+            disabled={isPending}
+            onClick={() => onRate(star)}
           >
             <Star
               size={20}
               className={cn(
                 "transition-colors",
-                star <= (hoverRating || rating) ? "fill-accent text-accent" : "text-muted"
+                star <= (hoverRating || myRating) ? "fill-accent text-accent" : "text-muted"
               )}
             />
           </button>
         ))}
       </div>
-      <span className="font-sans text-sm text-foreground">{rating}.0 (245 reviews)</span>
+      <span className="font-sans text-sm text-foreground">{averageRate} ({ratesCount} reviews)</span>
     </div>
   );
 };

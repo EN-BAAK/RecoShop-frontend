@@ -65,3 +65,13 @@ export type PurchaseBill = {
     quantity?: number
   }[]
 }
+
+export type PostCommentProps = {
+  productId: number,
+  comment: string
+}
+
+export type RateProductProps = {
+  productId: number,
+  rate: number
+}

@@ -34,7 +34,7 @@ const ProductDetails: React.FC<ShopProductDetailsProps> = ({ product }) => {
             <span className="font-heading font-semibold text-foreground">{product.brand}</span>
           </div>
 
-          <ProductRating rating={3} />
+          <ProductRating productId={product.id} />
 
           <div className="py-4 border-y border-muted">
             <p className="font-heading font-bold text-3xl text-accent">
@@ -55,7 +55,7 @@ const ProductDetails: React.FC<ShopProductDetailsProps> = ({ product }) => {
       </div>
 
 
-      <ProductComments />
+      <ProductComments productId={product.id} />
     </div>
   );
 };

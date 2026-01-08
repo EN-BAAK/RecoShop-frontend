@@ -1,5 +1,5 @@
 import { CachedUser, CategoryCreation, ForgotPasswordStep1, ForgotPasswordStep2, LoginProps, SubCategoryCreation, User, VerifyAccountProps } from "./types/global";
-import { APIResponse, GetShopProductsParams, GetUserBillProps, PurchaseBill, UpdateItemType, UpdateItemWithFormData } from "./types/hooks";
+import { APIResponse, GetShopProductsParams, GetUserBillProps, PostCommentProps, PurchaseBill, RateProductProps, UpdateItemType, UpdateItemWithFormData } from "./types/hooks";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL!
 
@@ -580,6 +580,66 @@ export const purchaseBill = async ({ products }: PurchaseBill) => {
 export const getDashboardData = async () => {
   const response = await fetch(`${API_URL}/dashboard`, {
     credentials: "include",
+  })
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}
+
+export const getProductComments = async (productId: number, limit: number, page: number) => {
+  const response = await fetch(`${API_URL}/comments/${productId}?limit=${limit}&page=${page}`)
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}
+
+export const postComment = async ({ comment, productId }: PostCommentProps) => {
+  const response = await fetch(`${API_URL}/comments`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ comment, productId }),
+  })
+
+  const responseBody = await response.json()
+  if (!response.ok) throw new Error(responseBody.message)
+  return responseBody
+}
+
+export const getAvgRateForProduct = async (productId: number) => {
+  const response = await fetch(`${API_URL}/rates/${productId}/stats`)
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}
+
+export const getMyRateForProduct = async (productId: number) => {
+  const response = await fetch(`${API_URL}/rates/${productId}/my-rate`, {
+    credentials: "include"
+  })
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}
+
+export const rateProduct = async (data: RateProductProps) => {
+  const response = await fetch(`${API_URL}/rates/${data.productId}`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ rate: data.rate }),
   })
 
   const responseBody = await response.json()
