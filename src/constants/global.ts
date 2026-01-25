@@ -42,4 +42,10 @@ export const accessGuid: AccessItem[] = [
       { authorized: true, path: "/users", roles: [ROLE.ADMIN] },
     ],
   },
+
+  {
+    authorized: true,
+    path: "/profile",
+    roles: [],
+  }
 ];

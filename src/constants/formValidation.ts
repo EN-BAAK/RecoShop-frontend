@@ -1,3 +1,4 @@
+import { ChangePasswordProps } from "@/types/forms";
 import { LoginProps, SignupProps } from "@/types/global"
 import * as Yup from "yup"
 
@@ -166,3 +167,17 @@ export const postComment = Yup.object({
 export const postMessage = Yup.object({
   message: Yup.string().min(3, 'Message must be at least 3 characters')
 })
+
+export const changePasswordValidation = Yup.object<ChangePasswordProps>({
+  oldPassword: Yup.string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Old password is required"),
+
+  newPassword: Yup.string()
+    .min(6, "Password must be at least 6 characters")
+    .required("New password is required"),
+
+  confirmNewPassword: Yup.string()
+    .oneOf([Yup.ref("newPassword")], "Passwords do not match")
+    .required("Please confirm your new password"),
+});

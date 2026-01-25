@@ -1,14 +1,25 @@
-import { deleteUser, getAllUsers, getUserById, } from "@/api-client";
+import { deleteUser, getAllUsers, getUserById, getUserProfile, } from "@/api-client";
 import { useAppContext } from "@/contexts/AppProvider";
 import { User } from "@/types/global";
 import { APIResponse } from "@/types/hooks";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 export const useGetAllUsers = (isVerified?: boolean) => {
   return useQuery({
     queryKey: ["da-users"],
     queryFn: () => getAllUsers(isVerified),
     retry: false,
+  });
+};
+
+export const useGetUserProfile = () => {
+  return useQuery({
+    queryKey: ["authenticated-user-profile"],
+    queryFn: getUserProfile,
+    retry: false,
+    gcTime: 0,
+    staleTime: 0
   });
 };
 
@@ -23,6 +34,7 @@ export const useGetUserById = (id: number) => {
 
 export const useDeleteUser = () => {
   const queryClient = useQueryClient();
+  const router = useRouter()
   const { pushToast } = useAppContext();
 
   const onSuccess = (data: APIResponse<User>, id: number) => {
@@ -36,6 +48,8 @@ export const useDeleteUser = () => {
         };
       }
     );
+
+    router.push("/dashboard/users")
     pushToast({ message: data.message, type: "SUCCESS" });
   };
 

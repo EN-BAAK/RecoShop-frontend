@@ -1,3 +1,4 @@
+import { ChangePasswordProps } from "@/types/forms";
 import { CategoryCreation, ForgotPasswordStep1, ForgotPasswordStep2, LoginProps, ProductCreation, SignupProps, SubCategoryCreation, VerifyAccountProps } from "@/types/global";
 import { GOVERNORATE, SEX } from "@/types/variables";
 
@@ -58,3 +59,9 @@ export const postComment = {
 export const postMessage = {
   message: ""
 }
+
+export const changePasswordInitialValues: ChangePasswordProps = {
+  oldPassword: "",
+  newPassword: "",
+  confirmNewPassword: "",
+};

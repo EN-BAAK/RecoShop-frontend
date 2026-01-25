@@ -1,32 +1,77 @@
 "use client";
 
+import React from "react";
+
 import { useParams, useRouter } from "next/navigation";
-import { Mail, Phone, MapPin, User as UserIcon, Shield, Users } from "lucide-react";
-import { useGetUserById } from "@/hooks/useUser";
+import { User as UserIcon, Shield, LucideIcon, Mail, Phone, MapPin, Users, Crown, Trash2 } from "lucide-react";
+import { useDeleteUser, useGetUserById } from "@/hooks/useUser";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ROLE, SEX } from "@/types/variables";
+import { ROLE } from "@/types/variables";
 import PageHolder from "@/app/dashboard/DashboardPageHolder";
 import Avatar from "@/components/Avatar";
 import LoadingPage from "@/components/LoadingPage";
 import ErrorPage from "@/components/ErrorPage";
 import EmptyElement from "@/components/EmptyElement";
+import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
+import { useAppContext } from "@/contexts/AppProvider";
+import CustomButton from "@/components/forms/Button";
+
+type RoleConfig = Record<ROLE, {
+  label: string,
+  icon: LucideIcon
+  bg: string,
+}>
+
+const roleConfig: RoleConfig = {
+  ADMIN: {
+    label: "Administrator",
+    icon: Shield,
+    bg: "bg-blue-50 text-blue-700 border-blue-200",
+  },
+  MANAGER: {
+    label: "Manager",
+    icon: Crown,
+    bg: "bg-amber-50 text-amber-700 border-amber-200",
+  },
+  CUSTOMER: {
+    label: "Customer",
+    icon: UserIcon,
+    bg: "bg-green-50 text-green-700 border-green-200",
+  },
+};
 
 const UserDetailPage: React.FC = () => {
   const params = useParams();
   const router = useRouter();
+  const { showWarning } = useAppContext();
+  const { mutate: deleteUser, isPending } = useDeleteUser();
+
   const userId = Number(params.userId);
 
   const { data, isFetching, isError, error, refetch } = useGetUserById(userId);
   const user = data?.data;
 
-  const getGenderLabel = (gender: SEX) => (gender === SEX.MALE ? "Male" : "Female");
+  const userInfoFields = [
+    { icon: UserIcon, label: "First Name", value: user?.firstName },
+    { icon: UserIcon, label: "Last Name", value: user?.lastName },
+    { icon: Mail, label: "Email", value: user?.email, ltr: true },
+    { icon: Phone, label: "Phone", value: user?.phone, ltr: true },
+    { icon: MapPin, label: "Governorate", value: user?.governorate },
+    { icon: Users, label: "Gender", value: user?.gender },
+  ];
+  const role = roleConfig[user?.role as ROLE];
+  const RoleIcon = role?.icon;
 
-  const getRoleLabel = (role: ROLE) => {
-    const roleLabels: Record<string, string> = {
-      ADMIN: "Admin",
-      Client: "User",
-    };
-    return roleLabels[role] || role;
+  const handleDelete = () => {
+    showWarning({
+      message: `Are you sure you want to delete the user "${user.firstName} ${user.lastName}"? This action cannot be undone.`,
+      btn1: "Cancel",
+      btn2: "Yes, Delete",
+      handleBtn2: () => {
+        deleteUser(user.id);
+      },
+    });
   };
 
   const handleGoBack = () => {
@@ -51,66 +96,80 @@ const UserDetailPage: React.FC = () => {
           }}
         />
       ) : (
-        <div className="overflow-y-auto">
-          <Card className="border border-muted rounded-xl shadow-md">
-            <CardHeader className="bg-background/50 p-6 border-b border-muted">
-              <div className="flex items-center gap-4">
-                <Avatar firstName={user.firstName} height={85} width={85} />
-                <div>
-                  <CardTitle className="text-2xl font-sans">
+        <div className="w-full mx-auto space-y-6 overflow-y-auto">
+          <Card className="border-muted shadow-lg relative">
+            <CardContent className="pt-8 pb-6 flex flex-col sm:flex-row gap-6 items-center sm:items-start">
+              <Avatar firstName={user.firstName} width={85} height={85} />
+
+              <div className="space-y-3">
+                <div className="space-y-1">
+                  <h2 className="text-2xl sm:text-3xl font-heading font-bold text-[#1A1A1A]">
                     {user.firstName} {user.lastName}
-                  </CardTitle>
+                  </h2>
+                  <p className="text-sm text-gray-600">{user.email}</p>
+                </div>
 
-                  <CardDescription className="mt-1 flex items-center gap-2 font-sans">
-                    <span className="bg-primary/10 text-primary flex items-center gap-1 px-3 py-1 rounded-md text-sm font-medium">
-                      <Shield className="w-4 h-4" />
-                      {getRoleLabel(user.role)}
-                    </span>
-                  </CardDescription>
+                <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
+                  <Badge
+                    variant="outline"
+                    className={`px-3 py-1.5 ${role.bg} flex items-center gap-1.5 border font-semibold text-xs`}
+                  >
+                    <RoleIcon className="w-4 h-4" />
+                    {role.label}
+                  </Badge>
                 </div>
               </div>
+            </CardContent>
+
+            <Badge className={cn(
+              "flex items-center gap-2 absolute bottom-5 right-5",
+              user.isVerified ? "bg-primary/20 text-primary" : "bg-accent/20 text-accent"
+            )}>
+              {user.isVerified ? (
+                <React.Fragment>
+                  Verified
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  Not Verified
+                </React.Fragment>
+              )}
+            </Badge>
+
+            <CustomButton
+              variant="danger"
+              onClick={handleDelete}
+              disabled={isPending}
+              aria-label="Delete user"
+              className="w-fit px-2 inline rounded-md absolute top-5 right-5"
+              iconClassName="w-4 h-4"
+              icon={Trash2}
+            />
+          </Card>
+
+          <Card className="shadow-lg">
+            <CardHeader>
+              <CardTitle>Account Information</CardTitle>
+              <CardDescription>Your personal details</CardDescription>
             </CardHeader>
-
-            <CardContent className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {[
-                  { label: "First Name", value: user.firstName, icon: UserIcon },
-                  { label: "Last Name", value: user.lastName, icon: UserIcon },
-                  { label: "Email", value: user.email, icon: Mail, ltr: true },
-                  { label: "Phone", value: user.phone, icon: Phone, ltr: true },
-                  { label: "Governorate", value: user.governorate, icon: MapPin },
-                  { label: "Gender", value: getGenderLabel(user.gender), icon: Users },
-                ].map((field, index) => (
-                  <div key={index} className="space-y-2">
-                    <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground font-sans">
-                      <field.icon className="w-4 h-4" />
-                      {field.label}
-                    </label>
-                    <div className="bg-background p-3 border border-muted rounded-lg">
-                      <p
-                        className="text-foreground font-sans font-medium"
-                        dir={field.ltr ? "ltr" : "rtl"}
-                        style={field.ltr ? { textAlign: "left" } : {}}
-                      >
-                        {field.value}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-
-                <div className="space-y-2 md:col-span-2">
-                  <label className="flex items-center gap-2 text-sm font-medium text-muted-foreground font-sans">
-                    <Shield className="w-4 h-4" />
-                    Role
+            <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {userInfoFields.map((field, i) => (
+                <div key={i} className="space-y-2">
+                  <label className="flex items-center gap-2 font-medium text-sm text-muted-foreground">
+                    <field.icon className="w-4 h-4 text-primary" />
+                    {field.label}
                   </label>
-                  <div className="bg-primary/5 p-3 border border-primary/20 rounded-lg">
-                    <p className="text-primary font-sans font-semibold">
-                      {getRoleLabel(user.role)}
-                    </p>
+
+                  <div
+                    className={cn(
+                      "bg-background p-3 border border-muted rounded-lg font-medium",
+                      field.ltr && "text-left"
+                    )}
+                  >
+                    {field.value}
                   </div>
                 </div>
-
-              </div>
+              ))}
             </CardContent>
           </Card>
         </div>

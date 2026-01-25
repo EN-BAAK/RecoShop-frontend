@@ -1,3 +1,4 @@
+import { ChangePasswordPayload } from "./types/forms";
 import { CachedUser, CategoryCreation, ForgotPasswordStep1, ForgotPasswordStep2, LoginProps, SubCategoryCreation, User, VerifyAccountProps } from "./types/global";
 import { APIResponse, GetShopProductsParams, GetUserBillProps, PostCommentProps, PurchaseBill, RateProductProps, UpdateItemType, UpdateItemWithFormData } from "./types/hooks";
 
@@ -352,7 +353,9 @@ export const getProductSettingsById = async (id: number) => {
 }
 
 export const getProductById = async (id: number) => {
-  const response = await fetch(`${API_URL}/products/${id}`)
+  const response = await fetch(`${API_URL}/products/${id}`, {
+    credentials: "include"
+  })
 
   const responseBody = await response.json()
 
@@ -424,6 +427,18 @@ export const getAllUsers = async (isVerified?: boolean) => {
     isVerified === undefined ? "" : `?isVerified=${isVerified}`;
 
   const response = await fetch(`${API_URL}/users${extensionURL}`, {
+    credentials: "include",
+  });
+
+  const responseBody = await response.json();
+
+  if (!response.ok) throw new Error(responseBody.message);
+
+  return responseBody;
+};
+
+export const getUserProfile = async () => {
+  const response = await fetch(`${API_URL}/users/profile`, {
     credentials: "include",
   });
 
@@ -648,3 +663,18 @@ export const rateProduct = async (data: RateProductProps) => {
 
   return responseBody
 }
+
+export const changePassword = async (data: ChangePasswordPayload) => {
+  const response = await fetch(`${API_URL}/auth/reset-password`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json", },
+    body: JSON.stringify(data),
+  });
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+};

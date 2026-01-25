@@ -2,7 +2,6 @@ import React from "react";
 import type { Metadata } from "next";
 import { metadata as mainMetadata } from "@/app/layout";
 import { CommonParentProps } from "@/types/components";
-import Header from "./Header";
 
 const keywords = [
   ...(mainMetadata.keywords || []),
@@ -27,13 +26,9 @@ export const metadata: Metadata = {
 
 const BillsLayout: React.FC<CommonParentProps> = ({ children }) => {
   return (
-    <div className="flex flex-col h-screen">
-      <Header />
-
-      <main className="overflow-y-auto">
-        {children}
-      </main>
-    </div>
+    <React.Fragment>
+      {children}
+    </React.Fragment>
   );
 };
 

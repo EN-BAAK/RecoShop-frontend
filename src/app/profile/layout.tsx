@@ -2,6 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import { metadata as mainMetadata } from "@/app/layout";
 import { CommonParentProps } from "@/types/components";
+import Header from "./Header";
 
 const keywords = [
   ...(mainMetadata.keywords || []),
@@ -26,9 +27,13 @@ export const metadata: Metadata = {
 
 const ProfileLayout: React.FC<CommonParentProps> = ({ children }) => {
   return (
-    <main className="h-screen overflow-hidden">
-      {children}
-    </main>
+    <div className="h-screen flex flex-col overflow-hidden">
+      <Header />
+
+      <main className="overflow-y-auto">
+        {children}
+      </main>
+    </div>
   );
 };
 

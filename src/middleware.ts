@@ -72,5 +72,6 @@ export const config = {
     "/signup",
     "/verify/:path*",
     "/forgot-password",
+    "/profile"
   ],
 };

@@ -39,3 +39,21 @@ export const range = (start: number, end: number, step: number = 1): number[] =>
 
   return result;
 };
+
+export const formatBalance = (value: number): string => {
+  const removeTrailingZeros = (num: number): string => {
+    return num % 1 === 0 ? num.toString() : num.toFixed(1);
+  };
+
+  if (value < 1000) {
+    return value.toFixed(2);
+  }
+
+  if (value < 1_000_000) {
+    const formatted = value / 1000;
+    return `${removeTrailingZeros(formatted)}k`;
+  }
+
+  const formatted = value / 1_000_000;
+  return `${removeTrailingZeros(formatted)}m`;
+};

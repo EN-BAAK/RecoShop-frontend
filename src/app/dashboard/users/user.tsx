@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Trash2, Phone, MapPin } from "lucide-react";
+import { Trash2, Phone, MapPin, Eye } from "lucide-react";
 import { useDeleteUser } from "@/hooks/useUser";
 import { useAppContext } from "@/contexts/AppProvider";
 import { UserProps } from "@/types/components";
@@ -11,10 +11,16 @@ import CustomButton from "@/components/forms/Button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { GenderBadge } from "./GenderBadge";
+import { useRouter } from "next/navigation";
 
 const UserRow: React.FC<UserProps> = ({ user }) => {
+  const router = useRouter()
   const { showWarning } = useAppContext();
   const { mutate: deleteUser, isPending } = useDeleteUser();
+
+  const handleGoToUserProfile = () => {
+    router.push(`/dashboard/users/${user.id}`)
+  }
 
   const handleDelete = () => {
     showWarning({
@@ -80,11 +86,20 @@ const UserRow: React.FC<UserProps> = ({ user }) => {
 
       <TableCell className="text-right">
         <CustomButton
+          variant="blue"
+          onClick={handleGoToUserProfile}
+          aria-label="View user"
+          className="w-fit mx-2 px-2 inline rounded-md"
+          iconClassName="w-4 h-4"
+          icon={Eye}
+        />
+
+        <CustomButton
           variant="danger"
           onClick={handleDelete}
           disabled={isPending}
           aria-label="Delete user"
-          className="w-fit px-2 inline rounded-md"
+          className="w-fit mx-2 px-2 inline rounded-md"
           iconClassName="w-4 h-4"
           icon={Trash2}
         />

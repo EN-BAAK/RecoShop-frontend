@@ -1,4 +1,4 @@
-import { login, logout, resendVerificationCode, resetForgottenPassword, resetPasswordRequest, signup, validateAuthentication, verifyAccount } from "@/api-client";
+import { changePassword, login, logout, resendVerificationCode, resetForgottenPassword, resetPasswordRequest, signup, validateAuthentication, verifyAccount } from "@/api-client";
 import { useAppContext } from "@/contexts/AppProvider";
 import { APIResponse } from "@/types/hooks";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -33,6 +33,25 @@ export const useLogin = () => {
     onError
   })
 }
+
+export const useChangePassword = () => {
+  const router = useRouter()
+  const { pushToast } = useAppContext()
+
+  const onSuccess = (data: APIResponse<unknown>) => {
+    pushToast({ message: data.message, type: "SUCCESS" })
+    router.replace("/profile")
+  }
+  const onError = (error: Error) => {
+    pushToast({ message: error.message, type: "ERROR" })
+  }
+
+  return useMutation({
+    mutationFn: changePassword,
+    onSuccess,
+    onError
+  })
+};
 
 export const useLogout = () => {
   const queryClient = useQueryClient();

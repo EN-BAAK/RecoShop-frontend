@@ -99,3 +99,12 @@ export interface MultiSelectorFieldProps extends BaseFieldProps {
   maxSelection?: number;
   options: SelectOption[]
 }
+
+export interface ChangePasswordProps {
+  oldPassword: string;
+  newPassword: string;
+  confirmNewPassword: string;
+}
+
+
+export type ChangePasswordPayload = Omit<ChangePasswordProps, "confirmNewPassword"> 

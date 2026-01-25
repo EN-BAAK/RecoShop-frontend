@@ -15,7 +15,7 @@ const ProductRating: React.FC<ProductRatingProps> = ({ productId }) => {
 
   const averageRate = dataAvgRating?.data.averageRate || 0.0
   const ratesCount = dataAvgRating?.data.ratesCount || 0
-  const myRating = dataMyRating?.data.rate || 0
+  const myRating = dataMyRating?.data?.rate || 0
 
   const onRate = async (rate: number) => {
     if (isPending) return;

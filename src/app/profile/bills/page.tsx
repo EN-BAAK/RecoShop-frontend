@@ -24,12 +24,13 @@ const BillsPage: React.FC = () => {
     router.replace('/shop')
   }
 
-  if (isFetching) return <LoadingPage className='h-full w-full' />
-  if (isError) return <ErrorPage msg={error.message} action={refetch} />
+  if (isFetching) return <LoadingPage className='h-[80vh] w-full' />
+  if (isError) return <ErrorPage msg={"error.message"} className='h-[80vh] w-full' action={refetch} />
   if (!transactions.length)
     return (
       <EmptyElement
         title="No Bills Yet"
+        className='h-[80vh] w-full'
         desc="You haven’t made any purchases yet. Start shopping to see your bills appear here."
         button={{
           action: navigateToShop,
