@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react";
 import BrandImage from "@/components/BrandImage";
 import ProductRating from "@/components/ProductRating";
 import ProductComments from "./ProductComments";
@@ -8,6 +9,7 @@ import ProductImage from "@/components/ProductImage";
 import CustomButton from "@/components/forms/Button";
 import { ShoppingCart } from "lucide-react";
 import { useShopContext } from "@/contexts/ShopProvider";
+import { Badge } from "@/components/ui/badge";
 
 const ProductDetails: React.FC<ShopProductDetailsProps> = ({ product }) => {
   const { pushToCart } = useShopContext()
@@ -34,7 +36,7 @@ const ProductDetails: React.FC<ShopProductDetailsProps> = ({ product }) => {
             <span className="font-heading font-semibold text-foreground">{product.brand}</span>
           </div>
 
-          <ProductRating productId={product.id} />
+          <ProductRating productId={product.id} average={product.rate.average} count={product.rate.count} />
 
           <div className="py-4 border-y border-muted">
             <p className="font-heading font-bold text-3xl text-accent">
@@ -54,6 +56,11 @@ const ProductDetails: React.FC<ShopProductDetailsProps> = ({ product }) => {
         </div>
       </div>
 
+      <div className="flex items-center gap-3">
+        {product.subCategories.map(subCat =>
+          <Badge className="bg-primary/85 px-3 py-1 text-sm" key={`sub-cat-${subCat.id}`}>{subCat.title}</Badge>
+        )}
+      </div>
 
       <ProductComments productId={product.id} />
     </div>

@@ -1,4 +1,4 @@
-import { getAllProducts, getProductSettingsById, createProduct, updateProduct, deleteProduct, getProductImage, getShopProductsPaginatedByCategory, getProductById, getRelatedProducts, } from "@/api-client";
+import { getAllProducts, getProductSettingsById, createProduct, updateProduct, deleteProduct, getProductImage, getShopProductsPaginatedByCategory, getProductById, getRelatedProducts, getMostPurchasedProduct, getPurchasedProductByMonth, } from "@/api-client";
 import { useAppContext } from "@/contexts/AppProvider";
 import { APIResponse, InfiniteAPIResponse, UseGetAllProductsProps, UseGetProductsPaginatedByCategoryProps } from "@/types/hooks";
 import { ProductGlobal } from "@/types/global";
@@ -46,6 +46,22 @@ export const useGetProductById = (id: number) => {
     queryKey: ["shop-product", id],
     queryFn: () => getProductById(id),
     enabled: !!id,
+    retry: false,
+  });
+};
+
+export const useGetMostPurchasedProduct = () => {
+  return useQuery({
+    queryKey: ["most-purchased-product"],
+    queryFn: getMostPurchasedProduct,
+    retry: false,
+  });
+};
+
+export const useGetPurchasesProductByMonth = () => {
+  return useQuery({
+    queryKey: ["purchases-product-by-month"],
+    queryFn: getPurchasedProductByMonth,
     retry: false,
   });
 };

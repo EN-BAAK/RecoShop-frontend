@@ -63,7 +63,9 @@ export type Product = {
 }
 
 export type ShopProduct = {
-  categories: string[],
+  subCategories: Omit<SubCategory, "desc" | "categoryId">[],
+  category: string,
+  rate: ProductRate,
 } & Omit<Product, "imgURL">
 
 export type ProductCreation = Omit<Product, "id" | "imgURL" | "brand"> & {
@@ -100,10 +102,9 @@ export interface AccessItem {
 export type Brand = {
   id: number,
   name: string,
-  imgURL?: string,
 }
 
-export type BrandCreation = Omit<Brand, "id" | "imgURL">
+export type BrandCreation = Omit<Brand, "id">
 
 export interface BasketItem {
   id: number;
@@ -133,4 +134,9 @@ export type Comment = {
 
 export type CommentCreation = {
   comment: string
+}
+
+export type ProductRate = {
+  average: number,
+  count: number
 }

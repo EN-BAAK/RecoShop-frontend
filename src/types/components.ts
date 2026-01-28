@@ -123,12 +123,14 @@ export type ShopProductDetailsProps = {
 }
 
 export type ProductRatingProps = {
+  average: number,
+  count: number,
   productId: number
 }
 
 export type ProductCommentsProps = {
   productId: number,
-  
+
 }
 
 export type ShopRelatedProductsProps = {
@@ -155,10 +157,6 @@ export type StatCardProps = {
   gradientTo?: string,
 }
 
-export interface AdminsManagersTableProps {
-  users: User[]
-}
-
 export type UsersNumberProps = {
   total: number,
   title: string,
@@ -168,20 +166,9 @@ export type UsersNumberProps = {
   isAdmin?: boolean
 }
 
-export type PurchasesDashboardChartProps = {
-  purchases: {
-    day: number
-    currentMonth: number
-    lastMonth: number
-  }[]
-}
-
-export type ProductDashboardCardProps = {
-  product: {
-    id: number,
-    title: string,
-    price: number,
-    totalQuantity: number,
-    desc: string
-  }
-}
+export type SectionHolderProps = {
+  title: string,
+  desc?: string,
+  sectionStyle?: string
+  decoration?: boolean
+} & CommonParentProps

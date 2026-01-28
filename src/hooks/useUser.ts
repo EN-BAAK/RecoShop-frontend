@@ -1,4 +1,4 @@
-import { deleteUser, getAllUsers, getUserById, getUserProfile, } from "@/api-client";
+import { deleteUser, getAdminsAndManagers, getAllUsers, getUserById, getUserProfile, } from "@/api-client";
 import { useAppContext } from "@/contexts/AppProvider";
 import { User } from "@/types/global";
 import { APIResponse } from "@/types/hooks";
@@ -9,6 +9,14 @@ export const useGetAllUsers = (isVerified?: boolean) => {
   return useQuery({
     queryKey: ["da-users"],
     queryFn: () => getAllUsers(isVerified),
+    retry: false,
+  });
+};
+
+export const useGetAdminsAndManagers = () => {
+  return useQuery({
+    queryKey: ["da-admins-and-managers"],
+    queryFn: getAdminsAndManagers,
     retry: false,
   });
 };

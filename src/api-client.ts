@@ -352,6 +352,28 @@ export const getProductSettingsById = async (id: number) => {
   return responseBody
 }
 
+export const getMostPurchasedProduct = async () => {
+  const response = await fetch(`${API_URL}/products/top-purchased`)
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}
+
+export const getPurchasedProductByMonth = async () => {
+  const response = await fetch(`${API_URL}/products/purchases-monthly`, {
+    credentials: "include"
+  })
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}
+
 export const getProductById = async (id: number) => {
   const response = await fetch(`${API_URL}/products/${id}`, {
     credentials: "include"
@@ -436,6 +458,18 @@ export const getAllUsers = async (isVerified?: boolean) => {
 
   return responseBody;
 };
+
+export const getAdminsAndManagers = async () => {
+  const response = await fetch(`${API_URL}/users/admins-and-managers`, {
+    credentials: "include",
+  })
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}
 
 export const getUserProfile = async () => {
   const response = await fetch(`${API_URL}/users/profile`, {
@@ -624,16 +658,6 @@ export const postComment = async ({ comment, productId }: PostCommentProps) => {
 
   const responseBody = await response.json()
   if (!response.ok) throw new Error(responseBody.message)
-  return responseBody
-}
-
-export const getAvgRateForProduct = async (productId: number) => {
-  const response = await fetch(`${API_URL}/rates/${productId}/stats`)
-
-  const responseBody = await response.json()
-
-  if (!response.ok) throw new Error(responseBody.message)
-
   return responseBody
 }
 

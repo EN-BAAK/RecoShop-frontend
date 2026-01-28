@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css"
 import { cn } from "@/lib/utils"
-import ReactQueryProvider from "@/contexts/ReactQueryProvidder"
+import ReactQueryProvider from "@/contexts/ReactQueryProvider"
 import AppProvider from "@/contexts/AppProvider"
 import { CommonParentProps } from "@/types/components"
 import FilteringProvider from "@/contexts/FilteringProvider";

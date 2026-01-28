@@ -36,7 +36,7 @@ const ProductComments: React.FC<ProductCommentsProps> = ({ productId }) => {
           {comments.map((comment: Comment) => (
             <div key={comment.id} className="bg-muted/30 p-4 rounded-lg">
               <div className="mb-2 flex justify-between items-start">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
                   <Avatar firstName={comment.name} width={25} height={25} />
                   <p className="font-heading font-semibold text-foreground">
                     {comment.name}

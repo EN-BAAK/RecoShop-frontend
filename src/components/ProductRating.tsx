@@ -1,20 +1,17 @@
 "use client"
 
-import { useGetAvgRateForProduct, useGetMyRateForProduct, useRateProduct } from "@/hooks/useRate";
+import { useGetMyRateForProduct, useRateProduct } from "@/hooks/useRate";
 import { range } from "@/lib/helpers";
 import { cn } from "@/lib/utils";
 import { ProductRatingProps } from "@/types/components";
 import { Star } from "lucide-react";
 import React, { useState } from "react";
 
-const ProductRating: React.FC<ProductRatingProps> = ({ productId }) => {
+const ProductRating: React.FC<ProductRatingProps> = ({ average, count, productId }) => {
   const [hoverRating, setHoverRating] = useState(0);
-  const { data: dataAvgRating } = useGetAvgRateForProduct(productId)
   const { data: dataMyRating } = useGetMyRateForProduct(productId)
   const { mutateAsync, isPending } = useRateProduct();
 
-  const averageRate = dataAvgRating?.data.averageRate || 0.0
-  const ratesCount = dataAvgRating?.data.ratesCount || 0
   const myRating = dataMyRating?.data?.rate || 0
 
   const onRate = async (rate: number) => {
@@ -48,7 +45,7 @@ const ProductRating: React.FC<ProductRatingProps> = ({ productId }) => {
           </button>
         ))}
       </div>
-      <span className="font-sans text-sm text-foreground">{averageRate} ({ratesCount} reviews)</span>
+      <span className="font-sans text-sm text-foreground">{average} ({count} reviews)</span>
     </div>
   );
 };
