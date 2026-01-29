@@ -1,5 +1,5 @@
 import { LucideIcon } from "lucide-react";
-import { Bill, Brand, Category, ProductGlobal, ShopProduct, SubCategoryGlobal, User, UserGlobal } from "./global";
+import { Bill, BranchGlobal, Brand, Category, GroupBranch, ProductGlobal, ShopProduct, SubCategoryGlobal, UserGlobal } from "./global";
 import { Notification, SEX, Variant } from "./variables";
 
 export type ToastMessage = {
@@ -172,3 +172,11 @@ export type SectionHolderProps = {
   sectionStyle?: string
   decoration?: boolean
 } & CommonParentProps
+
+export interface BranchProps {
+  branch: BranchGlobal;
+}
+
+export interface GroupBranchProps {
+  group: GroupBranch;
+}

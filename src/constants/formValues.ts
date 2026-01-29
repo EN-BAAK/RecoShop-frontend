@@ -1,5 +1,5 @@
 import { ChangePasswordProps } from "@/types/forms";
-import { CategoryCreation, ForgotPasswordStep1, ForgotPasswordStep2, LoginProps, ProductCreation, SignupProps, SubCategoryCreation, VerifyAccountProps } from "@/types/global";
+import { BranchCreation, CategoryCreation, ForgotPasswordStep1, ForgotPasswordStep2, GroupBranchCreation, LoginProps, ProductCreation, SignupProps, SubCategoryCreation, VerifyAccountProps } from "@/types/global";
 import { GOVERNORATE, SEX } from "@/types/variables";
 
 export const login: LoginProps = {
@@ -64,4 +64,18 @@ export const changePasswordInitialValues: ChangePasswordProps = {
   oldPassword: "",
   newPassword: "",
   confirmNewPassword: "",
+};
+
+export const groupBranch: GroupBranchCreation = {
+  name: "",
+};
+
+export const branch: BranchCreation = {
+  name: "",
+  location: "",
+  phone: "",
+  telephone: "",
+  facebook: "",
+  instagram: "",
+  groupId: undefined,
 };

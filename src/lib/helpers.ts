@@ -57,3 +57,9 @@ export const formatBalance = (value: number): string => {
   const formatted = value / 1_000_000;
   return `${removeTrailingZeros(formatted)}m`;
 };
+
+
+export const handleCall = (phone: string) => {
+  if (!phone) return;
+  window.location.href = `tel:${phone}`;
+};

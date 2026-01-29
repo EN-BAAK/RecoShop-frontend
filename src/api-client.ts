@@ -1,5 +1,5 @@
 import { ChangePasswordPayload } from "./types/forms";
-import { CachedUser, CategoryCreation, ForgotPasswordStep1, ForgotPasswordStep2, LoginProps, SubCategoryCreation, User, VerifyAccountProps } from "./types/global";
+import { BranchCreation, CachedUser, CategoryCreation, ForgotPasswordStep1, ForgotPasswordStep2, GroupBranchCreation, LoginProps, SubCategoryCreation, User, VerifyAccountProps } from "./types/global";
 import { APIResponse, GetShopProductsParams, GetUserBillProps, PostCommentProps, PurchaseBill, RateProductProps, UpdateItemType, UpdateItemWithFormData } from "./types/hooks";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL!
@@ -702,3 +702,132 @@ export const changePassword = async (data: ChangePasswordPayload) => {
 
   return responseBody
 };
+
+export const getAllGroupBranches = async () => {
+  const response = await fetch(`${API_URL}/group-branches`, {
+    credentials: "include",
+  });
+
+  const responseBody = await response.json();
+  if (!response.ok) throw new Error(responseBody.message);
+
+  return responseBody;
+};
+
+export const getAllBranches = async () => {
+  const response = await fetch(`${API_URL}/branches`);
+
+  const responseBody = await response.json();
+  if (!response.ok) throw new Error(responseBody.message);
+
+  return responseBody;
+};
+
+export const getBranchById = async (id: number) => {
+  const response = await fetch(`${API_URL}/branches/${id}`, {
+    credentials: "include",
+  });
+
+  const responseBody = await response.json();
+  if (!response.ok) throw new Error(responseBody.message);
+
+  return responseBody;
+};
+
+export const getGroupBranchById = async (id: number) => {
+  const response = await fetch(`${API_URL}/group-branches/${id}`, {
+    credentials: "include",
+  });
+
+  const responseBody = await response.json();
+  if (!response.ok) throw new Error(responseBody.message);
+
+  return responseBody;
+};
+
+export const createBranch = async (formData: BranchCreation) => {
+  const response = await fetch(`${API_URL}/branches`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData),
+  })
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+  
+}
+
+export const createGroupBranch = async (formData: GroupBranchCreation) => {
+  const response = await fetch(`${API_URL}/group-branches`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData),
+  })
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}
+
+export const updateBranch = async ({ id, data }: UpdateItemType<BranchCreation>) => {
+  const response = await fetch(`${API_URL}/branches/${id}`, {
+    method: "PUT",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  })
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}
+
+export const updateGroupBranch = async ({ id, data }: UpdateItemType<GroupBranchCreation>) => {
+  const response = await fetch(`${API_URL}/group-branches/${id}`, {
+    method: "PUT",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  })
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}
+
+export const deleteBranch = async (id: number) => {
+  const response = await fetch(`${API_URL}/branches/${id}`, {
+    method: "DELETE",
+    credentials: "include",
+  })
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}
+
+export const deleteGroupBranch = async (id: number) => {
+  const response = await fetch(`${API_URL}/group-branches/${id}`, {
+    method: "DELETE",
+    credentials: "include",
+  })
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}

@@ -181,3 +181,91 @@ export const changePasswordValidation = Yup.object<ChangePasswordProps>({
     .oneOf([Yup.ref("newPassword")], "Passwords do not match")
     .required("Please confirm your new password"),
 });
+
+export const createGroupBranch = Yup.object({
+  name: Yup.string()
+    .required("Group name is required")
+    .min(2, "Group name must be at least 2 characters")
+    .max(50, "Group name is too long (max 50 characters)"),
+});
+
+export const editGroupBranch = Yup.object({
+  name: Yup.string()
+    .min(2, "Group name must be at least 2 characters")
+    .max(50, "Group name is too long (max 50 characters)")
+    .optional(),
+});
+
+export const createBranch = Yup.object({
+  name: Yup.string()
+    .required("Branch name is required")
+    .min(2, "Branch name must be at least 2 characters")
+    .max(100, "Branch name is too long (max 100 characters)"),
+
+  location: Yup.string()
+    .max(200, "Location is too long (max 200 characters)")
+    .optional(),
+
+  phone: Yup.string()
+    .matches(
+      /^[+0-9\s-]{7,20}$/,
+      "Enter a valid phone number"
+    )
+    .optional(),
+
+  telephone: Yup.string()
+    .matches(
+      /^[0-9\s-]{6,20}$/,
+      "Enter a valid telephone number"
+    )
+    .optional(),
+
+  facebook: Yup.string()
+    .url("Enter a valid Facebook URL")
+    .optional(),
+
+  instagram: Yup.string()
+    .url("Enter a valid Instagram URL")
+    .optional(),
+
+  groupId: Yup.number()
+    .min(1, "Select a valid group")
+    .optional(),
+});
+
+export const editBranch = Yup.object({
+  name: Yup.string()
+    .min(2, "Branch name must be at least 2 characters")
+    .max(100, "Branch name is too long (max 100 characters)")
+    .optional(),
+
+  location: Yup.string()
+    .max(200, "Location is too long (max 200 characters)")
+    .optional(),
+
+  phone: Yup.string()
+    .matches(
+      /^[+0-9\s-]{7,20}$/,
+      "Enter a valid phone number"
+    )
+    .optional(),
+
+  telephone: Yup.string()
+    .matches(
+      /^[0-9\s-]{6,20}$/,
+      "Enter a valid telephone number"
+    )
+    .optional(),
+
+  facebook: Yup.string()
+    .url("Enter a valid Facebook URL")
+    .optional(),
+
+  instagram: Yup.string()
+    .url("Enter a valid Instagram URL")
+    .optional(),
+
+  groupId: Yup.number()
+    .min(1, "Select a valid group")
+    .optional(),
+});

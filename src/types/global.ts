@@ -140,3 +140,26 @@ export type ProductRate = {
   average: number,
   count: number
 }
+
+export type GroupBranch = {
+  id: number;
+  name: string;
+}
+
+export type Branch = {
+  id: number;
+  name: string;
+  location?: string;
+  facebook?: string;
+  instagram?: string;
+  phone?: string;
+  telephone?: string;
+  groupId?: number;
+}
+
+export type BranchGlobal = Omit<Branch, "groupId"> & {
+  group: string
+}
+
+export type GroupBranchCreation = Omit<GroupBranch, "id">;
+export type BranchCreation = Omit<Branch, "id">;
