@@ -3,7 +3,7 @@
 import React from "react";
 import { handleCall, handleLocation } from "@/lib/helpers";
 import { HeroBranchCardProps } from "@/types/components";
-import { Phone, PhoneCall, MapPin, Facebook, Instagram, } from "lucide-react";
+import { Phone, PhoneCall, Facebook, Instagram, } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const BranchCard: React.FC<HeroBranchCardProps> = ({ branch, side }) => {
@@ -76,15 +76,6 @@ const BranchCard: React.FC<HeroBranchCardProps> = ({ branch, side }) => {
             className="text-pink-600 cursor-pointer transition hover:text-pink-800"
           >
             <Instagram className="w-4 h-4" />
-          </button>
-        )}
-
-        {branch.location && (
-          <button
-            onClick={() => handleLocation(branch.location)}
-            className="text-amber-600 cursor-pointer transition hover:text-amber-800"
-          >
-            <MapPin className="w-4 h-4" />
           </button>
         )}
       </div>
