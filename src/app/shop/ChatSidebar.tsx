@@ -3,7 +3,7 @@
 import CustomButton from "@/components/forms/Button";
 import InputField from "@/components/forms/InputField";
 import SubmitButton from "@/components/forms/SubmitButton";
-import { postMessage as postMessageValidation } from "@/constants/formValidation";
+import { postChatMessage as postMessageValidation } from "@/constants/formValidation";
 import { postMessage as postMessageValues } from "@/constants/formValues";
 import { Form, Formik } from "formik";
 import { MessageCircle, Send, Trash2 } from "lucide-react";

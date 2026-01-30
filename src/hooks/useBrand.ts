@@ -115,11 +115,13 @@ export const useUpdateBrand = () => {
     router.push("/dashboard/brands");
   };
 
+  const onError = (error: Error) =>
+    pushToast({ message: error.message, type: "ERROR" })
+
   return useMutation({
     mutationFn: updateBrand,
     onSuccess,
-    onError: (error: Error) =>
-      pushToast({ message: error.message, type: "ERROR" }),
+    onError
   });
 };
 
@@ -146,10 +148,12 @@ export const useDeleteBrand = () => {
     pushToast({ message: data.message, type: "SUCCESS" });
   };
 
+  const onError = (error: Error) =>
+    pushToast({ message: error.message, type: "ERROR" })
+
   return useMutation({
     mutationFn: deleteBrand,
     onSuccess,
-    onError: (error: Error) =>
-      pushToast({ message: error.message, type: "ERROR" }),
+    onError
   });
 };

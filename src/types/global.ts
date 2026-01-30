@@ -163,3 +163,15 @@ export type BranchGlobal = Omit<Branch, "groupId"> & {
 
 export type GroupBranchCreation = Omit<GroupBranch, "id">;
 export type BranchCreation = Omit<Branch, "id">;
+
+export type Message = {
+  id: number,
+  username?: string,
+  email: string,
+  phone?: string,
+  subject?: string,
+  msg: string,
+  createdAt: string
+}
+
+export type MessageCreation = Omit<Message, "id" | "createdAt">;

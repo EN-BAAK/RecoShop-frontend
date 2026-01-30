@@ -1,5 +1,5 @@
 import { ChangePasswordPayload } from "./types/forms";
-import { BranchCreation, CachedUser, CategoryCreation, ForgotPasswordStep1, ForgotPasswordStep2, GroupBranchCreation, LoginProps, SubCategoryCreation, User, VerifyAccountProps } from "./types/global";
+import { BranchCreation, CachedUser, CategoryCreation, ForgotPasswordStep1, ForgotPasswordStep2, GroupBranchCreation, LoginProps, MessageCreation, SubCategoryCreation, User, VerifyAccountProps } from "./types/global";
 import { APIResponse, GetShopProductsParams, GetUserBillProps, PostCommentProps, PurchaseBill, RateProductProps, UpdateItemType, UpdateItemWithFormData } from "./types/hooks";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL!
@@ -758,7 +758,7 @@ export const createBranch = async (formData: BranchCreation) => {
   if (!response.ok) throw new Error(responseBody.message)
 
   return responseBody
-  
+
 }
 
 export const createGroupBranch = async (formData: GroupBranchCreation) => {
@@ -821,6 +821,43 @@ export const deleteBranch = async (id: number) => {
 
 export const deleteGroupBranch = async (id: number) => {
   const response = await fetch(`${API_URL}/group-branches/${id}`, {
+    method: "DELETE",
+    credentials: "include",
+  })
+
+  const responseBody = await response.json()
+
+  if (!response.ok) throw new Error(responseBody.message)
+
+  return responseBody
+}
+
+export const getAllMessages = async () => {
+  const response = await fetch(`${API_URL}/messages`, {
+    credentials: "include",
+  });
+
+  const responseBody = await response.json();
+  if (!response.ok) throw new Error(responseBody.message);
+
+  return responseBody;
+};
+
+export const postMessage = async (formData: MessageCreation) => {
+  const response = await fetch(`${API_URL}/messages`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData),
+  });
+
+  const responseBody = await response.json();
+  if (!response.ok) throw new Error(responseBody.message);
+
+  return responseBody;
+};
+
+export const deleteMessage = async (id: number) => {
+  const response = await fetch(`${API_URL}/messages/${id}`, {
     method: "DELETE",
     credentials: "include",
   })

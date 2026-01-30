@@ -1,6 +1,6 @@
 import { AccessItem } from "@/types/global";
 import { NavItem, ROLE } from "@/types/variables";
-import { LayoutDashboard, Package, ShoppingBag, Users, Layers, Tags, LineSquiggle } from "lucide-react";
+import { LayoutDashboard, Package, ShoppingBag, Users, Layers, Tags, LineSquiggle, MessagesSquare } from "lucide-react";
 
 export const navItems: NavItem[] = [
   { title: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -10,7 +10,7 @@ export const navItems: NavItem[] = [
   { title: "Products", href: "/dashboard/products", icon: ShoppingBag },
   { title: "Users", href: "/dashboard/users", icon: Users },
   { title: "Branches", href: "/dashboard/branches", icon: LineSquiggle },
-
+  { title: "Messages", href: "/dashboard/messages", icon: MessagesSquare },
 ];
 
 export const colors: string[] = [

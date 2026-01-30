@@ -164,7 +164,7 @@ export const postComment = Yup.object({
   comment: Yup.string().min(3, 'Comment must be at least 3 characters')
 })
 
-export const postMessage = Yup.object({
+export const postChatMessage = Yup.object({
   message: Yup.string().min(3, 'Message must be at least 3 characters')
 })
 
@@ -268,4 +268,23 @@ export const editBranch = Yup.object({
   groupId: Yup.number()
     .min(1, "Select a valid group")
     .optional(),
+});
+
+export const postMessage = Yup.object({
+  username: Yup.string()
+    .optional()
+    .max(50, 'Username must be at most 50 characters'),
+  email: Yup.string()
+    .email('Invalid email address')
+    .required('Email is required'),
+  phone: Yup.string()
+    .optional()
+    .matches(/^[+]?[\d\s\-()]+$/, 'Invalid phone number'),
+  subject: Yup.string()
+    .optional()
+    .max(100, 'Subject must be at most 100 characters'),
+  msg: Yup.string()
+    .required('Message is required')
+    .min(10, 'Message must be at least 10 characters')
+    .max(1000, 'Message must not exceed 1000 characters'),
 });

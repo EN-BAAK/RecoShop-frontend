@@ -5,6 +5,8 @@ import { useGetAllBranches } from "@/hooks/useBranch";
 import { BranchGlobal } from "@/types/global";
 import BranchCard from "./Branch";
 import SectionHolder from "./SectionHolder";
+import { range } from "@/lib/helpers";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const groupBranchesByGroup = (branches: BranchGlobal[]) =>
   branches.reduce<Record<string, BranchGlobal[]>>((acc, b) => {
@@ -28,27 +30,43 @@ const Branches: React.FC = () => {
         <span className="bg-emerald-600 h-full w-[2px] absolute left-1/2 -translate-x-1/2 top-0" />
 
         <div className="space-y-16">
-          {Object.entries(grouped).map(([groupName, groupBranches], gIndex) => (
-            <div key={groupName} className="relative space-y-8">
+          {isFetching
+            ? range(1, 3).map(i => (
+              <div key={`branch-group-${i}`} className="relative space-y-8">
+                <div className="text-center relative z-10">
+                  <span className="bg-emerald-600 py-1 px-4 rounded-md inline-block font-semibold text-background">
+                    Loading...
+                  </span>
+                </div>
 
-              <div className="text-center relative z-10">
-                <span className="bg-emerald-600 py-1 px-4 rounded-md inline-block font-semibold text-background">
-                  {groupName}
-                </span>
+                <div className="relative">
+                  {range(0, 0).map((branch, i) => (
+                    <Skeleton key={`branch-${i}`} className="w-[200px] h-[150] mx-auto mb-3" />
+                  ))}
+                </div>
               </div>
+            ))
+            : Object.entries(grouped).map(([groupName, groupBranches], gIndex) => (
+              <div key={`branch-group-${groupName}`} className="relative space-y-8">
+                <div className="text-center relative z-10">
+                  <span className="bg-emerald-600 py-1 px-4 rounded-md inline-block font-semibold text-background">
+                    {groupName}
+                  </span>
+                </div>
 
-              <div className="relative">
-                {groupBranches.map((branch, i) => (
-                  <BranchCard
-                    key={branch.id}
-                    branch={branch}
-                    side={(i + gIndex) % 2 === 0 ? "left" : "right"}
-                  />
-                ))}
-                <div className="clear-both" />
+                <div className="relative">
+                  {groupBranches.map((branch, i) => (
+                    <BranchCard
+                      key={`branch-${i}`}
+                      branch={branch}
+                      side={(i + gIndex) % 2 === 0 ? "left" : "right"}
+                    />
+                  ))}
+                  <div className="clear-both" />
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          }
         </div>
       </div>
     </SectionHolder>

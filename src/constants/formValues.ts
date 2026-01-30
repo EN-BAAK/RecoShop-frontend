@@ -1,5 +1,5 @@
 import { ChangePasswordProps } from "@/types/forms";
-import { BranchCreation, CategoryCreation, ForgotPasswordStep1, ForgotPasswordStep2, GroupBranchCreation, LoginProps, ProductCreation, SignupProps, SubCategoryCreation, VerifyAccountProps } from "@/types/global";
+import { BranchCreation, CategoryCreation, ForgotPasswordStep1, ForgotPasswordStep2, GroupBranchCreation, LoginProps, MessageCreation, ProductCreation, SignupProps, SubCategoryCreation, VerifyAccountProps } from "@/types/global";
 import { GOVERNORATE, SEX } from "@/types/variables";
 
 export const login: LoginProps = {
@@ -78,4 +78,12 @@ export const branch: BranchCreation = {
   facebook: "",
   instagram: "",
   groupId: undefined,
+};
+
+export const message: MessageCreation = {
+  username: '',
+  email: '',
+  phone: '',
+  subject: '',
+  msg: '',
 };

@@ -1,6 +1,7 @@
 import Branches from "./(landing)/Branches";
 import Brands from "./(landing)/Brands";
 import Categories from "./(landing)/Categories";
+import Contact from "./(landing)/Contact";
 import HeroSection from "./(landing)/Hero";
 
 export default function Home() {
@@ -8,8 +9,9 @@ export default function Home() {
     <main>
       <HeroSection />
       <Categories />
-      <Brands/>
-      <Branches/>
+      <Brands />
+      <Branches />
+      <Contact />
     </main>
   );
 }
