@@ -1,3 +1,4 @@
+import Branches from "./(landing)/Branches";
 import Brands from "./(landing)/Brands";
 import Categories from "./(landing)/Categories";
 import HeroSection from "./(landing)/Hero";
@@ -8,6 +9,7 @@ export default function Home() {
       <HeroSection />
       <Categories />
       <Brands/>
+      <Branches/>
     </main>
   );
 }

@@ -180,3 +180,8 @@ export interface BranchProps {
 export interface GroupBranchProps {
   group: GroupBranch;
 }
+
+export interface HeroBranchCardProps {
+  branch: BranchGlobal;
+  side: "right" | "left"
+}

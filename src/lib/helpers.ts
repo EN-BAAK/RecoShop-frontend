@@ -63,3 +63,7 @@ export const handleCall = (phone: string) => {
   if (!phone) return;
   window.location.href = `tel:${phone}`;
 };
+
+export const handleLocation = (url?: string) => {
+  if (url) window.location.href = url;
+};

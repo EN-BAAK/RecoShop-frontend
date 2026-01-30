@@ -5,9 +5,9 @@ import React from 'react'
 const SectionHolder: React.FC<SectionHolderProps> = ({ title, desc, children, sectionStyle, decoration = false }) => {
   return (
     <section className={cn(
-      "bg-background w-full py-[50px] px-4 sm:px-6 lg:px-8",
+      "bg-background w-full py-[50px] px-4 sm:px-6 lg:px-8 relative",
       sectionStyle,
-      decoration && "relative z-1 overflow-hidden"
+      decoration && "z-1 overflow-hidden"
     )}>
       {decoration && (
         <React.Fragment>
