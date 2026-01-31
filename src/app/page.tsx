@@ -2,6 +2,7 @@ import Branches from "./(landing)/Branches";
 import Brands from "./(landing)/Brands";
 import Categories from "./(landing)/Categories";
 import Contact from "./(landing)/Contact";
+import Footer from "./(landing)/Footer";
 import HeroSection from "./(landing)/Hero";
 
 export default function Home() {
@@ -12,6 +13,7 @@ export default function Home() {
       <Brands />
       <Branches />
       <Contact />
+      <Footer />
     </main>
   );
 }

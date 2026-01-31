@@ -23,7 +23,7 @@ const Categories: React.FC = () => {
           <React.Fragment>
             {range(1, 6).map(i => (
               <Skeleton className='h-[200px] w-full' key={`category-${i}`} />
-            ))}
+            ))} fb
           </React.Fragment>
           : <React.Fragment>
             {categories.map((category) => (

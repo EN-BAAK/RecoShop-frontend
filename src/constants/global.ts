@@ -51,3 +51,11 @@ export const accessGuid: AccessItem[] = [
     roles: [],
   }
 ];
+
+export const landingSections = [
+  { id: 1, label: "Hero", href: "#hero" },
+  { id: 2, label: "Categories", href: "#categories" },
+  { id: 3, label: "Brands", href: "#brands" },
+  { id: 4, label: "Branches", href: "#branches" },
+  { id: 5, label: "Contact", href: "#contact" },
+];
