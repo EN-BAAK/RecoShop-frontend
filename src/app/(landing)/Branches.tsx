@@ -24,7 +24,7 @@ const Branches: React.FC = () => {
   const grouped = groupBranchesByGroup(branches);
 
   return (
-    <SectionHolder title="Our Branches" desc="Find a store near you and experience our services in person" decoration >
+    <SectionHolder id="branches" title="Our Branches" desc="Find a store near you and experience our services in person" decoration >
       <div className="relative">
 
         <span className="bg-emerald-600 h-full w-[2px] absolute left-1/2 -translate-x-1/2 top-0" />

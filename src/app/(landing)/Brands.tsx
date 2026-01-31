@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import useEmblaCarousel from 'embla-carousel-react';
 import { useGetAllBrands } from '@/hooks/useBrand';
 import { Brand } from '@/types/global';
@@ -24,6 +23,7 @@ const Brands: React.FC = () => {
 
   return (
     <SectionHolder
+      id='brands'
       title="Shop by Brand"
       desc="Discover products from the world's most trusted brands"
       sectionStyle="bg-gradient-to-b from-background via-primary/35 to-background/20"
@@ -44,24 +44,16 @@ const Brands: React.FC = () => {
                 key={brand.id}
                 className="flex-[0_0_120px] sm:flex-[0_0_140px]"
               >
-                <Link
-                  href={{
-                    pathname: "/shop/products",
-                    query: { brand: brand.name }
-                  }}
-                  className="group block h-full"
-                >
-                  <div className="h-full rounded-xl p-4 flex flex-col items-center justify-center transition-all duration-300 hover:-translate-y-1">
+                <div className="h-full rounded-xl p-4 flex flex-col items-center justify-center transition-all duration-300 hover:-translate-y-1">
 
-                    <div className="w-15 h-15 mb-1 rounded-full overflow-hidden">
-                      <BrandImage title={brand.name} />
-                    </div>
-
-                    <p className="text-center font-semibold text-sm text-foreground transition-colors duration-300 group-hover:text-primary">
-                      {brand.name}
-                    </p>
+                  <div className="w-15 h-15 mb-1 rounded-full overflow-hidden">
+                    <BrandImage title={brand.name} />
                   </div>
-                </Link>
+
+                  <p className="text-center font-semibold text-sm text-foreground transition-colors duration-300 group-hover:text-primary">
+                    {brand.name}
+                  </p>
+                </div>
               </div>
             ))
           )}

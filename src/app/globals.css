@@ -90,10 +90,12 @@
 html {
   direction: ltr;
   text-align: left;
+  scroll-behavior: smooth;
+  scroll-padding-top: 50px;
 }
 
 .revert-layer {
-  height: revert-layer  ;
+  height: revert-layer;
 }
 
 input[type=number]::-webkit-inner-spin-button,

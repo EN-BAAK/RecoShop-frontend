@@ -170,7 +170,8 @@ export type SectionHolderProps = {
   title: string,
   desc?: string,
   sectionStyle?: string
-  decoration?: boolean
+  decoration?: boolean,
+  id?: string
 } & CommonParentProps
 
 export interface BranchProps {

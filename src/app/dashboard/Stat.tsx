@@ -50,7 +50,7 @@ const Stat: React.FC = () => {
           value={stat.value}
           Icon={stat.Icon}
           IconClassName='text-background'
-          isLoading={!isFetching}
+          isLoading={isFetching}
           gradientFrom={stat.gradientFrom}
           gradientTo={stat.gradientTo}
         />

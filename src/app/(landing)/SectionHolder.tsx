@@ -2,13 +2,15 @@ import { cn } from '@/lib/utils'
 import { SectionHolderProps } from '@/types/components'
 import React from 'react'
 
-const SectionHolder: React.FC<SectionHolderProps> = ({ title, desc, children, sectionStyle, decoration = false }) => {
+const SectionHolder: React.FC<SectionHolderProps> = ({ title, desc, children, sectionStyle, decoration = false, id }) => {
   return (
-    <section className={cn(
-      "bg-background w-full py-[50px] px-4 sm:px-6 lg:px-8 relative",
-      sectionStyle,
-      decoration && "z-1 overflow-hidden"
-    )}>
+    <section
+      id={id}
+      className={cn(
+        "bg-background w-full py-[50px] px-4 sm:px-6 lg:px-8 relative",
+        sectionStyle,
+        decoration && "z-1 overflow-hidden"
+      )}>
       {decoration && (
         <React.Fragment>
           <div className="absolute top-2 right-32 w-50 h-50 border-t-2 border-l-2 border-muted-foreground rounded-full opacity-30 -z-1" />

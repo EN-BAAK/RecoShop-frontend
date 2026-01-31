@@ -5,17 +5,26 @@ import CustomButton from '@/components/forms/Button';
 import { Search, Sparkles, MessageCircle, TrendingUp } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import HeroProductCard from './HeroProductCard';
+import Image from 'next/image';
+import { useAppContext } from '@/contexts/AppProvider';
 
-const HeroSection: React.FC = () => {
+const Hero: React.FC = () => {
   const router = useRouter()
+  const { user } = useAppContext()
+
+  const isLoggedIn = !!user
 
   const navigateToShop = () => {
     router.push("/shop")
   }
 
+  const navigateToLogin = () => {
+    router.push("/login")
+  }
+
   return (
-    <section className="bg-background min-h-screen w-full text-foreground overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none">
+    <section id='hero' className="bg-background min-h-screen w-full pt-15 sm:pt-0 text-foreground overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="bg-primary/5 h-96 w-96 rounded-full absolute top-0 right-0 blur-3xl" />
         <div className="bg-accent/5 h-96 w-96 rounded-full absolute bottom-0 left-0 blur-3xl" />
       </div>
@@ -33,7 +42,7 @@ const HeroSection: React.FC = () => {
             <div className="space-y-4">
               <h1 className="leading-tight font-heading font-bold text-4xl sm:text-5xl lg:text-6xl text-foreground">
                 <span>Shop Smarter with</span>
-                <span className="text-primary">AI</span>
+                <span className="ps-2 text-primary">AI</span>
               </h1>
               <p className="max-w-lg leading-relaxed text-lg sm:text-xl text-foreground/70">
                 Discover personalized recommendations, intelligent search, and 24/7 AI-powered assistance across millions of products.
@@ -84,7 +93,7 @@ const HeroSection: React.FC = () => {
 
             <div className="pt-4 flex flex-col sm:flex-row gap-4">
               <CustomButton className='w-fit px-4 rounded-md' label='Start Shopping' onClick={navigateToShop} />
-              <CustomButton className='w-fit px-4 rounded-md' variant='primary-outline' label='Explore Products' />
+              {!isLoggedIn && <CustomButton className='w-fit px-4 rounded-md' variant='primary-outline' label="login" onClick={navigateToLogin} />}
             </div>
 
             <div className="pt-4 text-sm text-foreground/60">
@@ -98,7 +107,13 @@ const HeroSection: React.FC = () => {
           >
             <div className="w-full max-w-md aspect-square relative">
               <div className="bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl absolute inset-0" />
-              <div className="bg-red-500 rounded-2xl shadow-2xl absolute inset-8" />
+              <Image
+                src="/logo.png"
+                alt='hero'
+                width={50}
+                height={50}
+                className='w-full h-full'
+              />
 
               <div
                 className="bg-background h-40 w-32 p-4 border border-muted rounded-xl shadow-lg animate-bounce absolute -top-4 -right-4"
@@ -115,7 +130,16 @@ const HeroSection: React.FC = () => {
                   <Sparkles className="h-4 w-4 text-primary" />
                   <span className="font-semibold text-xs">AI Powered</span>
                 </div>
-                <div className="bg-muted h-16 rounded" />
+
+                <div className="w-full h-18 rounded-md overflow-hidden">
+                  <Image
+                    src="/ai.png"
+                    alt='ai'
+                    width={50}
+                    height={50}
+                    className='w-full h-full'
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -144,4 +168,4 @@ const HeroSection: React.FC = () => {
   );
 };
 
-export default HeroSection;
+export default Hero;

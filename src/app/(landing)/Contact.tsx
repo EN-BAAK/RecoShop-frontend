@@ -23,7 +23,7 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <SectionHolder title="Get in Touch" desc="Have a question or feedback? We'd love to hear from you.">
+    <SectionHolder id='contact' title="Get in Touch" desc="Have a question or feedback? We'd love to hear from you.">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
         <div className="space-y-6 flex flex-col justify-center">
           <div>

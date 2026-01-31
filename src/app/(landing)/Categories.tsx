@@ -17,7 +17,7 @@ const Categories: React.FC = () => {
     return;
 
   return (
-    <SectionHolder title='Shop by Category' desc='Explore products by category and find exactly what you need'>
+    <SectionHolder id='categories' title='Shop by Category' desc='Explore products by category and find exactly what you need'>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {isFetching ?
           <React.Fragment>
